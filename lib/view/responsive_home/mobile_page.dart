@@ -17,17 +17,20 @@ class _MobilePageState extends State<MobilePage> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey gkey = GlobalKey();
-    return Column(
-      children: [
-        const Navbar(),
-        TopSection(
-          key: gkey,
-        ),
-        const AboutMe(),
-        ToolsSection(),
-        ProjectSection(),
-        const ContactSection()
-      ],
+    return Container(
+      color: const Color(0xff00285d),
+      child: Column(
+        children: [
+          const Navbar(),
+          TopSection(
+            key: gkey,
+          ),
+          const AboutMe(),
+          ToolsSection(),
+          ProjectSection(),
+          const ContactSection()
+        ],
+      ),
     );
   }
 }

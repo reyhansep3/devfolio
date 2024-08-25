@@ -13,13 +13,14 @@ List<String> mobile = [
   '- Rest API',
   '- Firebase',
   '- User Interface',
-  '- Provider/Bloc',
+  '- Provider/Bloc/GetX',
+  '- Git'
+  
 ];
 List<String> design = [
   '- Figma',
   '- Design mobile and web',
   '- Responsive',
-  '- Photoshop',
 ];
 List<String> prototype = [
   '- Working MVP',

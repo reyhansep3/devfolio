@@ -24,7 +24,7 @@ _desktopBody({
 }) {
   return Container(
     decoration: const BoxDecoration(
-      color: Color(0xffC3E5FF),
+      color: Color(0xff00285d),
     ),
     child: Padding(
       padding: EdgeInsets.only(
@@ -49,20 +49,24 @@ _desktopBody({
               children: [
                 Text(
                   "About Me",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 35,
-                      color: Colors.black),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 28.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Text(
                   "Who am i?",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: const Color(0xff00285d)),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 28.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(
                   height: 17,
@@ -70,10 +74,12 @@ _desktopBody({
                 Text(
                   "Hello, My name is Reyhan Septri Asta, a Junior Flutter Developer",
                   textAlign: TextAlign.justify,
-                  style: GoogleFonts.notoSans(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 19,
-                      color: Colors.black),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 19.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(height: 14),
                 Text(
@@ -82,23 +88,25 @@ _desktopBody({
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w300,
                       fontSize: 14,
-                      color: Colors.black),
+                      color: Colors.white),
                 ),
                 const SizedBox(
                   height: 17,
                 ),
                 Text(
                   "i seek challenging opportunities where i can fully  use my skills for success.",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: const Color(0xff00285d)),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 19.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(
                   height: 14,
                 ),
                 const Divider(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 const SizedBox(
                   height: 15,
@@ -116,7 +124,7 @@ _desktopBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         const SizedBox(
                           height: 12,
@@ -127,7 +135,7 @@ _desktopBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -140,7 +148,7 @@ _desktopBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         const SizedBox(
                           height: 12,
@@ -151,7 +159,7 @@ _desktopBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -172,7 +180,7 @@ _tabletBody({
 }) {
   return Container(
     decoration: const BoxDecoration(
-      color: Color(0xffC3E5FF),
+      color: Color(0xff00285d),
     ),
     width: widthBody,
     child: Padding(
@@ -198,20 +206,24 @@ _tabletBody({
               children: [
                 Text(
                   "About Me",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 35,
-                      color: Colors.black),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 28.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Text(
                   "Who am i?",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: const Color(0xff00285d)),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(
                   height: 17,
@@ -219,10 +231,12 @@ _tabletBody({
                 Text(
                   "Hello, My name is Reyhan Septri Asta, a Junior Flutter Developer",
                   textAlign: TextAlign.justify,
-                  style: GoogleFonts.notoSans(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 19,
-                      color: Colors.black),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 19.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(height: 14),
                 Text(
@@ -231,23 +245,25 @@ _tabletBody({
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w300,
                       fontSize: 14,
-                      color: Colors.black),
+                      color: Colors.white),
                 ),
                 const SizedBox(
                   height: 17,
                 ),
                 Text(
                   "i seek challenging opportunities where i can fully  use my skills for success.",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: const Color(0xff00285d)),
+                  style: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 19.0,
+                          height: 1.3,
+                        ),
                 ),
                 const SizedBox(
                   height: 14,
                 ),
                 const Divider(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 const SizedBox(
                   height: 15,
@@ -265,7 +281,7 @@ _tabletBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         const SizedBox(
                           height: 12,
@@ -276,7 +292,7 @@ _tabletBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -289,7 +305,7 @@ _tabletBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         const SizedBox(
                           height: 12,
@@ -300,7 +316,7 @@ _tabletBody({
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -326,7 +342,7 @@ _mobileBody({
           Container(
             width: widthBody,
             decoration: const BoxDecoration(
-              color: Color(0xffC3E5FF),
+              color: Color(0xff00285d),
             ),
             child: Padding(
               padding:
@@ -357,10 +373,12 @@ _mobileBody({
                           children: [
                             Text(
                               "About Me",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 35,
-                                  color: Colors.black),
+                              style: GoogleFonts.oswald(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 28.0,
+                                height: 1.3,
+                              ),
                             ),
                             const SizedBox(
                               height: 15,
@@ -370,7 +388,7 @@ _mobileBody({
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
-                                  color: const Color(0xff00285d)),
+                                  color: Colors.white,)
                             ),
                             const SizedBox(
                               height: 17,
@@ -381,7 +399,7 @@ _mobileBody({
                               style: GoogleFonts.notoSans(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
-                                  color: Colors.black),
+                                  color: Colors.white),
                             ),
                             const SizedBox(height: 14),
                             Text(
@@ -390,7 +408,7 @@ _mobileBody({
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 14,
-                                  color: Colors.black),
+                                  color: Colors.white),
                             ),
                             const SizedBox(
                               height: 17,
@@ -400,13 +418,13 @@ _mobileBody({
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
-                                  color: const Color(0xff00285d)),
+                                  color:  Colors.white),
                             ),
                             const SizedBox(
                               height: 14,
                             ),
                             const Divider(
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                             const SizedBox(
                               height: 15,
@@ -424,7 +442,7 @@ _mobileBody({
                                       style: GoogleFonts.notoSans(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 15,
-                                          color: Colors.black),
+                                          color: Colors.white),
                                     ),
                                     const SizedBox(
                                       height: 12,
@@ -435,7 +453,7 @@ _mobileBody({
                                       style: GoogleFonts.notoSans(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 15,
-                                          color: Colors.black),
+                                          color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -448,7 +466,7 @@ _mobileBody({
                                       style: GoogleFonts.notoSans(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 15,
-                                          color: Colors.black),
+                                          color: Colors.white),
                                     ),
                                     const SizedBox(
                                       height: 12,
@@ -459,7 +477,7 @@ _mobileBody({
                                       style: GoogleFonts.notoSans(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 15,
-                                          color: Colors.black),
+                                          color: Colors.white),
                                     ),
                                   ],
                                 ),

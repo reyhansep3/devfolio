@@ -17,18 +17,21 @@ class _DesktopPageState extends State<DesktopPage> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey gkey = GlobalKey();
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Navbar(),
-        TopSection(
-          key: gkey,
-        ),
-        const AboutMe(),
-        ToolsSection(),
-        ProjectSection(),
-        const ContactSection()
-      ],
+    return Container(
+      color: const Color(0xff00285d),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Navbar(),
+          TopSection(
+            key: gkey,
+          ),
+          const AboutMe(),
+          const ToolsSection(),
+          ProjectSection(),
+          const ContactSection()
+        ],
+      ),
     );
   }
 }

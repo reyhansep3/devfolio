@@ -2,10 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ContactSection extends StatelessWidget {
+class ContactSection extends StatefulWidget {
   const ContactSection({Key? key}) : super(key: key);
 
+  @override
+  State<ContactSection> createState() => _ContactSectionState();
+}
+
+class _ContactSectionState extends State<ContactSection> {
+    final String email = "reyhanseptri@gmail.com";
+
+  void _launchEmail() async {
+    final Uri params = Uri(
+      scheme: 'mailto',
+      path: email,
+      query: 'subject=Contacting You&body=Hello, I would like to discuss...', // Optional parameters
+    );
+
+    var url = params.toString();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      // Handle the error if the email app can't be opened
+      throw 'Could not launch $url';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,7 +80,9 @@ class ContactSection extends StatelessWidget {
                     runSpacing: 40,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          
+                        },
                         child: Container(
                           width: 300,
                           height: 300,
@@ -97,7 +122,9 @@ class ContactSection extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          _launchEmail();
+                        },
                         child: Container(
                           width: 300,
                           height: 300,
