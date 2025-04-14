@@ -55,40 +55,43 @@ Container _desktopBody({
   return Container(
       constraints: const BoxConstraints(maxHeight: 500, minHeight: 400),
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Colors.black,
       ),
       child: Stack(
         children: [
-          Center(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Stack(
-                children: [
-                  ClipPath(
-                    clipper: WaveClipperOne(flip: true, reverse: true),
-                    child: Container(
-                      padding: const EdgeInsets.only(bottom: 50),
-                      color: const Color(0xff00285d),
-                      height: 300,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          EntranceFader(
+          
+          EntranceFader(    
             offset: const Offset(0, 0),
             delay: const Duration(seconds: 1),
             duration: const Duration(milliseconds: 800),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [ 
-                Container(
-                  constraints:
-                      const BoxConstraints(maxWidth: 639, maxHeight: 860),
-                  child: Image.asset("assets/image/profile_image.png"),
+                ShaderMask(
+                  shaderCallback: (bounds) {
+                    return const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black,
+                        Colors.black,
+                        Colors.transparent,
+                      ],
+                      stops: [0.0, 0.2, 0.8, 1.0],
+                    ).createShader(bounds);
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: Image.asset("assets/image/profile_image.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
+
+                // Container(
+                //   constraints:
+                //       const BoxConstraints(maxWidth: 639, maxHeight: 860),
+                //   child: Image.asset("assets/image/profile_image.png"),
+                // ),
                 // Expanded(
                 //   child: AspectRatio(
                 //     aspectRatio: 100 / 98,
@@ -101,15 +104,7 @@ Container _desktopBody({
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black)
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      
-                      child: Column(
+                    Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -118,7 +113,7 @@ Container _desktopBody({
                             style: GoogleFonts.comfortaa(
                                 fontWeight: FontWeight.w300,
                                 fontSize: 25,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                           const SizedBox(
                             height: 15,
@@ -128,7 +123,7 @@ Container _desktopBody({
                             style: GoogleFonts.comfortaa(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 35,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                           const SizedBox(
                             height: 15,
@@ -138,7 +133,7 @@ Container _desktopBody({
                             style: GoogleFonts.comfortaa(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                           const SizedBox(
                             height: 25,
@@ -148,7 +143,7 @@ Container _desktopBody({
                             style: GoogleFonts.comfortaa(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 20,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                           const SizedBox(
                             height: 14,
@@ -158,7 +153,7 @@ Container _desktopBody({
                             children: [
                               const Icon(
                                 Icons.arrow_right,
-                                color: Colors.black,
+                                color: Colors.white,
                                 size: 35,
                               ),
                               ElevatedButton(
@@ -166,7 +161,7 @@ Container _desktopBody({
                                   launchURL("https://www.instagram.com/reyhansep3asta/");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -178,7 +173,7 @@ Container _desktopBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -190,7 +185,7 @@ Container _desktopBody({
                                   launchURL("https://www.linkedin.com/in/reyhan-septri-asta/");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -202,7 +197,7 @@ Container _desktopBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -214,7 +209,7 @@ Container _desktopBody({
                                   launchURL("https://github.com/reyhansep3");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -226,16 +221,24 @@ Container _desktopBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
-                              
                             ],
                           ),
                         ],
                       ),
-                    ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(20),
+                    //     color: Colors.white,
+                    //     border: Border.all(color: Colors.black)
+                    //   ),
+                    //   padding: const EdgeInsets.all(10),
+                      
+                    //   child: 
+                    // ),
                   ],
                 ),
               ],
@@ -254,37 +257,38 @@ Container _tabletBody({
   return Container(
       constraints: const BoxConstraints(maxHeight: 639, minHeight: 400),
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Colors.black,
       ),
       child: Stack(
         children: [
-          Center(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Stack(
-                children: [
-                  ClipPath(
-                    //upper clippath with less height
-                    clipper: WaveClipperOne(flip: true, reverse: true),
-                    child: Container(
-                      padding: const EdgeInsets.only(bottom: 50),
-                      color: const Color(0xff00285d),
-                      height: 300,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                constraints:
-                    const BoxConstraints(maxWidth: 639, maxHeight: 860),
-                child: Image.asset("assets/image/profile_image.png"),
-              ),
+              // Container(
+              //   constraints:
+              //       const BoxConstraints(maxWidth: 639, maxHeight: 860),
+              //   child: Image.asset("assets/image/profile_image.png"),
+              // ),
+              ShaderMask(
+                  shaderCallback: (bounds) {
+                    return const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black,
+                        Colors.black,
+                        Colors.transparent,
+                      ],
+                      stops: [0.0, 0.2, 0.8, 1.0],
+                    ).createShader(bounds);
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: Image.asset("assets/image/profile_image.png",
+                    fit: BoxFit.cover,
+                  ),
+                ),
               const SizedBox(
                 width: 60,
               ),
@@ -294,14 +298,7 @@ Container _tabletBody({
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                              border: Border.all(color: Colors.black)
-                            ),
-                            padding: const EdgeInsets.all(10),
-                        child: Column(
+                      Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -310,7 +307,7 @@ Container _tabletBody({
                               style: GoogleFonts.comfortaa(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 25,
-                                  color: Colors.black),
+                                  color: Colors.white),
                             ),
                             const SizedBox(
                               height: 15,
@@ -320,7 +317,7 @@ Container _tabletBody({
                               style: GoogleFonts.comfortaa(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 35,
-                                  color: Colors.black),
+                                  color: Colors.white),
                             ),
                             const SizedBox(
                               height: 15,
@@ -330,7 +327,7 @@ Container _tabletBody({
                               style: GoogleFonts.comfortaa(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25,
-                                  color: Colors.black),
+                                  color: Colors.white),
                             ),
                             const SizedBox(
                               height: 25,
@@ -340,7 +337,7 @@ Container _tabletBody({
                               style: GoogleFonts.comfortaa(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 20,
-                                  color: Colors.black),
+                                  color: Colors.white),
                             ),
                             const SizedBox(
                               height: 14,
@@ -350,7 +347,7 @@ Container _tabletBody({
                             children: [
                               const Icon(
                                 Icons.arrow_right,
-                                color: Colors.black,
+                                color: Colors.white,
                                 size: 35,
                               ),
                               ElevatedButton(
@@ -358,7 +355,7 @@ Container _tabletBody({
                                   launchURL("https://www.instagram.com/reyhansep3asta/");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -370,7 +367,7 @@ Container _tabletBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -382,7 +379,7 @@ Container _tabletBody({
                                   launchURL("https://www.linkedin.com/in/reyhan-septri-asta/");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -394,7 +391,7 @@ Container _tabletBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -406,7 +403,7 @@ Container _tabletBody({
                                   launchURL("https://github.com/reyhansep3");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -418,16 +415,14 @@ Container _tabletBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
-                              
                             ],
                           ),
                           ],
                         ),
-                      ),
                     ],
                   ),
                 ),
@@ -446,39 +441,13 @@ SingleChildScrollView _mobileBody({
     child: Container(
       width: widthBody,
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Colors.black,
       ),
       child: Padding(
         padding: EdgeInsets.only(top: heightBody * 0.1),
         child: Stack(
           children: [
-            Center(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Stack(
-                children: [
-                  ClipPath(
-                    clipper: WaveClipperOne(flip: true, reverse: true),
-                    child: Container(
-                      padding: const EdgeInsets.only(bottom: 50),
-                      color: const Color(0xff00285d),
-                      height: 300,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-            Container(
-              decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                              border: Border.all(color: Colors.black)
-                            ),
-                            margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.all(10),
-              child: Column(
+            Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
@@ -486,7 +455,7 @@ SingleChildScrollView _mobileBody({
                     style: GoogleFonts.comfortaa(
                         fontWeight: FontWeight.w400,
                         fontSize: 20,
-                        color: Colors.black),
+                        color: Colors.white),
                   ),
                   const SizedBox(
                     height: 10,
@@ -496,7 +465,7 @@ SingleChildScrollView _mobileBody({
                     style: GoogleFonts.comfortaa(
                         fontWeight: FontWeight.bold,
                         fontSize: 38,
-                        color: Colors.black),
+                        color: Colors.white),
                   ),
                   const SizedBox(
                     height: 10,
@@ -506,7 +475,7 @@ SingleChildScrollView _mobileBody({
                     style: GoogleFonts.comfortaa(
                         fontWeight: FontWeight.w500,
                         fontSize: 20,
-                        color: Colors.black),
+                        color: Colors.white),
                   ),
                   const SizedBox(
                     height: 15,
@@ -516,14 +485,14 @@ SingleChildScrollView _mobileBody({
                     style: GoogleFonts.comfortaa(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
-                        color: Colors.black),
+                        color: Colors.white),
                   ),
                   Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Icon(
                                 Icons.arrow_right,
-                                color: Colors.black,
+                                color: Colors.white,
                                 size: 35,
                               ),
                               ElevatedButton(
@@ -531,7 +500,7 @@ SingleChildScrollView _mobileBody({
                                   launchURL("https://www.instagram.com/reyhansep3asta/");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -543,7 +512,7 @@ SingleChildScrollView _mobileBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -555,7 +524,7 @@ SingleChildScrollView _mobileBody({
                                   launchURL("https://www.linkedin.com/in/reyhan-septri-asta/");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -567,7 +536,7 @@ SingleChildScrollView _mobileBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -579,7 +548,7 @@ SingleChildScrollView _mobileBody({
                                   launchURL("https://github.com/reyhansep3");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -591,7 +560,7 @@ SingleChildScrollView _mobileBody({
                                     style: GoogleFonts.comfortaa(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -610,7 +579,6 @@ SingleChildScrollView _mobileBody({
                   // ),
                 ],
               ),
-            ),
           ],
         ),
       ),

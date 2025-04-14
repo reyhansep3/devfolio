@@ -24,7 +24,7 @@ _desktopBody({
 }) {
   return Container(
     decoration: const BoxDecoration(
-      color: Color(0xff00285d),
+      color: Colors.black,
     ),
     child: Padding(
       padding: EdgeInsets.only(
@@ -83,7 +83,7 @@ _desktopBody({
                 ),
                 const SizedBox(height: 14),
                 Text(
-                  "A Fresh graduate major in S1 Informatics Department at Telkom University. I'm pssionate in developing mobile application using Flutter and Dart as programming language. i have been developing mobile apps using flutter framework for over 1 year now, and im eager to learn more about this framework so i can master it. I have worked in team along side with UI/UX Designer, Backend, Quality Ensurance, and FrontEnd Website in launching a prototype mobile application and website and got valuable experience. I am self motivated to improve and exploring mor about this framework, and also developing personal skills.",
+                  "Graduated with a Bachelor's degree in Informatics from Telkom University. Passionate about developing mobile applications using Flutter and Dart. I have been building mobile apps with the Flutter framework for over a year and am eager to deepen my expertise. I’ve collaborated with UI/UX designers, backend developers, QA testers, and web front-end developers in launching a prototype mobile application and website, gaining valuable hands-on experience. I am self-motivated, always looking to improve and explore more about this framework while continuously developing my personal and professional skills.",
                   textAlign: TextAlign.justify,
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w300,
@@ -130,7 +130,7 @@ _desktopBody({
                           height: 12,
                         ),
                         Text(
-                          "Framework : Flutter, Laravel, Bootstrap",
+                          "Programming : Flutter, Laravel. REST API, Git, Firebase, SQLite",
                           textAlign: TextAlign.justify,
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
@@ -180,7 +180,7 @@ _tabletBody({
 }) {
   return Container(
     decoration: const BoxDecoration(
-      color: Color(0xff00285d),
+      color: Colors.black,
     ),
     width: widthBody,
     child: Padding(
@@ -287,7 +287,7 @@ _tabletBody({
                           height: 12,
                         ),
                         Text(
-                          "Framework : Flutter, Laravel, Bootstrap",
+                          "Programming : Flutter, Laravel. REST API, Git, Firebase, SQLite",
                           textAlign: TextAlign.justify,
                           style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w300,
@@ -342,7 +342,7 @@ _mobileBody({
           Container(
             width: widthBody,
             decoration: const BoxDecoration(
-              color: Color(0xff00285d),
+              color: Colors.black,
             ),
             child: Padding(
               padding:
@@ -403,7 +403,7 @@ _mobileBody({
                             ),
                             const SizedBox(height: 14),
                             Text(
-                              "A Student major in S1 Informatics Department at Telkom University. I'm pssionate in developing mobile application using Flutter and Dart as programming language. i have been developing mobile apps using flutter framework for over 10 month now, and im eager to learn more about this framework so i can master it. I have worked in team along side with UI/UX Designer, Backend, Quality Ensurance, and FrontEnd Website in launching a prototype mobile application and website and got valuable experience. I am self motivated to improve and exploring mor about this framework, and also developing personal skills.",
+                              "A graduate in S1 Informatics Department at Telkom University. I'm pssionate in developing mobile application using Flutter and Dart as programming language. im eager to learn more about this framework so i can master it. I have worked in team along side with UI/UX Designer, Backend, Quality Ensurance, and FrontEnd Website in launching a prototype mobile application and website and got valuable experience. I am self motivated to improve and exploring mor about this framework, and also developing personal skills.",
                               textAlign: TextAlign.justify,
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w300,
@@ -448,7 +448,7 @@ _mobileBody({
                                       height: 12,
                                     ),
                                     Text(
-                                      "Framework : Flutter, Laravel, Bootstrap",
+                                      "Programming : Flutter, Laravel. REST API, Git, Firebase, SQLite",
                                       textAlign: TextAlign.justify,
                                       style: GoogleFonts.notoSans(
                                           fontWeight: FontWeight.w300,

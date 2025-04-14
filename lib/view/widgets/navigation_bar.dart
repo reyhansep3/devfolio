@@ -8,7 +8,7 @@ class Navbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Colors.black,
       ),
       child: Padding(
           padding:
@@ -21,7 +21,7 @@ class Navbar extends StatelessWidget {
                 style: GoogleFonts.hurricane(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    color: Colors.white),
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.end,

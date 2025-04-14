@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/animation/preview_cklink.dart';
+import 'package:flutter_portofolio/animation/preview_deltaspa.dart';
 import 'package:flutter_portofolio/animation/preview_dido.dart';
 import 'package:flutter_portofolio/animation/preview_history.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,6 +42,7 @@ class ProjectSection extends StatelessWidget {
     'Dart',
     'Android Studio',
     'VsCode',
+    'Firebase',
   ];
 
   final List<String> dido = <String>[
@@ -50,6 +52,16 @@ class ProjectSection extends StatelessWidget {
     'VsCode',
   ];
 
+  final List<String> delta = <String>[
+    'Flutter',
+    'Dart',
+    'Android Studio',
+    'VsCode',
+    'Firebase',
+    'Xendit',
+    'Jira',
+  ];
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -57,6 +69,7 @@ class ProjectSection extends StatelessWidget {
     return Responsivelayout(
       mobile: _mobileBody(
                 cklink: cklink,
+                delta: delta,
 
           history: history,
           forumd: forumd,
@@ -67,6 +80,7 @@ class ProjectSection extends StatelessWidget {
       tablet: _desktopBody(
         cklink: cklink,
           forumd: forumd,
+          delta : delta,
           banku: banku,
           dido : dido,
           history: history,
@@ -76,6 +90,7 @@ class ProjectSection extends StatelessWidget {
           imageWidth: 200),
       desktop: _desktopBody(
                 cklink: cklink,
+                delta: delta,
 
           forumd: forumd,
           banku: banku,
@@ -95,13 +110,14 @@ Container _desktopBody({
   required List dido,
   required List cklink,
   required List history,
+  required List delta,
   required double widthBody,
   required double heightBody,
   required double imageHeight,
   required double imageWidth,
 }) {
   return Container(
-    decoration: const BoxDecoration(color: Color(0xff00285d)),
+    decoration: const BoxDecoration(color: Colors.black),
     child: Padding(
       padding: const EdgeInsets.only(top: 50, bottom: 50, left: 50, right: 50),
       child: Column(
@@ -244,7 +260,7 @@ Container _desktopBody({
                       height: 50,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: dido.length,
+                          itemCount: cklink.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.only(right: 10),
@@ -261,6 +277,70 @@ Container _desktopBody({
                                       ),
                                       child:
                                           Center(child: Text(cklink[index]))),
+                                ],
+                              ),
+                            );
+                          }),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const DeltaSpaPreview(),
+              const SizedBox(
+                width: 30,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Delta Spa",
+                        style: GoogleFonts.poppins(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xffC3E5FF))),
+                    Text(
+                        "Delta Spa, your go-to app for premium men’s wellness. This application makes it easy to book treatments, explore spa services, and enjoy exclusive member perks — all designed to deliver a luxurious and relaxing experience tailored for men.",
+                        textAlign: TextAlign.justify,
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white)),
+                    const SizedBox(height: 20),
+                    Text("Tools i use",
+                        textAlign: TextAlign.justify,
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white)),
+                    SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: delta.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Wrap(
+                                spacing: 40,
+                                runSpacing: 40,
+                                children: [
+                                  Container(
+                                      width: 100,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: Colors.white,
+                                      ),
+                                      child:
+                                          Center(child: Text(delta[index]))),
                                 ],
                               ),
                             );
@@ -487,10 +567,11 @@ Container _mobileBody(
     required List banku,
     required List dido,
     required List cklink,
+    required List delta,
     required List forumd,
     required List history}) {
   return Container(
-    decoration: const BoxDecoration(color: Color(0xff00285d)),
+    decoration: const BoxDecoration(color: Colors.black),
     child: Padding(
       padding: const EdgeInsets.only(top: 50, bottom: 50),
       child: Column(
@@ -640,6 +721,64 @@ Container _mobileBody(
                                     color: Colors.white,
                                   ),
                                   child: Center(child: Text(cklink[index]))),
+                            );
+                          }),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const DeltaSpaPreview(),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Delta Spa",
+                        style: GoogleFonts.poppins(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xffC3E5FF))),
+                    Text(
+                        "Delta Spa, your go-to app for premium men’s wellness. This application makes it easy to book treatments, explore spa services, and enjoy exclusive member perks — all designed to deliver a luxurious and relaxing experience tailored for men.",
+                        textAlign: TextAlign.justify,
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white)),
+                    const SizedBox(height: 20),
+                    Text("Tools i use",
+                        textAlign: TextAlign.justify,
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white)),
+                    SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: delta.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Container(
+                                  width: 100,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.white,
+                                  ),
+                                  child: Center(child: Text(delta[index]))),
                             );
                           }),
                     )
