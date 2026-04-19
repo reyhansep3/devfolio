@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
-import 'package:flutter_portofolio/view/widgets/background_gradient.dart';
-import 'package:flutter_portofolio/view/widgets/wiggly_arrow.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/background_gradient.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/wiggly_arrow.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 import 'package:svg_flutter/svg.dart';

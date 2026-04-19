@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/model/skills_model.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
-import 'package:flutter_portofolio/view/widgets/constant.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 List<Skill> skills = [

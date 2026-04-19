@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
-import 'package:flutter_portofolio/view/widgets/glass_card.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/glass_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 

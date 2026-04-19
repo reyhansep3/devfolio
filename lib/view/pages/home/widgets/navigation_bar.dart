@@ -139,13 +139,20 @@ class Navbar extends StatelessWidget {
           // 🔹 Menu tengah
           Row(
             children: [
-              _navItem("Home", onTap: () => onNavTap?.call("home")),
-              const SizedBox(width: 30),
-              _navItem("About", onTap: () => onNavTap?.call("about")),
-              const SizedBox(width: 30),
-              _navItem("Projects", onTap: () => onNavTap?.call("project")),
-              const SizedBox(width: 30),
-              _navItem("Contact", onTap: () => onNavTap?.call("contact")),
+              Row(
+                children: [
+                  _navItem("Home", onTap: () => onNavTap?.call("home")),
+                  const SizedBox(width: 30),
+                  _navItem("Formalities", onTap: () => onNavTap?.call("formalities")),
+                ],
+              ),
+              // _navItem("Home", onTap: () => onNavTap?.call("home")),
+              // const SizedBox(width: 30),
+              // _navItem("About", onTap: () => onNavTap?.call("about")),
+              // const SizedBox(width: 30),
+              // _navItem("Projects", onTap: () => onNavTap?.call("project")),
+              // const SizedBox(width: 30),
+              // _navItem("Contact", onTap: () => onNavTap?.call("contact")),
               // _navItem("Home", isActive: true),
               // const SizedBox(width: 30),
               // _navItem("Services"),
@@ -158,7 +165,6 @@ class Navbar extends StatelessWidget {
             ],
           ),
 
-          // 🔹 Button kanan
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(

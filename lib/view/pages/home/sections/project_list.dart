@@ -7,7 +7,7 @@ import 'package:flutter_portofolio/animation/preview_history.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
-import 'package:flutter_portofolio/view/widgets/project_item.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/project_item.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_portofolio/animation/preview_banku.dart';
 import 'package:flutter_portofolio/animation/preview_forum.dart';
