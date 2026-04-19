@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:flutter_portofolio/item/app_fonts.dart';
+import 'package:flutter_portofolio/item/media_query.dart';
+import 'package:flutter_portofolio/view/widgets/background_gradient.dart';
+import 'package:flutter_portofolio/view/widgets/wiggly_arrow.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_portofolio/animation/entrance_fader.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-///add blob widget
+import 'package:svg_flutter/svg.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class TopSection extends StatelessWidget {
-  const TopSection({Key? key}) : super(key: key);
+  const TopSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,572 +17,167 @@ class TopSection extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
 
     return Responsivelayout(
-      mobile: _mobileBody(widthBody: width, heightBody: height),
-      tablet: _tabletBody(
-          widthBody: width,
-          heightBody: height,
-          imageHeight: 200,
-          imageWidth: 200),
-      desktop: _desktopBody(
-          widthBody: width,
-          heightBody: height,
-          imageHeight: 200,
-          imageWidth: 200),
+      mobile: _mobileBody(width, height),
+      tablet: _tabletBody(width, height),
+      desktop: _desktopBody(context, width, height),
     );
   }
 }
 
-// String urlLinkedin = "http://www.linkedin.com/in/reyhan-septri-asta";
-// String urlGithub = "https://github.com/ReyST81";
-// String urlInstagram = "https://www.instagram.com/reyhansep3asta/";
+// void launchURL(String url) async {
+//   if (await canLaunch(url)) {
+//     await launch(url);
+//   }
+// }
 
-  void launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch';
-    }
-  }
-  
-Container _desktopBody({
-  required double widthBody,
-  required double heightBody,
-  required double imageHeight,
-  required double imageWidth,
-  // required Uri launchLinkedin,
-  // required Uri launchInsta,
-  // required Uri launchGit
-}) {
-  return Container(
-      constraints: const BoxConstraints(maxHeight: 500, minHeight: 400),
-      decoration: const BoxDecoration(
-        color: Colors.black,
-      ),
-      child: Stack(
-        children: [
-          
-          EntranceFader(    
-            offset: const Offset(0, 0),
-            delay: const Duration(seconds: 1),
-            duration: const Duration(milliseconds: 800),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [ 
-                ShaderMask(
-                  shaderCallback: (bounds) {
-                    return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black,
-                        Colors.black,
-                        Colors.transparent,
-                      ],
-                      stops: [0.0, 0.2, 0.8, 1.0],
-                    ).createShader(bounds);
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: Image.asset("assets/image/profile_image.png",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-
-                // Container(
-                //   constraints:
-                //       const BoxConstraints(maxWidth: 639, maxHeight: 860),
-                //   child: Image.asset("assets/image/profile_image.png"),
-                // ),
-                // Expanded(
-                //   child: AspectRatio(
-                //     aspectRatio: 100 / 98,
-                //     child: Image.asset("assets/image/profile_image.png"),
-                //   ),
-                // ),
-                const SizedBox(
-                  width: 60,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Hello Friends! Welcome to my portofolio",
-                            style: GoogleFonts.comfortaa(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 25,
-                                color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "Reyhan Septri Asta",
-                            style: GoogleFonts.comfortaa(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 35,
-                                color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "I'm a Mobile Developer ",
-                            style: GoogleFonts.comfortaa(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          Text(
-                            "Lets Get To Know Me On",
-                            style: GoogleFonts.comfortaa(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                                color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 14,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(
-                                Icons.arrow_right,
-                                color: Colors.white,
-                                size: 35,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://www.instagram.com/reyhansep3asta/");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Instagram",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://www.linkedin.com/in/reyhan-septri-asta/");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Linkedin",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://github.com/reyhansep3");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "github",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(20),
-                    //     color: Colors.white,
-                    //     border: Border.all(color: Colors.black)
-                    //   ),
-                    //   padding: const EdgeInsets.all(10),
-                      
-                    //   child: 
-                    // ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ));
-}
-
-Container _tabletBody({
-  required double widthBody,
-  required double heightBody,
-  required double imageHeight,
-  required double imageWidth,
-}) {
-  return Container(
-      constraints: const BoxConstraints(maxHeight: 639, minHeight: 400),
-      decoration: const BoxDecoration(
-        color: Colors.black,
-      ),
-      child: Stack(
-        children: [
-          
-          Row(
+/// ================= DESKTOP =================
+Widget _desktopBody(BuildContext context, double width, double height) {
+  final screenHeight = MediaQuery.of(context).size.height;
+  const navbarHeight = 80.0; // masih belum fix
+  return SizedBox(
+    height: screenHeight - navbarHeight,
+    child: Stack(
+      children: [
+        backgroundImage(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.width * 0.15),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Container(
-              //   constraints:
-              //       const BoxConstraints(maxWidth: 639, maxHeight: 860),
-              //   child: Image.asset("assets/image/profile_image.png"),
-              // ),
-              ShaderMask(
-                  shaderCallback: (bounds) {
-                    return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black,
-                        Colors.black,
-                        Colors.transparent,
-                      ],
-                      stops: [0.0, 0.2, 0.8, 1.0],
-                    ).createShader(bounds);
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: Image.asset("assets/image/profile_image.png",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              const SizedBox(
-                width: 60,
-              ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Hello Friends! Welcome to my portofolio",
-                              style: GoogleFonts.comfortaa(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 25,
-                                  color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Text(
-                              "Reyhan Septri Asta",
-                              style: GoogleFonts.comfortaa(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 35,
-                                  color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Text(
-                              "I'm a Mobile Developer ",
-                              style: GoogleFonts.comfortaa(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            Text(
-                              "Lets Get To Know Me On",
-                              style: GoogleFonts.comfortaa(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20,
-                                  color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 14,
-                            ),
-                            Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(
-                                Icons.arrow_right,
-                                color: Colors.white,
-                                size: 35,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://www.instagram.com/reyhansep3asta/");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Instagram",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://www.linkedin.com/in/reyhan-septri-asta/");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Linkedin",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://github.com/reyhansep3");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "github",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          ],
-                        ),
+                      Text("Hy! I Am",
+                          style: AppFontStyle.borelVeryLargeText),
+                      Text(
+                        "Reyhan Septri Asta.",
+                        style: AppFontStyle.veryLargeText
+                            .copyWith(fontWeight: FontWeight.w300),
+                      ),
+                      
                     ],
                   ),
-                ),
+                            
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Clean code.",
+                        style: AppFontStyle.largeText
+                      ),
+                      Text(
+                        "Scalable\nsolutions.",
+                        textAlign: TextAlign.right,
+                        style: AppFontStyle.largeText
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+                            
+              SizedBox(height: context.height*0.02),   
+              /// IMAGE
+              Stack(
+                children: [
+                  Positioned(
+                    left: context.width*0.1,
+                    child: WiggleArrow(
+                      amplitude: 5,
+                      assetPath: "assets/image/Vector.svg",
+                      width: context.width*0.15,
+                    ),
+                  ),
+                  Center(
+                    child: Image.asset(
+                      "assets/image/profile.png",
+                      width: context.width*0.4,
+                      height: context.height*0.4,
+                    ),
+                  ),
+                ],
+              ),
+                            
+              SizedBox(height: context.height*0.02),
+                            
+              /// EXPERIENCE
+              Row(
+                children: [
+                  Text("03", style: AppFontStyle.veryLargeText),
+                  const SizedBox(width: 10),
+                  Text("YEARS\nEXPERIENCE",
+                      style: AppFontStyle.smallText),
+                ],
+              ),
+                            
+              SizedBox(height: context.height*0.02),
+                            
+              /// SOCIAL
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text("Find Me On",
+                          style: AppFontStyle.smallText),
+                            
+                      SizedBox(width: context.width*0.03),
+                            
+                      _icon("assets/icons/facebook.svg", context),
+                      SizedBox(width: context.width*0.03),
+                      _icon("assets/icons/instagram.svg", context),
+                      SizedBox(width: context.width*0.03),
+                      _icon("assets/icons/linkedin.svg", context),
+                    ],
+                  ),
+                            
+                  Text("Flutter Mobile Developer",
+                          style: AppFontStyle.smallText),
+                ],
               ),
             ],
           ),
-        ],
-      ));
+        ),
+      ],
+    ),
+  );
 }
 
-SingleChildScrollView _mobileBody({
-  required double widthBody,
-  required double heightBody,
-}) {
-  return SingleChildScrollView(
-    child: Container(
-      width: widthBody,
-      decoration: const BoxDecoration(
-        color: Colors.black,
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(top: heightBody * 0.1),
-        child: Stack(
-          children: [
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Hello Friends! Welcome to my portofolio",
-                    style: GoogleFonts.comfortaa(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 20,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Reyhan Septri Asta",
-                    style: GoogleFonts.comfortaa(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 38,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "I'm a Mobile Developer ",
-                    style: GoogleFonts.comfortaa(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Lets Get To Know Me On",
-                    style: GoogleFonts.comfortaa(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: Colors.white),
-                  ),
-                  Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.arrow_right,
-                                color: Colors.white,
-                                size: 35,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://www.instagram.com/reyhansep3asta/");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Instagram",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://www.linkedin.com/in/reyhan-septri-asta/");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Linkedin",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  launchURL("https://github.com/reyhansep3");
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "github",
-                                    style: GoogleFonts.comfortaa(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              
-                            ],
-                          ),
-                  // Container(
-                  //   constraints:
-                  //       const BoxConstraints(maxWidth: 300, maxHeight: 430),
-                  //   child: Center(
-                  //     child: Align(
-                  //       alignment: Alignment.bottomCenter,
-                  //       child: Image.asset("assets/image/profile_image.png"),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-          ],
-        ),
-      ),
+/// ICON FIX (biar ga error infinity)
+Widget _icon(String path, BuildContext context) {
+  return SizedBox(
+    width: context.width*0.01,
+    child: InkWell(
+      onTap: () {},
+      child: SvgPicture.asset(path, fit: BoxFit.contain),
+    ),
+  );
+}
+
+/// ================= MOBILE =================
+Widget _mobileBody(double width, double height) {
+  return Container(
+    width: width,
+    padding: const EdgeInsets.all(20),
+    color: Colors.black,
+    child: const Column(
+      children: [
+        Text("Mobile View", style: TextStyle(color: Colors.white)),
+      ],
+    ),
+  );
+}
+
+/// ================= TABLET =================
+Widget _tabletBody(double width, double height) {
+  return Container(
+    width: width,
+    height: height,
+    color: Colors.black,
+    child: const Center(
+      child: Text("Tablet View", style: TextStyle(color: Colors.white)),
     ),
   );
 }

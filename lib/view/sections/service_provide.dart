@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-// import 'package:flutter_portofolio/view/widgets/skills_section.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_portofolio/item/card_item.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
+import 'package:flutter_portofolio/item/app_fonts.dart';
+import 'package:flutter_portofolio/item/media_query.dart';
 
 class ToolsSection extends StatelessWidget {
   const ToolsSection({Key? key}) : super(key: key);
@@ -10,57 +9,35 @@ class ToolsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(color: Colors.black),
+      width: context.width,
+      decoration: const BoxDecoration(
+        color: Colors.black,
+      ),
       child: Padding(
-        padding:
-            const EdgeInsets.only(top: 50, bottom: 50, left: 30, right: 30),
+        padding: EdgeInsets.only(
+            left: context.width*0.15,
+            right: context.width*0.15,
+            bottom: context.height * 0.2,
+            ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: Text(
-                "Service i can do",
-                style: GoogleFonts.oswald(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28.0,
-                          height: 1.3,
-                        ),
-              ),
+            Text(
+              "Featured Projects",
+              style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+              textAlign: TextAlign.start,
             ),
-            Center(
-              child: Text(
-                "Service i can do that may be a help",
-                style: GoogleFonts.oswald(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 28.0,
-                          height: 1.3,
-                        ),
-              ),
+            SizedBox(height: context.height*0.01,),
+            Text(
+              "Projects that keep my passion for technology alive.",
+              style: AppFontStyle.mediumText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Center(child: CardItem()), 
-            // SizedBox(
-            //   height: MediaQuery.sizeOf(context).height*0.05,
-            // ),
-            // Center(
-            //   child: Text(
-            //     "What's my skills?",
-            //     style: GoogleFonts.oswald(
-            //               color: Colors.white,
-            //               fontWeight: FontWeight.w900,
-            //               fontSize: 30.0,
-            //               height: 1.3,
-            //             ),
-            //   ),
-            // ),
-            // const SkillSection()
-           
+            SizedBox(height: context.height*0.07,),
+            
+
           ],
-        ),
+        )
       ),
     );
   }

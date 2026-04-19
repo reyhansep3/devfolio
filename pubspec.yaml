@@ -42,6 +42,8 @@ dependencies:
   url_launcher: ^6.1.7
   flutter_custom_clippers: ^2.1.0
   responsive_framework: ^1.4.0
+  flutter_svg: ^2.2.2
+  svg_flutter: ^0.0.1
     
 
 
@@ -69,30 +71,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/image/profile_image.png
-    - assets/image/linkedin.png
-    - assets/image/dart.png
-    - assets/image/firebase.png
-    - assets/image/github.png
-    - assets/image/flutter.png
-    - assets/image/golang.png
-    - assets/image/vscode.png
-    - assets/image/androidstudio.png
-    - assets/image/dumdum.png
-    - assets/image/loading.gif
-    - assets/image/background.jpg
-    - assets/image/asianmen.png
-    - assets/image/forum_diskusi.png
-    - assets/image/banku.png
-    - assets/image/history.png
-    - assets/image/mobiledev.png
-    - assets/image/designing.png
-    - assets/image/prototyping.png
-    - assets/image/phone.png
-    - assets/image/gmail.png
-    - assets/image/dido.png
-    - assets/image/CKLink.png
-    - assets/image/delta.png
+    - assets/image/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

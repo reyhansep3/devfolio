@@ -6,30 +6,28 @@ import 'package:flutter_portofolio/view/sections/top_section.dart';
 import 'package:flutter_portofolio/view/widgets/navigation_bar.dart';
 import 'package:flutter_portofolio/view/sections/service_provide.dart';
 
-class DesktopPage extends StatefulWidget {
-  const DesktopPage({Key? key}) : super(key: key);
+class DesktopPage extends StatelessWidget {
+  const DesktopPage({super.key});
 
-  @override
-  State<DesktopPage> createState() => _DesktopPageState();
-}
-
-class _DesktopPageState extends State<DesktopPage> {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey gkey = GlobalKey();
-    return Container(
-      color: const Color(0xff00285d),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Navbar(),
-          TopSection(
-            key: gkey,
+    return Scaffold(
+      backgroundColor: const Color(0xff00285d),
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.black,
+            elevation: 0,
+            toolbarHeight: 80,
+            flexibleSpace: Navbar(),
           ),
-          const AboutMe(),
-          const ToolsSection(),
-          ProjectSection(),
-          const ContactSection()
+
+          const SliverToBoxAdapter(child: TopSection()),
+          const SliverToBoxAdapter(child: AboutMe()),
+          // const SliverToBoxAdapter(child: ToolsSection()),
+          SliverToBoxAdapter(child: ProjectSection()),
+          const SliverToBoxAdapter(child: ContactSection()),
         ],
       ),
     );
