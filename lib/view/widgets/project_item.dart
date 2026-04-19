@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/animation/preview_cklink.dart';
 import 'package:flutter_portofolio/animation/preview_dido.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
+import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,11 +39,7 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
         children: [
           Text(
             widget.title,
-            style: GoogleFonts.poppins(
-              fontSize: 30,
-              fontWeight: FontWeight.w400,
-              color: const Color(0xffC3E5FF),
-            ),
+            style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
           ),
 
           SizedBox(height: context.height * 0.01),
@@ -49,22 +47,14 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
           Text(
             widget.desc,
             textAlign: TextAlign.justify,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
-              color: Colors.white,
-            ),
+            style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
           ),
 
           SizedBox(height: context.height * 0.015),
 
           Text(
-            "Tools I use",
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
-              color: Colors.white,
-            ),
+            "Tools I use :",
+            style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
           ),
 
           SizedBox(height: context.height * 0.01),
@@ -78,27 +68,35 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
                 return Padding(
                   padding: EdgeInsets.only(right: context.width * 0.01),
                   child: Container(
-                    width: context.width * 0.06,
-                    height: context.height * 0.05,
                     // decoration: BoxDecoration(
-                    //   borderRadius: BorderRadius.circular(12),
-                    //   color: Colors.white,
-                    // ),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withValues(alpha:0.05),
+                          Colors.white.withValues(alpha:0.02),
+                        ],
+                      ),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha:0.1),
+                      ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(isHovering ? 0.3 : 0.1),
-                          blurRadius: isHovering ? 30 : 10,
+                          color: Colors.black.withValues(alpha:0.2),
+                          blurRadius: 15,
                           offset: const Offset(0, 10),
                         ),
                       ],
                     ),
-                    child: Center(
-                      child: Text(
-                        widget.tools[index],
-                        style: const TextStyle(fontSize: 12),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                        child: Center(
+                        child: Text(
+                          widget.tools[index],
+                          style: AppFontStyle.verySmallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+                        ),
                       ),
-                    ),
+                    )
                   ),
                 );
               },

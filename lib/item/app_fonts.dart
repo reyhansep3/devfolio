@@ -32,4 +32,7 @@ class AppFontStyle {
   
   static TextStyle smallText = GoogleFonts.poppins(
       color: Colors.white, fontSize: 15, );
+  
+  static TextStyle verySmallText = GoogleFonts.poppins(
+      color: Colors.white, fontSize: 12, );
 }

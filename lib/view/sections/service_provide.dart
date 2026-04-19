@@ -18,7 +18,7 @@ class ToolsSection extends StatelessWidget {
             left: context.width*0.15,
             right: context.width*0.15,
             bottom: context.height * 0.2,
-            ),
+            top: context.height*0.08),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

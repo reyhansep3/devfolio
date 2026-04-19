@@ -128,7 +128,7 @@ Container _desktopBody({
       padding: EdgeInsets.only(
         left: context.width*0.15,
         right: context.width*0.15,
-        bottom: heightBody,
+        bottom: context.width*0.05,
         top: context.height*0.08),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,24 +139,24 @@ Container _desktopBody({
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white.withValues(alpha:0.05),
-                        Colors.white.withValues(alpha:0.02),
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withValues(alpha:0.05),
+                          Colors.white.withValues(alpha:0.02),
+                        ],
+                      ),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha:0.1),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha:0.2),
+                          blurRadius: 15,
+                          offset: const Offset(0, 10),
+                        ),
                       ],
                     ),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha:0.1),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha:0.2),
-                        blurRadius: 15,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Row(
@@ -168,6 +168,7 @@ Container _desktopBody({
                       ),
                     ),
                   ),
+                  SizedBox(width : context.width*0.005),
                   RichText(
                     text: TextSpan(
                       children: [

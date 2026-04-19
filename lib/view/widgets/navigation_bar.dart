@@ -103,7 +103,8 @@ import 'package:google_fonts/google_fonts.dart';
 // }
 
 class Navbar extends StatelessWidget {
-  const Navbar({super.key});
+  final Function(String)? onNavTap;
+  const Navbar({super.key, this.onNavTap});
 
   @override
   Widget build(BuildContext context) {
@@ -138,15 +139,22 @@ class Navbar extends StatelessWidget {
           // 🔹 Menu tengah
           Row(
             children: [
-              _navItem("Home", isActive: true),
+              _navItem("Home", onTap: () => onNavTap?.call("home")),
               const SizedBox(width: 30),
-              _navItem("Services"),
+              _navItem("About", onTap: () => onNavTap?.call("about")),
               const SizedBox(width: 30),
-              _navItem("Projects"),
+              _navItem("Projects", onTap: () => onNavTap?.call("project")),
               const SizedBox(width: 30),
-              _navItem("Contact"),
-              const SizedBox(width: 30),
-              _navItem("Blog"),
+              _navItem("Contact", onTap: () => onNavTap?.call("contact")),
+              // _navItem("Home", isActive: true),
+              // const SizedBox(width: 30),
+              // _navItem("Services"),
+              // const SizedBox(width: 30),
+              // _navItem("Projects"),
+              // const SizedBox(width: 30),
+              // _navItem("Contact"),
+              // const SizedBox(width: 30),
+              // _navItem("Blog"),
             ],
           ),
 
@@ -167,21 +175,27 @@ class Navbar extends StatelessWidget {
     );
   }
 
-  Widget _navItem(String title, {bool isActive = false}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: isActive
-          ? BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.white),
-            )
-          : null,
-      child: Text(
-        title,
-        style: TextStyle(
-          color: isActive ? Colors.tealAccent : Colors.white70,
+  Widget _navItem(
+    String title, {
+    bool isActive = false,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: isActive
+            ? BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.white),
+              )
+            : null,
+        child: Text(
+          title,
+          style: TextStyle(
+            color: isActive ? Colors.tealAccent : Colors.white70,
+          ),
         ),
       ),
     );
-  }
-}
+  }}
