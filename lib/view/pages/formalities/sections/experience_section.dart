@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
-import 'package:flutter_portofolio/view/pages/formalities/widgets/animation_flying.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
@@ -42,7 +41,91 @@ Widget _desktopBody(BuildContext context, double width, double height) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("Work Experience?",
-              style: AppFontStyle.veryLargeText),
+              style: AppFontStyle.largeText),
+          SizedBox(height: context.height*0.02,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Mobile Developer - Flutter",
+                  style: AppFontStyle.smallText),
+              Text("Aug 2023 - Present",
+                  style: AppFontStyle.smallText.copyWith(color: AppColor.grey1)),
+            ],
+          ),
+          SizedBox(height: context.height*0.02,),
+          Row(
+            children: [
+              Text("PT. CKL Cargo",
+                style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+              ),
+              SizedBox(width: context.width*0.01,),
+              Text("Contract",
+                style: AppFontStyle.verySmallText.copyWith(color: AppColor.white)
+              ),
+            ],
+          ),
+          SizedBox(height: context.height*0.02,),
+          ListView.builder(
+            itemCount: 3,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: context.height * 0.01,
+                ),
+                child: Text(
+                  "•⁠ BLablablalablablablablababla",
+                  style: AppFontStyle.smallText,
+                ),
+              );
+            },
+          ),
+          Text("Tools i use :",
+              style: AppFontStyle.verySmallText),
+          SizedBox(
+            height: context.height * 0.06,
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: 3,
+              itemBuilder: (context, item) {
+                return Container(
+                  // decoration: BoxDecoration(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withValues(alpha:0.05),
+                        Colors.white.withValues(alpha:0.02),
+                      ],
+                    ),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha:0.1),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha:0.2),
+                        blurRadius: 15,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                      child: Center(
+                      child: Text(
+                        "abc",
+                        style: AppFontStyle.verySmallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+                      ),
+                    ),
+                  )
+                );
+              }
+            ),
+          )
+          
           
           
                         

@@ -5,11 +5,13 @@ class FlyingWidget extends StatefulWidget {
   final Widget widget;
   final double amplitude;
   final Duration duration;
+  final int math;
 
   const FlyingWidget({
     super.key,
     required this.widget,
     this.amplitude = 10,
+    this.math = 1,
     this.duration = const Duration(seconds: 2),
   });
 
@@ -41,7 +43,7 @@ class _FlyingWidgetState extends State<FlyingWidget>
       builder: (context, child) {
 
         final double offsetY =
-            sin(_controller.value * 2 * pi) *
+            sin(_controller.value * widget.math * pi) *
             widget.amplitude;
 
         return Transform.translate(
