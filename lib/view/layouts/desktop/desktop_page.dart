@@ -78,10 +78,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/formalities_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/aboutme_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/contact_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/project_list.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/top_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/about/aboutme_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/navigation_bar.dart';
 
 

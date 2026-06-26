@@ -51,11 +51,15 @@ class AppFontStyle {
     color: Colors.white, fontSize: 20,
   );
 
-  static TextStyle largeTextPSP = GoogleFonts.pressStart2p(
-    color: Colors.white, fontSize: 25,
+  static TextStyle largeTextMono = const TextStyle(
+    fontFamily: 'vcr_osd_mono',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
   );
 
-  static TextStyle largeTextPSP2 = GoogleFonts.pressStart2p(
-    color: Colors.white, fontSize: 64,
+  static TextStyle mediumTextMono = const TextStyle(
+    fontFamily: 'vcr_osd_mono',
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
   );
 }

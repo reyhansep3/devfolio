@@ -27,6 +27,17 @@ class ExperienceSection extends StatelessWidget {
 //   }
 // }
 
+List<String> cklCargoExperience = [
+  "Developed and integrated an Human Resource Information System. leading to a substantial reduction of paperwork in the HR department.",
+  "Developed and integrated a Driver Management System. leading to a substantial reduction of paperwork in the  Logistic department.",
+  "Involved in Mobile Development in a project collaboration alongside UI/UX, Backend , and Quality Assurance on making Application.",
+  "Successfully deploy a number of application to both PlayStore and AppStore",
+  "Consume Rest API using Https and Dio",
+  "Employ Provider State Management using MVVM Architecture for scalable codebases",
+  "Troubleshoot and resolve technical challenges and ensure the stability and reliability of the Flutter Application",
+  "Implemented various features and improvement on Android and IOS App using Flutter"
+
+];
 /// ================= DESKTOP =================
 Widget _desktopBody(BuildContext context, double width, double height) {
   final screenHeight = MediaQuery.of(context).size.height;
@@ -66,7 +77,7 @@ Widget _desktopBody(BuildContext context, double width, double height) {
           ),
           SizedBox(height: context.height*0.02,),
           ListView.builder(
-            itemCount: 3,
+            itemCount: cklCargoExperience.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
@@ -75,7 +86,7 @@ Widget _desktopBody(BuildContext context, double width, double height) {
                   bottom: context.height * 0.01,
                 ),
                 child: Text(
-                  "•⁠ BLablablalablablablablababla",
+                  "•⁠ ${cklCargoExperience[index]}",
                   style: AppFontStyle.smallText,
                 ),
               );

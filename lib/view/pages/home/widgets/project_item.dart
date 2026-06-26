@@ -7,6 +7,7 @@ import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProjectItemHover extends StatefulWidget {
+  final bool isMobile;
   final bool isImageLeft;
   final Widget image;
   final String title;
@@ -16,6 +17,7 @@ class ProjectItemHover extends StatefulWidget {
 
   const ProjectItemHover({
     super.key,
+    required this.isMobile,
     required this.isImageLeft,
     required this.image,
     required this.title,
@@ -33,109 +35,109 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
 
   @override
   Widget build(BuildContext context) {
-    Widget textSection = Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.title,
-            style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
-          ),
-
-          SizedBox(height: context.height * 0.01),
-
-          Text(
-            widget.desc,
-            textAlign: TextAlign.justify,
-            style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
-          ),
-
-          SizedBox(height: context.height * 0.015),
-
-          Text(
-            "Tools I use :",
-            style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
-          ),
-
-          SizedBox(height: context.height * 0.01),
-
-          SizedBox(
-            height: context.height * 0.06,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.tools.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(right: context.width * 0.01),
-                  child: Container(
-                    // decoration: BoxDecoration(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.white.withValues(alpha:0.05),
-                          Colors.white.withValues(alpha:0.02),
-                        ],
-                      ),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha:0.1),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha:0.2),
-                          blurRadius: 15,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                        child: Center(
-                        child: Text(
-                          widget.tools[index],
-                          style: AppFontStyle.verySmallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
-                        ),
-                      ),
-                    )
-                  ),
-                );
-              },
-            ),
-          )
-        ],
+    List<Widget> textChildren = [
+      Text(
+        widget.title,
+        style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
       ),
-    );
+      SizedBox(height: context.height * 0.01),
+      Text(
+        widget.desc,
+        textAlign: TextAlign.justify,
+        style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
+      ),
+      SizedBox(height: context.height * 0.015),
+      Text(
+        "Tools I use :",
+        style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
+      ),
+      SizedBox(height: context.height * 0.01),
+      SizedBox(
+        height: context.height * 0.06,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.tools.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(right: context.width * 0.01),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white.withValues(alpha: 0.05),
+                      Colors.white.withValues(alpha: 0.02),
+                    ],
+                  ),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 15,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Center(
+                    child: Text(
+                      widget.tools[index],
+                      style: AppFontStyle.verySmallText.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.grey2,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    ];
 
     return MouseRegion(
       onEnter: (_) => setState(() => isHovering = true),
       onExit: (_) => setState(() => isHovering = false),
-
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
-
-        transform: Matrix4.translationValues(
-          0,
-          isHovering ? -20 : 0, // naik
-          0,
-        ),
-
+        transform: Matrix4.translationValues(0, isHovering ? -20 : 0, 0),
         child: Padding(
           padding: EdgeInsets.only(bottom: context.height * 0.04),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: widget.isImageLeft
-                ? [
+          child: !widget.isMobile
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: widget.isImageLeft
+                      ? [
+                          widget.image,
+                          SizedBox(width: context.width * 0.02),
+                          Expanded(child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: textChildren,
+                          )),
+                        ]
+                      : [
+                          Expanded(child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: textChildren,
+                          )),
+                          SizedBox(width: context.width * 0.02),
+                          widget.image,
+                        ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     widget.image,
-                    SizedBox(width: context.width * 0.02),
-                    textSection,
-                  ]
-                : [
-                    textSection,
-                    SizedBox(width: context.width * 0.02),
-                    widget.image,
+                    SizedBox(height: context.height * 0.02),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: textChildren,
+                    ),
                   ],
-          ),
+                ),
         ),
       ),
     );

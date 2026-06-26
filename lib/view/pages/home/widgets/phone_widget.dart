@@ -1,7 +1,12 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/animation/preview_history.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
+import 'package:flutter_portofolio/view/pages/formalities/widgets/animation_flying.dart';
+import 'package:svg_flutter/svg.dart';
 
 class PhoneWidget extends StatefulWidget {
   const PhoneWidget({super.key});
@@ -91,63 +96,247 @@ class _PhoneWidgetState extends State<PhoneWidget>
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.none,
-      onHover: (e) => setState(() => cursor = e.localPosition),
-      onEnter: (_) => _onHover(true),
-      onExit: (_) => _onHover(false),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // ── Phone body ──
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.elasticOut,
-            transform: isHovered
-                ? (Matrix4.identity()
-                  ..translate(0.0, -12.0)
-                  ..rotateZ(-0.03))
-                : Matrix4.identity(),
-            child: _buildPhone(context),
-          ),
 
-          // ── Custom cursor ──
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 60),
-            curve: Curves.easeOut,
-            left: cursor.dx - (isHovered ? 40 : 0),
-            top: cursor.dy - (isHovered ? 40 : 0),
-            child: IgnorePointer(
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                width: isHovered ? 80 : 0,
-                height: isHovered ? 80 : 0,
-                decoration: BoxDecoration(
-                  color: isHovered
-                      // ignore: deprecated_member_use
-                      ? AppColor.yellowgreen.withOpacity(0.15)
-                      : Colors.transparent,
-                  border: Border.all(
-                    color: AppColor.yellowgreen,
-                    width: 1.5,
-                  ),
-                  borderRadius: BorderRadius.circular(
-                    isHovered ? 0 : 99,
+    final scale = (context.width / 1024).clamp(0.5, 1.3);
+
+    return MouseRegion(
+          cursor: SystemMouseCursors.none,
+          onHover: (e) => setState(() => cursor = e.localPosition),
+          onEnter: (_) => _onHover(true),
+          onExit: (_) => _onHover(false),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              // ── Phone body ──
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.elasticOut,
+                transform: isHovered
+                    ? (Matrix4.identity()
+                      ..translate(0.0, -12.0)
+                      ..rotateZ(-0.03))
+                    : Matrix4.identity(),
+                child: _buildPhone(context),
+              ),
+        
+              // ── Custom cursor ──
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 60),
+                curve: Curves.easeOut,
+                left: cursor.dx - (isHovered ? 40 : 0),
+                top: cursor.dy - (isHovered ? 40 : 0),
+                child: IgnorePointer(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    width: isHovered ? 80 : 0,
+                    height: isHovered ? 80 : 0,
+                    decoration: BoxDecoration(
+                      color: isHovered
+                          // ignore: deprecated_member_use
+                          ? AppColor.yellowgreen.withOpacity(0.15)
+                          : Colors.transparent,
+                      border: Border.all(
+                        color: AppColor.yellowgreen,
+                        width: 1.5,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        isHovered ? 0 : 99,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    );
+        );
+    // return Row(
+    //   children: [
+    //     Column(
+    //       children: [
+    //         FlyingWidget(
+    //           amplitude: 10,
+    //           widget: Container(
+    //             margin: EdgeInsets.only(right: context.width*0.02),
+    //             decoration: BoxDecoration(
+    //               color: const Color(0xff1a1a1a),
+    //               borderRadius: BorderRadius.circular(10),
+    //               border: Border.all(color: AppColor.grey1)
+    //             ),
+    //             child: Padding(
+    //               padding: EdgeInsets.symmetric(vertical: context.height*0.01, horizontal: context.width*0.02),
+    //               child: Center(
+    //                 child: Text(
+    //                   "Flutter",
+    //                   style: AppFontStyle.mediumText2.copyWith(color: AppColor.yellowgreen, fontSize: 15 * scale),
+    //                 ),
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         FlyingWidget(
+    //           amplitude: 10,
+    //           math: 3,
+    //           widget: Container(
+    //             decoration: BoxDecoration(
+    //               color: const Color(0xff1a1a1a),
+    //               borderRadius: BorderRadius.circular(10),
+    //               border: Border.all(color: AppColor.grey1)
+    //             ),
+    //             child: Padding(
+    //               padding: EdgeInsets.symmetric(vertical: context.height*0.01, horizontal: context.width*0.01),
+    //               child: Center(
+    //                 child: SvgPicture.asset("assets/icons/apple.svg",height: context.height*0.04 * scale,)
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         // SizedBox(height: context.height*0.1,),
+    //         // const LogoWidgetAnimation(),
+    //         FlyingWidget(
+    //           amplitude: 10,
+    //           math: 2,
+    //           widget: Container(
+    //             margin: EdgeInsets.only(right: context.width*0.03),
+    //             decoration: BoxDecoration(
+    //               color: const Color(0xff1a1a1a),
+    //               borderRadius: BorderRadius.circular(10),
+    //               border: Border.all(color: AppColor.grey1)
+    //             ),
+    //             child: Padding(
+    //               padding: EdgeInsets.symmetric(vertical: context.height*0.01, horizontal: context.width*0.01),
+    //               child: Center(
+    //                 child: SvgPicture.asset("assets/icons/playstore.svg",height: context.height*0.04 * scale,)
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //     MouseRegion(
+    //       cursor: SystemMouseCursors.none,
+    //       onHover: (e) => setState(() => cursor = e.localPosition),
+    //       onEnter: (_) => _onHover(true),
+    //       onExit: (_) => _onHover(false),
+    //       child: Stack(
+    //         clipBehavior: Clip.none,
+    //         children: [
+    //           // ── Phone body ──
+    //           AnimatedContainer(
+    //             duration: const Duration(milliseconds: 400),
+    //             curve: Curves.elasticOut,
+    //             transform: isHovered
+    //                 ? (Matrix4.identity()
+    //                   ..translate(0.0, -12.0)
+    //                   ..rotateZ(-0.03))
+    //                 : Matrix4.identity(),
+    //             child: _buildPhone(context),
+    //           ),
+        
+    //           // ── Custom cursor ──
+    //           AnimatedPositioned(
+    //             duration: const Duration(milliseconds: 60),
+    //             curve: Curves.easeOut,
+    //             left: cursor.dx - (isHovered ? 40 : 0),
+    //             top: cursor.dy - (isHovered ? 40 : 0),
+    //             child: IgnorePointer(
+    //               child: AnimatedContainer(
+    //                 duration: const Duration(milliseconds: 300),
+    //                 curve: Curves.easeInOut,
+    //                 width: isHovered ? 80 : 0,
+    //                 height: isHovered ? 80 : 0,
+    //                 decoration: BoxDecoration(
+    //                   color: isHovered
+    //                       // ignore: deprecated_member_use
+    //                       ? AppColor.yellowgreen.withOpacity(0.15)
+    //                       : Colors.transparent,
+    //                   border: Border.all(
+    //                     color: AppColor.yellowgreen,
+    //                     width: 1.5,
+    //                   ),
+    //                   borderRadius: BorderRadius.circular(
+    //                     isHovered ? 0 : 99,
+    //                   ),
+    //                 ),
+    //               ),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //     Column(
+    //       mainAxisAlignment: MainAxisAlignment.start,
+    //       children: [
+    //         FlyingWidget(
+    //           amplitude: 10,
+    //           math: 2,
+    //           widget: Container(
+    //             margin: EdgeInsets.only(left: context.width*0.03),
+    //             decoration: BoxDecoration(
+    //               color: const Color(0xff1a1a1a),
+    //               borderRadius: BorderRadius.circular(10),
+    //               border: Border.all(color: AppColor.grey1)
+    //             ),
+    //             child: Padding(
+    //               padding: EdgeInsets.symmetric(vertical: context.height*0.01, horizontal: context.width*0.01),
+    //               child: Center(
+    //                 child: SvgPicture.asset("assets/icons/android.svg",height: context.height*0.04 * scale,)
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         FlyingWidget(
+    //           amplitude: 8,
+    //           widget: Container(
+    //             margin: EdgeInsets.only(left: context.width*0.02),
+    //             decoration: BoxDecoration(
+    //               color: const Color(0xff1a1a1a),
+    //               borderRadius: BorderRadius.circular(10),
+    //               border: Border.all(color: AppColor.grey1)
+    //             ),
+    //             child: Padding(
+    //               padding: EdgeInsets.symmetric(vertical: context.height*0.01, horizontal: context.width*0.015),
+    //               child: Center(
+    //                 child: Text(
+    //                   "Dart",
+    //                     style: AppFontStyle.mediumText.copyWith(color: AppColor.grey2, fontSize: 15 * scale),
+    //                 ),
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         FlyingWidget(
+    //           amplitude: 10,
+    //           math: 2,
+    //           widget: Container(
+    //             margin: EdgeInsets.only(left: context.width*0.03),
+    //             decoration: BoxDecoration(
+    //               color: const Color(0xff1a1a1a),
+    //               borderRadius: BorderRadius.circular(10),
+    //               border: Border.all(color: AppColor.grey1)
+    //             ),
+    //             child: Padding(
+    //               padding: EdgeInsets.symmetric(vertical: context.height*0.01, horizontal: context.width*0.01),
+    //               child: Center(
+    //                 child: SvgPicture.asset("assets/icons/appstore.svg",height: context.height*0.04 * scale,)
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     )
+    //   ],
+    // );
   }
 
   Widget _buildPhone(BuildContext context) {
+
+      // final scale = (context.width / 1024).clamp(0.5, 1.5);
+      // final phoneWidth = (context.width * 0.15 * scale).clamp(140.0, double.infinity);
+      // final phoneHeight = (context.height * 0.55 * scale).clamp(280.0, double.infinity);    
     return Container(
-      width: context.height*0.4,
-      height: context.height*0.75,
+      width: 250,
+      height: 500,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(36),

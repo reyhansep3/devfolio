@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/animation/preview_cklink.dart';
-import 'package:flutter_portofolio/animation/preview_cklink.dart' as context;
 import 'package:flutter_portofolio/animation/preview_deltaspa.dart';
 import 'package:flutter_portofolio/animation/preview_dido.dart';
 import 'package:flutter_portofolio/animation/preview_history.dart';
-import 'package:flutter_portofolio/item/app_colors.dart';
-import 'package:flutter_portofolio/item/app_fonts.dart';
-import 'package:flutter_portofolio/item/media_query.dart';
-import 'package:flutter_portofolio/view/pages/home/widgets/project_item.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/project/dimension/project_list_desktop.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/project/dimension/project_list_mobile.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/project/dimension/project_list_tablet.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_portofolio/animation/preview_banku.dart';
 import 'package:flutter_portofolio/animation/preview_forum.dart';
@@ -72,16 +70,7 @@ class ProjectSection extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Responsivelayout(
-      mobile: _mobileBody(
-          cklink: cklink,
-          delta: delta,
-          history: history,
-          forumd: forumd,
-          banku: banku,
-          dido : dido,
-          widthBody: width,
-          heightBody: height),
-      tablet: _desktopBody(
+      mobile: mobilebBody(
         context: context,
         cklink: cklink,
           forumd: forumd,
@@ -93,7 +82,19 @@ class ProjectSection extends StatelessWidget {
           heightBody: height * 0.27,
           imageHeight: 200,
           imageWidth: 200),
-      desktop: _desktopBody(
+      tablet: tabletBody(
+        context: context,
+        cklink: cklink,
+          forumd: forumd,
+          delta : delta,
+          banku: banku,
+          dido : dido,
+          history: history,
+          widthBody: width,
+          heightBody: height * 0.27,
+          imageHeight: 200,
+          imageWidth: 200),
+      desktop: desktopBody(
           cklink: cklink,
           delta: delta,
           context: context,
@@ -109,123 +110,6 @@ class ProjectSection extends StatelessWidget {
   }
 }
 
-Container _desktopBody({
-  required List banku,
-  required List forumd,
-  required List dido,
-  required List cklink,
-  required List history,
-  required List delta,
-  required double widthBody,
-  required double heightBody,
-  required double imageHeight,
-  required double imageWidth,
-  required BuildContext context
-}) {
-  return Container(
-    decoration: const BoxDecoration(color: Colors.black),
-    child: Padding(
-      padding: EdgeInsets.only(
-        left: context.width*0.15,
-        right: context.width*0.15,
-        bottom: context.width*0.05,
-        top: context.height*0.08),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.white.withValues(alpha:0.05),
-                          Colors.white.withValues(alpha:0.02),
-                        ],
-                      ),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha:0.1),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha:0.2),
-                          blurRadius: 15,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(Icons.arrow_back_ios_rounded, color: Colors.green,),
-                          Icon(Icons.arrow_forward_ios_rounded, color: Colors.green),
-                        
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width : context.width*0.005),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Featured",
-                          style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
-                        ),
-                        TextSpan(
-                          text: " Projects",
-                          style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
-                        )
-                      ]
-                    )
-                  ),
-                ],
-              ),
-              
-              Text(
-                "Projects that keep my passion for technology alive.",
-                style: AppFontStyle.mediumText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: context.height*0.05,),
-              ProjectItemHover(
-                isImageLeft: true,
-                image: const DidoPreview(),
-                title: "DIDO",
-                desc: "Drive In Drop Off: Exclusive Cargo Delivery Companion by PT CKL Indonesia Raya",
-                tools: dido,
-                context: context,
-              ),
-              
-              ProjectItemHover(
-                isImageLeft: false,
-                image: const CKlinkPreview(),
-                title: "CKlink",
-                desc: "CKLink is an internal management tool handling attendance, employee data, and more.",
-                tools: cklink,
-                context: context,
-              ),
-              
-              ProjectItemHover(
-                isImageLeft: true,
-                image: const DeltaSpaPreview(),
-                title: "Delta Spa",
-                desc: "Premium men's wellness app for booking and services.",
-                tools: delta,
-                context: context,
-              )
-         
-          
-          
-        ],
-      ),
-    ),
-  );
-}
 
 Container _mobileBody(
     {required double widthBody,
@@ -247,11 +131,11 @@ Container _mobileBody(
             child: Text(
               "All Of My Project",
               style: GoogleFonts.oswald(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28.0,
-                          height: 1.3,
-                        ),
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                fontSize: 28.0,
+                height: 1.3,
+              ),
             ),
           ),
            const SizedBox(
