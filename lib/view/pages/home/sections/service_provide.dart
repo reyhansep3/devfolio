@@ -24,13 +24,13 @@ class ToolsSection extends StatelessWidget {
           children: [
             Text(
               "Featured Projects",
-              style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+              style: AppFontStyle.poppinsHeadingLarge.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
               textAlign: TextAlign.start,
             ),
             SizedBox(height: context.height*0.01,),
             Text(
               "Projects that keep my passion for technology alive.",
-              style: AppFontStyle.mediumText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+              style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: context.height*0.07,),

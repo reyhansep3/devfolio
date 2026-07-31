@@ -68,13 +68,13 @@ class _ContactSectionState extends State<ContactSection> {
                     children: [
                       Text(
                         "Reyhan Septri Asta",
-                        style: AppFontStyle.mediumText.copyWith(color: AppColor.white)
+                        style: AppFontStyle.poppinsBodyMedium.copyWith(color: AppColor.white)
                       ),
                   
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Crafting intuitive mobile experiences through clean architecture and thoughtful design",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                       SizedBox(height: context.height*0.02),
                       Text(
@@ -95,33 +95,33 @@ class _ContactSectionState extends State<ContactSection> {
                     children: [
                       Text(
                         "General",
-                        style: AppFontStyle.smallText.copyWith(color: AppColor.white)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.white)
                       ),
                   
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Home",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Service",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Project",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Testimony",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Blog",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                     ],
                   ),
@@ -134,18 +134,18 @@ class _ContactSectionState extends State<ContactSection> {
                     children: [
                       Text(
                         "Resources",
-                        style: AppFontStyle.smallText.copyWith(color: AppColor.white)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.white)
                       ),
                   
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Resources 1",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                       SizedBox(height: context.height*0.02),
                       Text(
                         "Resources 2",
-                        style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                        style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
                       ),
                       
                     ],

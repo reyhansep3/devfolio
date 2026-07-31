@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/view/layouts/mobile/mobile_page.dart';
 import 'package:flutter_portofolio/view/layouts/tablet/tablet_page.dart';
-import 'package:flutter_portofolio/view/pages/formalities/sections/formalities_section.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 class Formalitiespage extends StatelessWidget {
   const Formalitiespage({super.key});

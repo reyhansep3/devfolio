@@ -25,15 +25,16 @@ Widget tabletBody({
         children: [
           Text(
             "Keep learning...",
-            style: AppFontStyle.mediumText2.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
+            style: AppFontStyle.poppinsHeadingMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
             textAlign: TextAlign.start,
           ),
+          SizedBox(height: context.height*0.03,),
           RichText(
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "KEEP",
-                  style: AppFontStyle.largeTextMono.copyWith(
+                  text: "Keep",
+                  style: AppFontStyle.borelBodyLarge.copyWith(
                     fontSize: 60,
                     color: AppColor.white, 
                     fontWeight: FontWeight.bold,
@@ -42,8 +43,8 @@ Widget tabletBody({
                   ),
                 ),
                 TextSpan(
-                  text: " BUILDING",
-                  style: AppFontStyle.largeTextMono.copyWith(
+                  text: " Building",
+                  style: AppFontStyle.borelBodyLarge.copyWith(
                     fontSize: 60,
                     color: AppColor.yellowgreen, 
                     fontWeight: FontWeight.bold,
@@ -62,7 +63,7 @@ Widget tabletBody({
           SizedBox(height: context.height*0.01,),
           Text(
             "Principles I rely on to turn complex problems into simple, scalable\nsolutions.",
-            style: AppFontStyle.mediumText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+            style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: context.height*0.07,),

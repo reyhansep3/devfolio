@@ -52,26 +52,26 @@ Widget _desktopBody(BuildContext context, double width, double height) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("Work Experience?",
-              style: AppFontStyle.largeText),
+              style: AppFontStyle.poppinsHeadingLarge),
           SizedBox(height: context.height*0.02,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Mobile Developer - Flutter",
-                  style: AppFontStyle.smallText),
+                  style: AppFontStyle.poppinsHeadingLarge),
               Text("Aug 2023 - Present",
-                  style: AppFontStyle.smallText.copyWith(color: AppColor.grey1)),
+                  style: AppFontStyle.poppinsHeadingLarge.copyWith(color: AppColor.grey1)),
             ],
           ),
           SizedBox(height: context.height*0.02,),
           Row(
             children: [
               Text("PT. CKL Cargo",
-                style: AppFontStyle.verySmallText.copyWith(color: AppColor.grey1)
+                style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.grey1)
               ),
               SizedBox(width: context.width*0.01,),
               Text("Contract",
-                style: AppFontStyle.verySmallText.copyWith(color: AppColor.white)
+                style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.white)
               ),
             ],
           ),
@@ -87,13 +87,13 @@ Widget _desktopBody(BuildContext context, double width, double height) {
                 ),
                 child: Text(
                   "•⁠ ${cklCargoExperience[index]}",
-                  style: AppFontStyle.smallText,
+                  style: AppFontStyle.poppinsBodySmall,
                 ),
               );
             },
           ),
           Text("Tools i use :",
-              style: AppFontStyle.verySmallText),
+              style: AppFontStyle.poppinsBodySmall),
           SizedBox(
             height: context.height * 0.06,
             child: ListView.builder(
@@ -128,7 +128,7 @@ Widget _desktopBody(BuildContext context, double width, double height) {
                       child: Center(
                       child: Text(
                         "abc",
-                        style: AppFontStyle.verySmallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+                        style: AppFontStyle.poppinsBodySmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
                       ),
                     ),
                   )

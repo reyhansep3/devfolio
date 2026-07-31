@@ -32,21 +32,41 @@ Widget desktopBody(
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("// FLUTTER MOBILE DEVELOPER",
-                      style: AppFontStyle.mediumTextMono.copyWith(
-                        color: AppColor.grey1, 
-                        fontSize: 14 * scale,
-                        letterSpacing: 0.5,
-                        fontWeight: FontWeight.bold)
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.yellowgreen),
+                        borderRadius: BorderRadius.circular(100)
                       ),
-                    
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: AppColor.yellowgreen,
+                                borderRadius: BorderRadius.circular(100)
+                              ),
+                            ),
+                            SizedBox(width: context.width*0.01,),
+                            Text("Currently Working at CKL CARGO",
+                              style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+                                color: AppColor.white, 
+                                fontSize: 10 * scale,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.bold)
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
                     SizedBox(height: context.height*0.01,),
                     RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
                             text: "REY",
-                            style: AppFontStyle.largeTextMono.copyWith(
+                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                               fontSize: titleFontSize,
                               color: AppColor.white, 
                               fontWeight: FontWeight.bold,
@@ -56,7 +76,7 @@ Widget desktopBody(
                           ),
                           TextSpan(
                             text: "HAN",
-                            style: AppFontStyle.largeTextMono.copyWith(
+                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                               fontSize: titleFontSize,
                               color: AppColor.yellowgreen, 
                               fontWeight: FontWeight.bold,
@@ -66,7 +86,7 @@ Widget desktopBody(
                           ),
                           TextSpan(
                             text: "\nSEPTRI",
-                            style: AppFontStyle.largeTextMono.copyWith(
+                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                               fontSize: titleFontSize,
                               color: AppColor.white, 
                               fontWeight: FontWeight.bold,
@@ -76,7 +96,7 @@ Widget desktopBody(
                           ),
                           TextSpan(
                             text: "\nAS",
-                            style: AppFontStyle.largeTextMono.copyWith(
+                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                               fontSize: titleFontSize,
                               color: AppColor.yellowgreen, 
                               fontWeight: FontWeight.bold,
@@ -86,7 +106,7 @@ Widget desktopBody(
                           ),
                           TextSpan(
                             text: "TA",
-                            style: AppFontStyle.largeTextMono.copyWith(
+                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                               fontSize: titleFontSize,
                               color: AppColor.white, 
                               fontWeight: FontWeight.bold,
@@ -99,8 +119,8 @@ Widget desktopBody(
                     ),
                     SizedBox(height: context.height*0.01,),
                     Text("// CLEAN CODE. SCALABLE SOLUTIONS.",
-                    style: AppFontStyle.mediumTextMono.copyWith(
-                      color: AppColor.grey1, 
+                    style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+                      color: AppColor.white, 
                       fontSize: 14 * scale,
                       letterSpacing: 0.5,
                       fontWeight: FontWeight.bold)
@@ -116,14 +136,14 @@ Widget desktopBody(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("03",
-                          style: AppFontStyle.largeTextMono.copyWith(
+                          style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                             color: AppColor.yellowgreen, 
                             fontSize: 28, 
                             letterSpacing: 0.5,
                             fontWeight: FontWeight.bold)
                         ),
                         Text("Years exp.",
-                          style: AppFontStyle.mediumText.copyWith(
+                          style: AppFontStyle.poppinsBodyMedium.copyWith(
                             color: AppColor.grey1, 
                             letterSpacing: 0.5,
                             fontWeight: FontWeight.bold)
@@ -135,14 +155,14 @@ Widget desktopBody(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("06",
-                          style: AppFontStyle.largeTextMono.copyWith(
+                          style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                             color: AppColor.yellowgreen,
                             fontSize: 28, 
                             letterSpacing: 0.5,
                             fontWeight: FontWeight.bold)
                         ),
                         Text("Projects.",
-                          style: AppFontStyle.mediumText.copyWith(
+                          style: AppFontStyle.poppinsBodyMedium.copyWith(
                             color: AppColor.grey1, 
                             letterSpacing: 0.5,
                             fontWeight: FontWeight.bold)
@@ -156,15 +176,20 @@ Widget desktopBody(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Find Me On",
-                        style: AppFontStyle.smallText),
+                      style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+                      color: AppColor.white, 
+                      fontSize: 12 * scale,
+                      letterSpacing: 0.5,
+                      fontWeight: FontWeight.bold)
+                    ),
                           
-                    SizedBox(width: context.width*0.03),
+                    SizedBox(width: context.width*0.02),
                           
-                    icon("assets/icons/facebook.svg", context),
+                    icon("assets/icons/facebook.svg", context, scale),
                     SizedBox(width: context.width*0.03),
-                    icon("assets/icons/instagram.svg", context),
+                    icon("assets/icons/instagram.svg", context, scale),
                     SizedBox(width: context.width*0.03),
-                    icon("assets/icons/linkedin.svg", context),
+                    icon("assets/icons/linkedin.svg", context, scale),
                   ],
                 ),
               ],

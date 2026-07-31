@@ -514,7 +514,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
           const SizedBox(height: 2),
           Text(
             '— Reyhan Septri Asta',
-            style: AppFontStyle.smallText,
+            style: AppFontStyle.poppinsBodySmall,
             // style: TextStyle(
             //   fontFamily: 'monospace',
             //   fontSize: 19,

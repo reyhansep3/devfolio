@@ -76,6 +76,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/formalities_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/about/aboutme_section.dart';

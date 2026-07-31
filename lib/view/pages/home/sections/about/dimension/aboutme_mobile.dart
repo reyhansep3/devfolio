@@ -25,17 +25,18 @@ Widget mobileBody({
         children: [
           Text(
             "Keep learning...",
-            style: AppFontStyle.mediumText2.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
+            style: AppFontStyle.poppinsHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
             textAlign: TextAlign.start,
           ),
+          SizedBox(height: context.height*0.03,),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "KEEP",
-                  style: AppFontStyle.largeTextMono.copyWith(
-                    fontSize: 60,
+                  text: "Keep",
+                  style: AppFontStyle.borelBodyLarge.copyWith(
+                    fontSize: 40,
                     color: AppColor.white, 
                     fontWeight: FontWeight.bold,
                     letterSpacing: -2,
@@ -43,9 +44,9 @@ Widget mobileBody({
                   ),
                 ),
                 TextSpan(
-                  text: " BUILDING",
-                  style: AppFontStyle.largeTextMono.copyWith(
-                    fontSize: 60,
+                  text: " Building",
+                  style: AppFontStyle.borelBodyLarge.copyWith(
+                    fontSize: 40,
                     color: AppColor.yellowgreen, 
                     fontWeight: FontWeight.bold,
                     letterSpacing: -2,
@@ -63,7 +64,7 @@ Widget mobileBody({
           SizedBox(height: context.height*0.01,),
           Text(
             "Principles I rely on to turn complex problems into simple, scalable\nsolutions.",
-            style: AppFontStyle.mediumText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+            style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: context.height*0.07,),

@@ -38,18 +38,18 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
     List<Widget> textChildren = [
       Text(
         widget.title,
-        style: AppFontStyle.largeText.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+        style: AppFontStyle.poppinsHeadingLarge.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
       ),
       SizedBox(height: context.height * 0.01),
       Text(
         widget.desc,
         textAlign: TextAlign.justify,
-        style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
+        style: AppFontStyle.poppinsBodySmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
       ),
       SizedBox(height: context.height * 0.015),
       Text(
         "Tools I use :",
-        style: AppFontStyle.smallText.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
+        style: AppFontStyle.poppinsBodySmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
       ),
       SizedBox(height: context.height * 0.01),
       SizedBox(
@@ -83,7 +83,7 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
                   child: Center(
                     child: Text(
                       widget.tools[index],
-                      style: AppFontStyle.verySmallText.copyWith(
+                      style: AppFontStyle.poppinsBodySmall.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColor.grey2,
                       ),

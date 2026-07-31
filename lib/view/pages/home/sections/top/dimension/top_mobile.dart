@@ -33,20 +33,45 @@ Widget mobileBody(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "// FLUTTER MOBILE DEVELOPER",
-                  style: AppFontStyle.mediumTextMono.copyWith(
-                    color: AppColor.grey1,
-                    letterSpacing: 0.5,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.yellowgreen),
+                        borderRadius: BorderRadius.circular(100)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: AppColor.yellowgreen,
+                                borderRadius: BorderRadius.circular(100)
+                              ),
+                            ),
+                            SizedBox(width: context.width*0.01,),
+                            Text("Currently Working at CKL CARGO",
+                              style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+                                color: AppColor.white, 
+                                fontSize: 20 * scale,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.bold)
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: bodyHeight * 0.01),
+                SizedBox(height: context.height*0.01,),
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
                       text: "REY",
-                      style: AppFontStyle.largeTextMono.copyWith(
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                         fontSize: titleFontSize,
                         color: AppColor.white,
                         fontWeight: FontWeight.bold,
@@ -56,7 +81,7 @@ Widget mobileBody(
                     ),
                     TextSpan(
                       text: "HAN",
-                      style: AppFontStyle.largeTextMono.copyWith(
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                         fontSize: titleFontSize,
                         color: AppColor.yellowgreen,
                         fontWeight: FontWeight.bold,
@@ -66,7 +91,7 @@ Widget mobileBody(
                     ),
                     TextSpan(
                       text: " SEPTRI",
-                      style: AppFontStyle.largeTextMono.copyWith(
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                         fontSize: titleFontSize,
                         color: AppColor.white,
                         fontWeight: FontWeight.bold,
@@ -76,7 +101,7 @@ Widget mobileBody(
                     ),
                     TextSpan(
                       text: " AS",
-                      style: AppFontStyle.largeTextMono.copyWith(
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                         fontSize: titleFontSize,
                         color: AppColor.yellowgreen,
                         fontWeight: FontWeight.bold,
@@ -86,7 +111,7 @@ Widget mobileBody(
                     ),
                     TextSpan(
                       text: "TA",
-                      style: AppFontStyle.largeTextMono.copyWith(
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                         fontSize: titleFontSize,
                         color: AppColor.white,
                         fontWeight: FontWeight.bold,
@@ -99,8 +124,9 @@ Widget mobileBody(
                 SizedBox(height: bodyHeight * 0.01),
                 Text(
                   "// CLEAN CODE. SCALABLE SOLUTIONS.",
-                  style: AppFontStyle.mediumTextMono.copyWith(
-                    color: AppColor.grey1,
+                  style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+                    color: AppColor.white,
+                    fontSize: 20 * scale,
                     letterSpacing: 0.5,
                     fontWeight: FontWeight.bold,
                   ),
@@ -110,18 +136,19 @@ Widget mobileBody(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text("03",
-                            style: AppFontStyle.largeTextMono.copyWith(
+                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                               color: AppColor.yellowgreen,
                               fontSize: 28,
                               letterSpacing: 0.5,
                               fontWeight: FontWeight.bold,
                             )),
                         Text("Years exp.",
-                            style: AppFontStyle.mediumText.copyWith(
-                              color: AppColor.grey1,
+                            style: AppFontStyle.poppinsBodyMedium.copyWith(
+                              color: AppColor.white,
+                              fontSize: 25 * scale,
                               letterSpacing: 0.5,
                               fontWeight: FontWeight.bold,
                             )),
@@ -132,15 +159,16 @@ Widget mobileBody(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("06",
-                            style: AppFontStyle.largeTextMono.copyWith(
+                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(
                               color: AppColor.yellowgreen,
                               fontSize: 28,
                               letterSpacing: 0.5,
                               fontWeight: FontWeight.bold,
                             )),
                         Text("Projects.",
-                            style: AppFontStyle.mediumText.copyWith(
-                              color: AppColor.grey1,
+                            style: AppFontStyle.poppinsBodyMedium.copyWith(
+                              color: AppColor.white,
+                              fontSize: 25 * scale,
                               letterSpacing: 0.5,
                               fontWeight: FontWeight.bold,
                             )),
@@ -152,13 +180,13 @@ Widget mobileBody(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Find Me On", style: AppFontStyle.smallText),
+                    Text("Find Me On", style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontSize: 25 * scale)),
                     SizedBox(width: width * 0.02),
-                    icon("assets/icons/facebook.svg", context),
+                    icon("assets/icons/facebook.svg", context, scale),
                     SizedBox(width: width * 0.02),
-                    icon("assets/icons/instagram.svg", context),
+                    icon("assets/icons/instagram.svg", context, scale),
                     SizedBox(width: width * 0.02),
-                    icon("assets/icons/linkedin.svg", context),
+                    icon("assets/icons/linkedin.svg", context, scale),
                   ],
                 ),
               ],
