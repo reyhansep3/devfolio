@@ -8,11 +8,11 @@ class Formalitiespage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Responsivelayout(
-        desktop: FormalitiesSection(),
-        mobile: MobilePage(),
-        tablet: TabletPage(),
+        desktop: (context) => const FormalitiesSection(),
+        mobile: (context) => const MobilePage(),
+        tablet: (context) => const TabletPage(),
       ),
     );
   }

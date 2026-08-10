@@ -9,11 +9,11 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Responsivelayout(
-        desktop: DesktopPage(),
-        mobile: MobilePage(),
-        tablet: TabletPage(),
+        desktop: (context) => const DesktopPage(),
+        mobile: (context) => const MobilePage(),
+        tablet: (context) => const TabletPage(),
       ),
     );
   }

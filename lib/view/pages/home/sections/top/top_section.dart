@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/dimension/top_mobile.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/dimension/top_desktop.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/dimension/top_tablet.dart';
@@ -15,17 +16,33 @@ class TopSection extends StatefulWidget {
 class _TopSectionState extends State<TopSection> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+
     bool isHovered = false;
     return Responsivelayout(
-      mobile: mobileBody(
-        context, width, height, isHovered,(val) => setState(() => isHovered = val), 
+      mobile: (context) => mobileBody(
+        context,
+        context.width,
+        context.height,
+        isHovered,
+        (val) => setState(() => isHovered = val),
       ),
-      tablet: tabletBody(
-        context, width, height, isHovered,(val) => setState(() => isHovered = val), ),
-      desktop: desktopBody(
-        context, width, height, isHovered,(val) => setState(() => isHovered = val), ),
+      // mobile: mobileBody(
+      //   context, width, height, isHovered,(val) => setState(() => isHovered = val), 
+      // ),
+      tablet: (context) => tabletBody(
+        context,
+        context.width,
+        context.height,
+        isHovered,
+        (val) => setState(() => isHovered = val),
+      ),
+      desktop: (context) => desktopBody(
+        context,
+        context.width,
+        context.height,
+        isHovered,
+        (val) => setState(() => isHovered = val),
+      ),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
+import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 
 
@@ -9,13 +11,13 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Responsivelayout(
-      desktop: desktopTabletBody(), 
-      mobile: mobileBody(), 
-      tablet: desktopTabletBody()
+      desktop: (context) => desktopTabletBody(context), 
+      mobile: (context) => mobileBody(context), 
+      tablet: (context) => desktopTabletBody(context)
     );
   }
 
-  Widget mobileBody(){
+  Widget mobileBody(BuildContext context){
     return Container(
       color: Colors.black,
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
@@ -23,22 +25,15 @@ class Navbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           RichText(
-            text: const TextSpan(
+            text: TextSpan(
               children: [
                 TextSpan(
                   text: "Dev/",
-                  style: TextStyle(
-                    color: Colors.tealAccent,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppFontStyle.vtBodyMedium.copyWith(color: AppColor.yellowgreen)
                 ),
                 TextSpan(
                   text: "S3p.",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+                  style: AppFontStyle.vtBodyMedium.copyWith(color: AppColor.white)
                 ),
               ],
             ),
@@ -72,7 +67,7 @@ class Navbar extends StatelessWidget {
       ),
     );
   }
-  Widget desktopTabletBody(){
+  Widget desktopTabletBody(BuildContext context){
     return Container(
       color: Colors.black,
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
@@ -80,22 +75,19 @@ class Navbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           RichText(
-            text: const TextSpan(
+            text: TextSpan(
               children: [
                 TextSpan(
-                  text: "Dev/",
-                  style: TextStyle(
-                    color: Colors.tealAccent,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  text: "<DEV",
+                  style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25)
                 ),
                 TextSpan(
-                  text: "S3p.",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+                  text: "/S3P",
+                  style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25)
+                ),
+                TextSpan(
+                  text: ">_",
+                  style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25)
                 ),
               ],
             ),
@@ -106,9 +98,11 @@ class Navbar extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  _navItem("Home", onTap: () => onNavTap?.call("home")),
+                  _navItem("HOME", onTap: () => onNavTap?.call("home")),
                   const SizedBox(width: 30),
-                  _navItem("Formalities", onTap: () => onNavTap?.call("formalities")),
+                  _navItem("ABOUT", onTap: () => onNavTap?.call("formalities")),
+                  const SizedBox(width: 30),
+                  _navItem("PROJECT", onTap: () => onNavTap?.call("project")),
                 ],
               ),
               // _navItem("Home", onTap: () => onNavTap?.call("home")),
@@ -162,9 +156,13 @@ class Navbar extends StatelessWidget {
             : null,
         child: Text(
           title,
-          style: TextStyle(
-            color: isActive ? Colors.tealAccent : Colors.white70,
+          style: AppFontStyle.vcrMonoBodyLarge.copyWith(
+            color: !isActive ?Colors.white : Colors.tealAccent, 
+            fontSize: 15
           ),
+          // style: TextStyle(
+          //   color: isActive ? Colors.tealAccent : Colors.white70,
+          // ),
         ),
       ),
     );

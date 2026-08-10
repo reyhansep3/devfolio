@@ -6,7 +6,7 @@ class DidoPreview extends StatelessWidget {
   const DidoPreview({super.key});
 
   final String urlDIDO =
-      "https://play.google.com/store/apps/details?id=com.dido.tms_application";
+      "https://play.google.com/store/apps/details?id=com.cklcargo.driveindriveoff&hl=en";
 
   @override
   Widget build(BuildContext context) {

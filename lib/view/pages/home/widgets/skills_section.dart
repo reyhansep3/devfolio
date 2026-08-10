@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portofolio/model/skills_model.dart';
-import 'package:flutter_portofolio/view/responsive_layout.dart';
+import 'package:flutter_portofolio/data/skills_model.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/constant.dart';
+import 'package:flutter_portofolio/view/responsive_layout.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 List<Skill> skills = [
@@ -38,9 +38,9 @@ class SkillSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Responsivelayout(
-        desktop: _buildUi(kDesktopMaxWidth),
-        tablet: _buildUi(kTabletMaxWidth),
-        mobile: _buildUi(getMobileMaxWidth(context)),
+        desktop: (context) => _buildUi(kDesktopMaxWidth),
+        tablet: (context) => _buildUi(kTabletMaxWidth),
+        mobile: (context) => _buildUi(getMobileMaxWidth(context)),
       ),
     );
   }

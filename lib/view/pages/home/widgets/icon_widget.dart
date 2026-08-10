@@ -4,10 +4,11 @@ import 'package:svg_flutter/svg.dart';
 
 Widget icon(String path, BuildContext context, double scale) {
   return SizedBox(
-    width: context.width*0.02  * scale,
+    // width: context.width*0.05  * scale,
     child: InkWell(
       onTap: () {},
-      child: SvgPicture.asset(path, fit: BoxFit.contain),
+      // ignore: deprecated_member_use
+      child: SvgPicture.asset(path, fit: BoxFit.contain, color: Colors.white,),
     ),
   );
 }

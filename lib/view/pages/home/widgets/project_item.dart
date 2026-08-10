@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portofolio/animation/preview_cklink.dart';
-import 'package:flutter_portofolio/animation/preview_dido.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class ProjectItemHover extends StatefulWidget {
   final bool isMobile;
   final bool isImageLeft;
@@ -14,8 +12,12 @@ class ProjectItemHover extends StatefulWidget {
   final String desc;
   final List tools;
   final BuildContext context;
+  void Function()? playstore;
+  void Function()? appstore;
+  void Function()? project;
+  final bool isPersonalProject;
 
-  const ProjectItemHover({
+  ProjectItemHover({
     super.key,
     required this.isMobile,
     required this.isImageLeft,
@@ -24,6 +26,10 @@ class ProjectItemHover extends StatefulWidget {
     required this.desc,
     required this.tools,
     required this.context,
+    this.playstore,
+    this.appstore,
+    this.project,
+    required this.isPersonalProject
   });
 
   @override
@@ -32,19 +38,23 @@ class ProjectItemHover extends StatefulWidget {
 
 class _ProjectItemHoverState extends State<ProjectItemHover> {
   bool isHovering = false;
+  bool playstoreHovering = false;
+  bool appstoreHovering = false;
+  bool projectHovering = false;
+  
 
   @override
   Widget build(BuildContext context) {
     List<Widget> textChildren = [
       Text(
         widget.title,
-        style: AppFontStyle.poppinsHeadingLarge.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+        style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
       ),
       SizedBox(height: context.height * 0.01),
       Text(
         widget.desc,
         textAlign: TextAlign.justify,
-        style: AppFontStyle.poppinsBodySmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey1),
+        style: AppFontStyle.poppinsBodySmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
       ),
       SizedBox(height: context.height * 0.015),
       Text(
@@ -62,7 +72,7 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
               padding: EdgeInsets.only(right: context.width * 0.01),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(10),
                   gradient: LinearGradient(
                     colors: [
                       Colors.white.withValues(alpha: 0.05),
@@ -93,6 +103,128 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
               ),
             );
           },
+        ),
+      ),
+      SizedBox(height: context.height * 0.01),
+      if(!widget.isPersonalProject)
+      Row(
+        children: [
+          GestureDetector(
+            onTap: widget.appstore,
+            child: MouseRegion(
+              onEnter: (_) => setState(() => appstoreHovering = true),
+              onExit: (_) => setState(() => appstoreHovering = false),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
+                transform: Matrix4.translationValues(0, appstoreHovering ? -10 : 0, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: appstoreHovering ? AppColor.yellowgreen : AppColor.white),
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "PlayStore",
+                            style: AppFontStyle.poppinsBodySmall.copyWith(
+                              color: appstoreHovering ? AppColor.yellowgreen : AppColor.white,
+                            ),
+                          ),
+                          SizedBox(width: context.width*0.005,),
+                          Icon(
+                            Icons.arrow_outward_rounded, 
+                            color: appstoreHovering ? AppColor.yellowgreen: AppColor.white,
+                          )
+                        ],
+                      ),
+                    ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: context.width * 0.02),
+          GestureDetector(
+            onTap: widget.playstore,
+            child: MouseRegion(
+              onEnter: (_) => setState(() => playstoreHovering = true),
+              onExit: (_) => setState(() => playstoreHovering = false),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
+                transform: Matrix4.translationValues(0, playstoreHovering ? -10 : 0, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: playstoreHovering ? AppColor.yellowgreen : AppColor.white),
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "AppStore",
+                            style: AppFontStyle.poppinsBodySmall.copyWith(
+                              color: playstoreHovering ? AppColor.yellowgreen : AppColor.white,
+                            ),
+                          ),
+                          SizedBox(width: context.width*0.005,),
+                          Icon(
+                            Icons.arrow_outward_rounded, 
+                            color: playstoreHovering ? AppColor.yellowgreen: AppColor.white,
+                          )
+                        ],
+                      ),
+                    ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      if(widget.isPersonalProject)
+      GestureDetector(
+        onTap: widget.project,
+        child: MouseRegion(
+          onEnter: (_) => setState(() => projectHovering = true),
+          onExit: (_) => setState(() => projectHovering = false),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+            transform: Matrix4.translationValues(0, projectHovering ? -10 : 0, 0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: projectHovering ? AppColor.yellowgreen : AppColor.white),
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "View Project",
+                        style: AppFontStyle.poppinsBodySmall.copyWith(
+                          color: projectHovering ? AppColor.yellowgreen : AppColor.white,
+                        ),
+                      ),
+                      SizedBox(width: context.width*0.005,),
+                      Icon(
+                        Icons.arrow_outward_rounded, 
+                        color: projectHovering ? AppColor.yellowgreen: AppColor.white,
+                      )
+                    ],
+                  ),
+                ),
+            ),
+          ),
         ),
       ),
     ];

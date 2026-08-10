@@ -43,6 +43,11 @@ class AppFontStyle {
     color: Colors.white, 
     fontSize: 25,
   );
+
+  static TextStyle poppinsBodyLarge = GoogleFonts.poppins(
+    color: Colors.white, 
+    fontSize: 18,
+  );
   
   static TextStyle poppinsBodyMedium = GoogleFonts.poppins(
     color: Colors.white, 
@@ -122,7 +127,61 @@ class AppFontStyle {
     fontSize: 12,
   );
 
+  // --- VT323 FONT FAMILY ---
+  static TextStyle vtHeadingSmall = GoogleFonts.getFont(
+    'VT323',
+    color: Colors.white,
+    fontSize: 20,
+    letterSpacing: 0.5,
+    height: 1.2,
+  );
+
+  static TextStyle vtBodyLarge = GoogleFonts.getFont(
+    'VT323',
+    color: Colors.white,
+    fontSize: 18,
+    letterSpacing: 0.5,
+    height: 1.2,
+  );
+
+  static TextStyle vtBodyMedium = GoogleFonts.getFont(
+    'VT323',
+    color: Colors.white,
+    fontSize: 15,
+    letterSpacing: 0.5,
+    height: 1.2,
+  );
+
+  static TextStyle vtBodySmall = GoogleFonts.getFont(
+    'VT323',
+    color: Colors.white,
+    fontSize: 12,
+    letterSpacing: 0.5,
+    height: 1.2,
+  );
+
   // --- CUSTOM MONO FONT FAMILY ---
+  static TextStyle vcrMonoSmall = const TextStyle(
+    fontFamily: 'vcr_osd_mono',
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: Colors.white, // Menambahkan warna agar konsisten dengan yang lain
+  );
+
+  static TextStyle vcrMonoMedium = const TextStyle(
+    fontFamily: 'vcr_osd_mono',
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    color: Colors.white, // Menambahkan warna agar konsisten dengan yang lain
+  );
+
+  static TextStyle vcrMonoLArge = const TextStyle(
+    fontFamily: 'vcr_osd_mono',
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    color: Colors.white, // Menambahkan warna agar konsisten dengan yang lain
+  );
+
   static TextStyle vcrMonoHeadingSmall = const TextStyle(
     fontFamily: 'vcr_osd_mono',
     fontSize: 24,

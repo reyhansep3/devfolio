@@ -13,9 +13,9 @@ class AboutMe extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
 
     return Responsivelayout(
-      mobile: mobileBody(widthBody: width, heightBody: height * 0.2, context: context),
-      desktop: desktopBody(widthBody: width, heightBody: height * 0.2, context: context),
-      tablet: tabletBody(widthBody: width, heightBody: height * 0.2, context: context),
+      mobile: (context) => mobileBody(widthBody: width, heightBody: height * 0.2, context: context),
+      desktop: (context) => desktopBody(widthBody: width, heightBody: height * 0.2, context: context),
+      tablet: (context) => tabletBody(widthBody: width, heightBody: height * 0.2, context: context),
     );
   }
 }
