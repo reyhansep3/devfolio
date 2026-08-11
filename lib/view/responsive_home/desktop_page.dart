@@ -5,10 +5,10 @@ import 'package:flutter_portofolio/view/sections/project_list.dart';
 import 'package:flutter_portofolio/view/sections/top_section.dart';
 import 'package:flutter_portofolio/view/utils.dart';
 import 'package:flutter_portofolio/view/widgets/navigation_bar.dart';
-import 'package:flutter_portofolio/view/sections/service_provide.dart';
 
 class DesktopPage extends StatefulWidget {
-  const DesktopPage({super.key});
+  final String initialSection;
+  const DesktopPage({super.key, this.initialSection = 'home'});
 
   @override
   State<DesktopPage> createState() => _DesktopPageState();
@@ -19,7 +19,21 @@ class _DesktopPageState extends State<DesktopPage> {
   final aboutKey = GlobalKey();
   final projectKey = GlobalKey();
   final contactKey = GlobalKey();
-  
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.initialSection == 'about') {
+        scrollTo(aboutKey);
+      } else if (widget.initialSection == 'project') {
+        scrollTo(projectKey);
+      } else if (widget.initialSection == 'contact') {
+        scrollTo(contactKey);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,10 +54,7 @@ class _DesktopPageState extends State<DesktopPage> {
             toolbarHeight: 80,
             flexibleSpace: Navbar(
               onNavTap: (section) {
-                if (section == "home") scrollTo(topKey);
-                if (section == "about") scrollTo(aboutKey);
-                if (section == "project") scrollTo(projectKey);
-                if (section == "contact") scrollTo(contactKey);
+                Navigator.pushReplacementNamed(context, sectionToRoute(section));
               },
             ),
           ),

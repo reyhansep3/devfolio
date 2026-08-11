@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/view/home_page.dart';
+import 'package:flutter_portofolio/view/utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Homepage(),
+      onGenerateRoute: (settings) {
+        final section = routeToSection(settings.name);
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => Homepage(initialSection: section),
+        );
+      },
     );
   }
 }
