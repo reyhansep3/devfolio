@@ -20,9 +20,13 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: (settings) {
         final section = routeToSection(settings.name);
-        return MaterialPageRoute(
+        return PageRouteBuilder(
           settings: settings,
-          builder: (context) => Homepage(initialSection: section),
+          pageBuilder: (context, _, __) => Homepage(initialSection: section),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              child,
         );
       },
     );
