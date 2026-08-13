@@ -48,7 +48,6 @@ Widget mobileBody({
           padding: EdgeInsets.only(
               left: mq.MediaQueryValues(context).width*0.15,
               right: mq.MediaQueryValues(context).width*0.15,
-              bottom: heightBody,
               top: mq.MediaQueryValues(context).height*0.08),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,11 +95,6 @@ Widget mobileBody({
                   ),
                 ),
               ),
-              // Text(
-              //   "KEEP BUILDING",
-              //   style: AppFontStyle.largeTextMono.copyWith(fontWeight: FontWeight.bold, color: AppColor.white, fontSize: 50),
-              //   textAlign: TextAlign.start,
-              // ),
               SizedBox(height: mq.MediaQueryValues(context).height*0.01,),
               FadeInUp(
                 config: BaseAnimationConfig(
@@ -127,7 +121,7 @@ Widget mobileBody({
                       ),
                     ),
                   ),
-                  SizedBox(width: mq.MediaQueryValues(context).width*0.02),
+                  SizedBox(height: mq.MediaQueryValues(context).height*0.03),
                   FadeInUp(
                   config: BaseAnimationConfig(
                     delay: 1000.ms,
@@ -139,7 +133,7 @@ Widget mobileBody({
                       ),
                     ),
                   ),
-                  SizedBox(width: mq.MediaQueryValues(context).width*0.02),
+                  SizedBox(height: mq.MediaQueryValues(context).height*0.03),
                   FadeInUp(
                     config: BaseAnimationConfig(
                       delay: 1000.ms,

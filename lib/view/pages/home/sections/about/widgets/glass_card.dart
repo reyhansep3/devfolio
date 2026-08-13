@@ -78,7 +78,6 @@ class _GlassCardState extends State<GlassCard> {
             children: [
               widget.title == "Responsive" ? responsiveCard() : 
               widget.title == "Fetching" ? fetchingCard() : moreCard(),
-              const Spacer(),
               Text(
                 widget.title,
                 style: const TextStyle(

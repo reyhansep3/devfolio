@@ -101,7 +101,7 @@ Widget projectTabletBody({
                       child: Center(
                         child: Text(
                           "A selection of projects showcasing my journey in mobile and web development, solving real-world problems through thoughtful design and clean code",
-                          style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                          style: AppFontStyle.poppinsBodyMedium.copyWith(color: AppColor.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -115,7 +115,7 @@ Widget projectTabletBody({
                       delay: 500.ms,
                       child: ProjectItemHover(
                         isPersonalProject: false,
-                        isMobile: false,
+                        isMobile: true,
                         isImageLeft: true,
                         image: const DidoPreview(),
                         title: "DIDO",
@@ -139,7 +139,7 @@ Widget projectTabletBody({
                       delay: 500.ms,
                       child: ProjectItemHover(
                         isPersonalProject: false,
-                        isMobile: false,
+                        isMobile: true,
                         isImageLeft: false,
                         image: const CKlinkPreview(),
                         title: "CKlink",
@@ -163,7 +163,7 @@ Widget projectTabletBody({
                       delay: 500.ms,
                       child: ProjectItemHover(
                         isPersonalProject: false,
-                        isMobile: false,
+                        isMobile: true,
                         isImageLeft: true,
                         image: const DeltaSpaPreview(),
                         title: "Delta Spa",
@@ -260,7 +260,7 @@ Widget projectTabletBody({
                       delay: 500.ms,
                       child: ProjectItemHover(
                         isPersonalProject: true,
-                        isMobile: false,
+                        isMobile: true,
                         isImageLeft: false,
                         image: const CardPreview(),
                         title: "Forum Discussion",
@@ -278,7 +278,7 @@ Widget projectTabletBody({
                       delay: 500.ms,
                       child: ProjectItemHover(
                         isPersonalProject: true,
-                        isMobile: false,
+                        isMobile: true,
                         isImageLeft: true,
                         image: const HistoryPreview(),
                         title: "Hi!Story",
@@ -296,7 +296,7 @@ Widget projectTabletBody({
                       delay: 500.ms,
                       child: ProjectItemHover(
                         isPersonalProject: true,
-                        isMobile: false,
+                        isMobile: true,
                         isImageLeft: false,
                         image: const BankuPreview(),
                         title: "BanKu",

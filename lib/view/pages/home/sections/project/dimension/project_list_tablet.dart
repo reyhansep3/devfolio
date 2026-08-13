@@ -111,7 +111,7 @@ Widget tabletBody({
                     delay: 1000.ms,
                     child: ProjectItemHover(
                       isPersonalProject: false,
-                      isMobile: false,
+                      isMobile: true,
                       isImageLeft: true,
                       image: const DidoPreview(),
                       title: "DIDO",
@@ -135,7 +135,7 @@ Widget tabletBody({
                     delay: 1000.ms,
                     child: ProjectItemHover(
                       isPersonalProject: false,
-                      isMobile: false,
+                      isMobile: true,
                       isImageLeft: false,
                       image: const CKlinkPreview(),
                       title: "CKlink",
@@ -159,7 +159,7 @@ Widget tabletBody({
                     delay: 1000.ms,
                     child: ProjectItemHover(
                       isPersonalProject: false,
-                      isMobile: false,
+                      isMobile: true,
                       isImageLeft: true,
                       image: const DeltaSpaPreview(),
                       title: "Delta Spa",

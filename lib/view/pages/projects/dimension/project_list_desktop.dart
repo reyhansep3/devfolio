@@ -102,7 +102,7 @@ Widget projectDesktopBody({
                       child: Center(
                         child: Text(
                           "A selection of projects showcasing my journey in mobile and web development, solving real-world problems through thoughtful design and clean code",
-                          style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                          style: AppFontStyle.poppinsBodyMedium.copyWith(color: AppColor.white),
                           textAlign: TextAlign.center,
                         ),
                       ),

@@ -129,7 +129,7 @@ Widget tabletBody({
                                   "Breaking layout behavior into a model that feels predictable.",
                             ),
                           ),
-                          SizedBox(width: mq.MediaQueryValues(context).width*0.02),
+                          SizedBox(height: mq.MediaQueryValues(context).height*0.03),
                           Expanded(
                             child: GlassCard(
                               width: mq.MediaQueryValues(context).width,
@@ -138,7 +138,7 @@ Widget tabletBody({
                                   "A simpler way to think about data flow and rendering tradeoffs.",
                             ),
                           ),
-                          SizedBox(width: mq.MediaQueryValues(context).width*0.02),
+                          SizedBox(height: mq.MediaQueryValues(context).height*0.03),
                           Expanded(
                             child: GlassCard(
                               width: mq.MediaQueryValues(context).width,

@@ -32,7 +32,6 @@ Widget mobilebBody({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               RepaintBoundary(
                 child: FadeInUp(
                   config: BaseAnimationConfig(
@@ -172,52 +171,6 @@ Widget mobilebBody({
                       },
                       tools: delta,
                       context: context,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
-
-              RepaintBoundary(
-                child: FadeInUp(
-                  config: BaseAnimationConfig(
-                    delay: 1000.ms,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.white.withValues(alpha:0.05),
-                                Colors.white.withValues(alpha:0.02),
-                              ],
-                            ),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha:0.1),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha:0.2),
-                                blurRadius: 15,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                                Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(width : mq.MediaQueryValues(context).width*0.005),
-                        
-                      ],
                     ),
                   ),
                 ),

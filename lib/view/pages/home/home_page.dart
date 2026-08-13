@@ -5,15 +5,16 @@ import 'package:flutter_portofolio/view/layouts/tablet/tablet_page.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 
 class Homepage extends StatelessWidget {
-  const Homepage({super.key});
+  final String section;
+  const Homepage({super.key, required this.section});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Responsivelayout(
-        desktop: (context) => const DesktopPage(),
-        mobile: (context) => const MobilePage(),
-        tablet: (context) => const TabletPage(),
+        desktop: (context) => DesktopPage(section: section),
+        mobile: (context) => MobilePage(section: section),
+        tablet: (context) => TabletPage(section: section),
       ),
     );
   }

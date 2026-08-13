@@ -89,7 +89,21 @@ Widget aboutMeDesktopBody(BuildContext context, double width, double height) {
                     ),
                   ),
                 ),
-                SizedBox(height: mq.MediaQueryValues(context).height*0.03,),
+                SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
+                RepaintBoundary(
+                  child: FadeInUp(
+                    config: BaseAnimationConfig(
+                      delay: 500.ms,
+                      child: Center(
+                        child: Text(
+                          "Mobile Developer with 3 years of experience developing scalable, high-performance applications,\ncollaborating with teams, and creating seamless user experiences.",
+                          style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Row(
                   children: [
                     RepaintBoundary(
