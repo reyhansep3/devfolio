@@ -19,8 +19,8 @@ class TabletPage extends StatelessWidget {
       backgroundColor: const Color(0xff00285d),
       body: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(
-            child: Navbar(),
+          SliverToBoxAdapter(
+            child: Navbar(selectedSection: section),
           ),
           if (section == 'formalities') ...[
             const SliverToBoxAdapter(child: FormalitiesSection()),

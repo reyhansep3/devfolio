@@ -6,7 +6,8 @@ import 'package:flutter_portofolio/view/responsive_layout.dart';
 
 class Navbar extends StatelessWidget {
   final Function(String)? onNavTap;
-  const Navbar({super.key, this.onNavTap});
+  final String? selectedSection;
+  const Navbar({super.key, this.onNavTap, this.selectedSection});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,10 @@ class Navbar extends StatelessWidget {
   }
 
   String _currentSection(BuildContext context) {
+    if (selectedSection != null && selectedSection!.isNotEmpty) {
+      return selectedSection!;
+    }
+
     final uri = GoRouter.of(context).state.uri;
     final path = uri.path;
     if (path == '/' || path.isEmpty || path == '/home') {
@@ -81,6 +86,74 @@ class Navbar extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isCompact = constraints.maxWidth < 920;
+        final navItems = [
+          {'key': 'home', 'label': 'HOME', 'width': 80.0},
+          {'key': 'formalities', 'label': 'ABOUT', 'width': 92.0},
+          {'key': 'project', 'label': 'PROJECT', 'width': 112.0},
+        ];
+
+        final activeIndex = navItems.indexWhere((item) => item['key'] == activeSection);
+        final indicatorWidth = activeIndex >= 0 ? navItems[activeIndex]['width'] as double : 80.0;
+        final indicatorX = navItems
+            .sublist(0, activeIndex >= 0 ? activeIndex : 0)
+            .fold<double>(0, (sum, item) => sum + (item['width'] as double) + 24);
+
+        // Widget navRow = Stack(
+        //   alignment: Alignment.centerLeft,
+        //   children: [
+        //     AnimatedContainer(
+        //       duration: const Duration(milliseconds: 320),
+        //       curve: Curves.easeInOutCubic,
+        //       transform: Matrix4.translationValues(indicatorX, 0, 0),
+        //       width: indicatorWidth,
+        //       height: 38,
+        //       decoration: BoxDecoration(
+        //         color: Colors.white.withValues(alpha: 0.08),
+        //         borderRadius: BorderRadius.circular(999),
+        //         border: Border.all(color: Colors.white.withValues(alpha: 0.18), width: 1),
+        //         boxShadow: [
+        //           BoxShadow(
+        //             color: Colors.tealAccent.withValues(alpha: 0.12),
+        //             blurRadius: 18,
+        //             spreadRadius: 0,
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     Row(
+        //       mainAxisSize: MainAxisSize.min,
+        //       children: navItems.map((item) {
+        //         final key = item['key'] as String;
+        //         final label = item['label'] as String;
+        //         final isActive = activeSection == key;
+        //         return Padding(
+        //           padding: const EdgeInsets.only(right: 24),
+        //           child: _navItem(
+        //             label,
+        //             isActive: isActive,
+        //             onTap: () => _navigate(context, key),
+        //           ),
+        //         );
+        //       }).toList(),
+        //     ),
+        //   ],
+        // );
+        Widget navRow = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: navItems.map((item) {
+            final key = item['key'] as String;
+            final label = item['label'] as String;
+            final isActive = activeSection == key;
+            return Padding(
+              padding: const EdgeInsets.only(right: 24),
+              child: _navItem(
+                label,
+                isActive: isActive,
+                onTap: () => _navigate(context, key),
+              ),
+            );
+          }).toList(),
+        );
 
         if (isCompact) {
           return Container(
@@ -124,28 +197,7 @@ class Navbar extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                Wrap(
-                  spacing: 16,
-                  runSpacing: 8,
-                  alignment: WrapAlignment.center,
-                  children: [
-                    _navItem(
-                      "HOME",
-                      isActive: activeSection == 'home',
-                      onTap: () => _navigate(context, 'home'),
-                    ),
-                    _navItem(
-                      "ABOUT",
-                      isActive: activeSection == 'formalities',
-                      onTap: () => _navigate(context, 'formalities'),
-                    ),
-                    _navItem(
-                      "PROJECT",
-                      isActive: activeSection == 'project',
-                      onTap: () => _navigate(context, 'project'),
-                    ),
-                  ],
-                ),
+                Center(child: navRow),
               ],
             ),
           );
@@ -175,27 +227,7 @@ class Navbar extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  _navItem(
-                    "HOME",
-                    isActive: activeSection == 'home',
-                    onTap: () => _navigate(context, 'home'),
-                  ),
-                  const SizedBox(width: 30),
-                  _navItem(
-                    "ABOUT",
-                    isActive: activeSection == 'formalities',
-                    onTap: () => _navigate(context, 'formalities'),
-                  ),
-                  const SizedBox(width: 30),
-                  _navItem(
-                    "PROJECT",
-                    isActive: activeSection == 'project',
-                    onTap: () => _navigate(context, 'project'),
-                  ),
-                ],
-              ),
+              navRow,
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
@@ -214,29 +246,43 @@ class Navbar extends StatelessWidget {
     );
   }
 
-  Widget _navItem(
-    String title, {
-    bool isActive = false,
-    VoidCallback? onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: isActive
-            ? BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.white),
-              )
-            : null,
-        child: Text(
-          title,
-          style: AppFontStyle.vcrMonoBodyLarge.copyWith(
-            color: isActive ? Colors.tealAccent : Colors.white,
-            fontSize: 15,
-          ),
+Widget _navItem(
+  String title, {
+  bool isActive = false,
+  VoidCallback? onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: AnimatedContainer(
+      duration: const Duration(milliseconds: 320),
+      curve: Curves.easeInOutCubic,
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+      decoration: BoxDecoration(
+        color: isActive ? Colors.white.withValues(alpha: 0.08) : Colors.transparent,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(
+          color: isActive ? Colors.white.withValues(alpha: 0.20) : Colors.transparent,
+          width: 1,
+        ),
+        boxShadow: isActive
+          ? [
+              BoxShadow(
+                color: Colors.tealAccent.withValues(alpha: 0.12),
+                blurRadius: 18,
+                spreadRadius: 0,
+              ),
+            ]
+          : [],
+      ),
+      child: Text(
+        title,
+        style: AppFontStyle.vcrMonoBodyLarge.copyWith(
+          color: isActive ? Colors.tealAccent : Colors.white,
+          fontSize: 15,
+          fontWeight: isActive ? FontWeight.w700 : FontWeight.normal,
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

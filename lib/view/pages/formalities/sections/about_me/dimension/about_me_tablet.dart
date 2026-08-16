@@ -97,14 +97,14 @@ Widget aboutMeTabletBody(BuildContext context, double width, double height) {
                       child: Center(
                         child: Text(
                           "Mobile Developer with 3 years of experience developing scalable, high-performance applications, UDAHcollaborating with teams, and creating seamless user experiences.",
-                          style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                          style: AppFontStyle.poppinsBodyMedium.copyWith(color: AppColor.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
+                SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
                 Row(
                   children: [
                     RepaintBoundary(

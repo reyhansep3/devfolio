@@ -64,50 +64,95 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
       SizedBox(height: context.height * 0.01),
       SizedBox(
         height: context.height * 0.06,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.tools.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(right: context.width * 0.01),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withValues(alpha: 0.05),
-                      Colors.white.withValues(alpha: 0.02),
-                    ],
+        child: widget.isMobile
+            ? Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: widget.tools.map<Widget>((tool) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: context.width * 0.01),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.white.withValues(alpha: 0.05),
+                                Colors.white.withValues(alpha: 0.02),
+                              ],
+                            ),
+                            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: 15,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Center(
+                              child: Text(
+                                tool,
+                                style: AppFontStyle.poppinsBodySmall.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.grey2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      blurRadius: 15,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      widget.tools[index],
-                      style: AppFontStyle.poppinsBodySmall.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.grey2,
+              )
+            : ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.tools.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: context.width * 0.01),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withValues(alpha: 0.05),
+                            Colors.white.withValues(alpha: 0.02),
+                          ],
+                        ),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.2),
+                            blurRadius: 15,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Center(
+                          child: Text(
+                            widget.tools[index],
+                            style: AppFontStyle.poppinsBodySmall.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.grey2,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
-      SizedBox(height: context.height * 0.01),
+      SizedBox(height: context.height * 0.03),
       if(!widget.isPersonalProject)
       Row(
+        mainAxisAlignment: widget.isMobile ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: widget.appstore,
@@ -260,12 +305,12 @@ class _ProjectItemHoverState extends State<ProjectItemHover> {
                         ],
                 )
               : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     widget.image,
                     SizedBox(height: context.height * 0.02),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: textChildren,
                     ),
                   ],

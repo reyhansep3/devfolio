@@ -15,7 +15,9 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/',
       name: 'home',
-      builder: (context, state) => const Homepage(section: 'home'),
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: Homepage(section: 'home'),
+      ),
     ),
     GoRoute(
       path: '/home',
@@ -24,12 +26,16 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/formalities',
       name: 'formalities',
-      builder: (context, state) => const Homepage(section: 'formalities'),
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: Homepage(section: 'formalities'),
+      ),
     ),
     GoRoute(
       path: '/project',
       name: 'project',
-      builder: (context, state) => const Homepage(section: 'project'),
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: Homepage(section: 'project'),
+      ),
     ),
   ],
   errorBuilder: (context, state) => const Homepage(section: 'home'),
@@ -42,7 +48,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

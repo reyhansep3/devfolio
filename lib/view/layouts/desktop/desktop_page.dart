@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
@@ -22,7 +23,7 @@ class DesktopPage extends StatelessWidget {
           Container(
             height: 80,
             color: Colors.black,
-            child: const Navbar(),
+            child: Navbar(selectedSection: section),
           ),
           Expanded(
             child: _buildPage(context),
@@ -55,6 +56,7 @@ class DesktopPage extends StatelessWidget {
         slivers: [
           const SliverToBoxAdapter(child: FormalitiesSection()),
           SliverToBoxAdapter(child: ExperienceSection()),
+          const SliverToBoxAdapter(child: ContactSection()),
         ],
       );
     }
@@ -64,6 +66,16 @@ class DesktopPage extends StatelessWidget {
         key: const ValueKey('project'),
         slivers: [
           SliverToBoxAdapter(child: ProjectList()),
+          const SliverToBoxAdapter(child: ContactSection()),
+        ],
+      );
+    }
+
+    if (section == 'blog') {
+      return const CustomScrollView(
+        key: ValueKey('blog'),
+        slivers: [
+          SliverToBoxAdapter(child: DetailBlog()),
         ],
       );
     }

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_portofolio/core/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DidoPreview extends StatelessWidget {
   const DidoPreview({super.key});
 
-  final String urlDIDO =
-      "https://play.google.com/store/apps/details?id=com.cklcargo.driveindriveoff&hl=en";
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _launchURL(urlDIDO),
+      onTap: () => _launchURL(urlCklink),
       borderRadius: BorderRadius.circular(12),
 
       child: Ink(

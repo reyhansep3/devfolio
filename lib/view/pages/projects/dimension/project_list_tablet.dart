@@ -33,7 +33,7 @@ Widget projectTabletBody({
           bottom: mq.MediaQueryValues(context).width*0.05,
           top: mq.MediaQueryValues(context).height*0.08),
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 RepaintBoundary(
                   child: FadeInUp(
