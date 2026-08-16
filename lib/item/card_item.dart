@@ -174,10 +174,13 @@ class _CardItemState extends State<CardItem> {
                     style: GoogleFonts.poppins(
                         fontSize: 15, fontWeight: FontWeight.w400),
                   ),
-                  Text(
-                    "- Responsive",
-                    style: GoogleFonts.poppins(
-                        fontSize: 15, fontWeight: FontWeight.w400),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/blog/getting-started'),
+                    child: Text(
+                      "- Responsive",
+                      style: GoogleFonts.poppins(
+                          fontSize: 15, fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
+                    ),
                   ),
                   Text(
                     "- Photoshop",
