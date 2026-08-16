@@ -1,0 +1,14 @@
+[
+  {
+    "id": "getting-started",
+    "title": "Getting Started with Flutter",
+    "subtitle": "A short introduction to building apps with Flutter",
+    "content": "# Getting Started\n\n## Introduction\nFlutter is an open-source UI software development toolkit created by Google.\n\n## Setup\nTo get started, install Flutter SDK and set up your editor.\n\n## First App\nCreate a new project with `flutter create my_app` and run it.\n\n## Conclusion\nYou're ready to build beautiful cross-platform apps with Flutter."
+  },
+  {
+    "id": "state-management",
+    "title": "State Management Options",
+    "subtitle": "Overview of common approaches for state management",
+    "content": "# State Management\n\n## setState\nThe simplest way to manage state in Flutter is using setState in StatefulWidget.\n\n## Provider\nProvider is a recommended approach for scalable applications.\n\n## Bloc\nBloc offers a more structured approach for complex apps.\n\n## Conclusion\nChoose the right tool based on app complexity."
+  }
+]
