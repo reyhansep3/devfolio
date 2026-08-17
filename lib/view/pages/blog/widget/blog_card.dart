@@ -23,26 +23,43 @@ Widget blogCard(
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColor.white,
+        gradient: LinearGradient(
+          colors: [
+            Colors.white.withValues(alpha: 0.03),
+            Colors.white.withValues(alpha: 0.01),
+          ],
         ),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.06),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.18),
+            blurRadius: 12,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppColor.white,
-              ),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
             ),
-            height: mq.MediaQueryValues(context).height * 0.4,
-            width: double.infinity,
-            child: Image.asset(
-              "assets/image/mobile_size_blog.png",
-              fit: BoxFit.contain,
+            child: Container(
+              color: Colors.black,
+              height: mq.MediaQueryValues(context).height * 0.38,
+              width: double.infinity,
+              child: Image.asset(
+                blog['image']?.toString() ?? "assets/image/mobile_size_blog.png",
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => Image.asset(
+                  "assets/image/mobile_size_blog.png",
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
           ),
 
@@ -50,7 +67,7 @@ Widget blogCard(
 
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 15,
+              horizontal: 18,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +77,7 @@ Widget blogCard(
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppFontStyle.poppinsBodyLarge.copyWith(
-                    fontSize: 25,
+                    fontSize: 22,
                     color: AppColor.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -73,7 +90,7 @@ Widget blogCard(
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: AppFontStyle.poppinsBodyLarge.copyWith(
-                    fontSize: 15,
+                    fontSize: 14,
                     color: AppColor.grey2,
                   ),
                 ),
@@ -86,9 +103,9 @@ Widget blogCard(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "4 Min Read",
+                  blog['read_time']?.toString() ?? "4 Min Read",
                   style: AppFontStyle.poppinsBodyLarge.copyWith(
-                    fontSize: 15,
+                    fontSize: 14,
                     color: AppColor.grey2,
                   ),
                 ),

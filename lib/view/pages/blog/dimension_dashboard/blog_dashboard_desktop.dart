@@ -139,54 +139,102 @@ class _BlogDashboardDesktopState extends State<BlogDashboardDesktop> {
     const navbarHeight = 80.0; // masih belum fix
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: mq.MediaQueryValues(context).width * 0.1),
+      padding: EdgeInsets.only(
+        left: mq.MediaQueryValues(context).width * 0.15,
+        right: mq.MediaQueryValues(context).width * 0.15,
+      ),
       decoration: const BoxDecoration(
-        color: Colors.black
+        color: Color(0xff00285d),
       ),
       width: mq.MediaQueryValues(context).width,
       height: screenHeight - navbarHeight,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(vertical: 32.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withValues(alpha: 0.04),
+                          Colors.white.withValues(alpha: 0.02),
+                        ],
+                      ),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.06),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.18),
+                          blurRadius: 12,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: Text(
+                      'BLOG',
+                      style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+                        color: AppColor.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    'Insights & Articles',
+                    style: AppFontStyle.poppinsBodyLarge.copyWith(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.white,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: mq.MediaQueryValues(context).height * 0.02),
               Text(
-                "Thoughts, tutorials, and\nthings i’ve learned",
+                "Thoughts, tutorials, and things I’ve learned",
                 style: AppFontStyle.poppinsBodyLarge.copyWith(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold
+                  fontSize: 42,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.white,
                 ),
               ),
-              SizedBox(height: mq.MediaQueryValues(context).height*0.01,),
+              SizedBox(height: mq.MediaQueryValues(context).height * 0.01),
               Container(
                 height: 1,
-                width: mq.MediaQueryValues(context).width*0.35,
-                color: AppColor.white,
+                width: mq.MediaQueryValues(context).width * 0.35,
+                color: AppColor.white.withValues(alpha: 0.2),
               ),
-              SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
+              SizedBox(height: mq.MediaQueryValues(context).height * 0.02),
               Text(
-                "Sharing my journey in mobile development, clean architecture, and\nbuilding better user experiences",
+                "Sharing my journey in mobile development, clean architecture, and building better user experiences",
                 style: AppFontStyle.poppinsBodyLarge.copyWith(
-                  color: AppColor.grey2
+                  color: AppColor.grey2,
+                  fontSize: 16,
                 ),
               ),
-              SizedBox(height: mq.MediaQueryValues(context).height*0.03,),
+              SizedBox(height: mq.MediaQueryValues(context).height * 0.04),
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 100,
-                  mainAxisSpacing: 100,
+                  crossAxisSpacing: mq.MediaQueryValues(context).width * 0.05,
+                  mainAxisSpacing: mq.MediaQueryValues(context).height * 0.05,
+                  childAspectRatio: 1.15,
                 ),
                 itemCount: blogs.length,
                 itemBuilder: (context, index) {
                   final blog = blogs[index];
                   return blogCard(
                     context,
-                    blog
+                    blog,
                   );
                 },
               ),
