@@ -12,31 +12,7 @@ class ContactSection extends StatefulWidget {
 }
 
 class _ContactSectionState extends State<ContactSection> {
-  //   final String email = "reyhanseptri@gmail.com";
-
-  // void _launchEmail() async {
-  //   final Uri params = Uri(
-  //     scheme: 'mailto',
-  //     path: email,
-  //     query: 'subject=Contacting You&body=Hello, I would like to discuss...', // Optional parameters
-  //   );
-
-  //   var url = params.toString();
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     // Handle the error if the email app can't be opened
-  //     throw 'Could not launch $url';
-  //   }
-  // }
-
-  // void _launchWhatsapp() async {
-  //  const url = "https://wa.me/6281378850755";
-  //  if (await canLaunch(url)) {
-  //    await launch(url);
-  //  } else {
-  //  throw 'Could not launch $url';
-  // }
+ 
   @override
   Widget build(BuildContext context) {
     return Container(

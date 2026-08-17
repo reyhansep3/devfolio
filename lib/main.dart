@@ -37,6 +37,13 @@ final GoRouter _router = GoRouter(
         child: Homepage(section: 'project'),
       ),
     ),
+    GoRoute(
+      path: '/blog',
+      name: 'blog',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: Homepage(section: 'blog'),
+      ),
+    ),
   ],
   errorBuilder: (context, state) => const Homepage(section: 'home'),
 );

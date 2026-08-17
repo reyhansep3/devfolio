@@ -90,54 +90,8 @@ class Navbar extends StatelessWidget {
           {'key': 'home', 'label': 'HOME', 'width': 80.0},
           {'key': 'formalities', 'label': 'ABOUT', 'width': 92.0},
           {'key': 'project', 'label': 'PROJECT', 'width': 112.0},
+          {'key': 'blog', 'label': 'BLOG', 'width': 112.0},
         ];
-
-        final activeIndex = navItems.indexWhere((item) => item['key'] == activeSection);
-        final indicatorWidth = activeIndex >= 0 ? navItems[activeIndex]['width'] as double : 80.0;
-        final indicatorX = navItems
-            .sublist(0, activeIndex >= 0 ? activeIndex : 0)
-            .fold<double>(0, (sum, item) => sum + (item['width'] as double) + 24);
-
-        // Widget navRow = Stack(
-        //   alignment: Alignment.centerLeft,
-        //   children: [
-        //     AnimatedContainer(
-        //       duration: const Duration(milliseconds: 320),
-        //       curve: Curves.easeInOutCubic,
-        //       transform: Matrix4.translationValues(indicatorX, 0, 0),
-        //       width: indicatorWidth,
-        //       height: 38,
-        //       decoration: BoxDecoration(
-        //         color: Colors.white.withValues(alpha: 0.08),
-        //         borderRadius: BorderRadius.circular(999),
-        //         border: Border.all(color: Colors.white.withValues(alpha: 0.18), width: 1),
-        //         boxShadow: [
-        //           BoxShadow(
-        //             color: Colors.tealAccent.withValues(alpha: 0.12),
-        //             blurRadius: 18,
-        //             spreadRadius: 0,
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: navItems.map((item) {
-        //         final key = item['key'] as String;
-        //         final label = item['label'] as String;
-        //         final isActive = activeSection == key;
-        //         return Padding(
-        //           padding: const EdgeInsets.only(right: 24),
-        //           child: _navItem(
-        //             label,
-        //             isActive: isActive,
-        //             onTap: () => _navigate(context, key),
-        //           ),
-        //         );
-        //       }).toList(),
-        //     ),
-        //   ],
-        // );
         Widget navRow = Row(
           mainAxisSize: MainAxisSize.min,
           children: navItems.map((item) {

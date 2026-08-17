@@ -3,6 +3,7 @@ import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
+import 'package:flutter_portofolio/view/pages/blog/blog_list.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/about/widgets/glass_card.dart';
 
 Widget desktopBody({
@@ -152,11 +153,19 @@ Widget desktopBody({
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: GlassCard(
-                                width: mq.MediaQueryValues(context).width,
-                                title: "Responsive",
-                                description:
-                                    "Breaking layout behavior into a model that feels predictable.",
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (BuildContext context){
+                                    return const BlogListPage();
+                                  }));
+                                },
+                                child: GlassCard(
+                                  width: mq.MediaQueryValues(context).width,
+                                  title: "Responsive",
+                                  description:
+                                      "Breaking layout behavior into a model that feels predictable.",
+                                ),
                               ),
                             ),
                             SizedBox(width: mq.MediaQueryValues(context).width*0.02),
