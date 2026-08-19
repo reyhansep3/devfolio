@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portofolio/view/pages/blog/blog_list.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
-import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';

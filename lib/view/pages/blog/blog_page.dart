@@ -10,8 +10,8 @@ class BlogPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Responsivelayout(
       desktop: (context) => const BlogDashboardDesktop(),
-      mobile: (context) => const BlogDashboardTablet(section: 'blog'),
-      tablet: (context) => const BlogDashboardTablet(section: 'blog'),
+      mobile: (context) => const BlogDashboardTablet(),
+      tablet: (context) => const BlogDashboardTablet(),
     );
   }
 }

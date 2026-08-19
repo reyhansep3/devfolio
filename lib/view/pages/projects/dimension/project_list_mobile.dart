@@ -26,307 +26,369 @@ Widget projectMobilebBody({
 }) {
   return Container(
     decoration: const BoxDecoration(color: Colors.black),
-    child: Padding(
-      padding: EdgeInsets.only(
-        left: mq.MediaQueryValues(context).width*0.15,
-        right: mq.MediaQueryValues(context).width*0.15,
-        bottom: mq.MediaQueryValues(context).width*0.05,
-        top: mq.MediaQueryValues(context).height*0.08),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 500.ms,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white.withValues(alpha:0.05),
-                                  Colors.white.withValues(alpha:0.02),
-                                ],
+    width: double.infinity,
+    child: Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: mq.MediaQueryValues(context).height * 0.4,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Opacity(
+                  opacity: 0.7,
+                  child: Image.asset(
+                    "assets/image/blog_background.png",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.white.withValues(alpha: 0.05),
+                                Colors.white.withValues(alpha: 0.02),
+                              ],
+                            ),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.1),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: 15,
+                                offset: const Offset(0, 10),
                               ),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha:0.1),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha:0.2),
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 10),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  color: Colors.green,
+                                  size: mq.MediaQueryValues(context)
+                                          .height *
+                                      0.02,
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: Colors.green,
+                                  size: mq.MediaQueryValues(context)
+                                          .height *
+                                      0.02,
                                 ),
                               ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                                  Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                                
-                                ],
-                              ),
-                            ),
                           ),
-                          SizedBox(width : mq.MediaQueryValues(context).width*0.005),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "PROJECT",
-                                  style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                        ),
+
+                        SizedBox(
+                          width: mq.MediaQueryValues(context).width * 0.005,
+                        ),
+
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: " PROJECT",
+                                style: AppFontStyle
+                                    .vcrMonoHeadingSmall
+                                    .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.white,
                                 ),
-                                TextSpan(
-                                  text: " SHOWCASE",
-                                  style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.yellowgreen),
-                                )
-                              ]
-                            )
+                              ),
+                              TextSpan(
+                                text: " SHOWCASE",
+                                style: AppFontStyle
+                                    .vcrMonoHeadingSmall
+                                    .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.yellowgreen,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ),
+
+                    SizedBox(
+                      height:
+                        mq.MediaQueryValues(context).height * 0.02,
+                    ),
+
+                    Text(
+                      "A selection of projects showcasing my journey in mobile and web development,\nsolving real-world problems through thoughtful design and clean code",
+                      style: AppFontStyle.poppinsBodyMedium.copyWith(
+                        color: AppColor.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 500.ms,
-                      child: Center(
-                        child: Text(
-                          "A selection of projects showcasing my journey in mobile and web development, solving real-world problems through thoughtful design and clean code",
-                          style: AppFontStyle.poppinsBodyMedium.copyWith(color: AppColor.white),
-                          textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: mq.MediaQueryValues(context).width*0.15,
+            right: mq.MediaQueryValues(context).width*0.15,
+            bottom: mq.MediaQueryValues(context).width*0.05,
+            top: mq.MediaQueryValues(context).height*0.08),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
+                    // RepaintBoundary(
+                    //   child: FadeInUp(
+                    //     config: BaseAnimationConfig(
+                    //       delay: 500.ms,
+                    //       child: Center(
+                    //         child: Text(
+                    //           "A selection of projects showcasing my journey in mobile and web development, solving real-world problems through thoughtful design and clean code",
+                    //           style: AppFontStyle.poppinsBodyMedium.copyWith(color: AppColor.white),
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 500.ms,
+                          child: ProjectItemHover(
+                            isPersonalProject: false,
+                            isMobile: true,
+                            isImageLeft: true,
+                            image: const DidoPreview(),
+                            title: "DIDO",
+                            desc: "Drive In Drop Off: Exclusive Cargo Delivery Companion by PT CKL Indonesia Raya",
+                            playstore: (){
+                          
+                            },
+                            appstore: (){
+                              
+                            },
+                            tools: dido,
+                            context: context,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 500.ms,
-                      child: ProjectItemHover(
-                        isPersonalProject: false,
-                        isMobile: true,
-                        isImageLeft: true,
-                        image: const DidoPreview(),
-                        title: "DIDO",
-                        desc: "Drive In Drop Off: Exclusive Cargo Delivery Companion by PT CKL Indonesia Raya",
-                        playstore: (){
-                      
-                        },
-                        appstore: (){
+                    
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 500.ms,
+                          child: ProjectItemHover(
+                            isPersonalProject: false,
+                            isMobile: true,
+                            isImageLeft: false,
+                            image: const CKlinkPreview(),
+                            title: "CKlink",
+                            desc: "CKLink is an internal management tool handling attendance, employee data, and more.",
+                            playstore: (){
                           
-                        },
-                        tools: dido,
-                        context: context,
-                      ),
-                    ),
-                  ),
-                ),
-                
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 500.ms,
-                      child: ProjectItemHover(
-                        isPersonalProject: false,
-                        isMobile: true,
-                        isImageLeft: false,
-                        image: const CKlinkPreview(),
-                        title: "CKlink",
-                        desc: "CKLink is an internal management tool handling attendance, employee data, and more.",
-                        playstore: (){
-                      
-                        },
-                        appstore: (){
-                          
-                        },
-                        tools: cklink,
-                        context: context,
-                      ),
-                    ),
-                  ),
-                ),
-                
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 500.ms,
-                      child: ProjectItemHover(
-                        isPersonalProject: false,
-                        isMobile: true,
-                        isImageLeft: true,
-                        image: const DeltaSpaPreview(),
-                        title: "Delta Spa",
-                        desc: "Premium men's wellness app for booking and services.",
-                        playstore: (){
-                      
-                        },
-                        appstore: (){
-                          
-                        },
-                        tools: delta,
-                        context: context,
-                      ),
-                    ),
-                  ),
-                ),
-    
-                SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
-    
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 500.ms,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white.withValues(alpha:0.05),
-                                  Colors.white.withValues(alpha:0.02),
-                                ],
-                              ),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha:0.1),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha:0.2),
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                                  Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                                ],
-                              ),
-                            ),
+                            },
+                            appstore: (){
+                              
+                            },
+                            tools: cklink,
+                            context: context,
                           ),
-                          SizedBox(width : mq.MediaQueryValues(context).width*0.005),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Personal",
-                                  style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.yellowgreen),
+                        ),
+                      ),
+                    ),
+                    
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 500.ms,
+                          child: ProjectItemHover(
+                            isPersonalProject: false,
+                            isMobile: true,
+                            isImageLeft: true,
+                            image: const DeltaSpaPreview(),
+                            title: "Delta Spa",
+                            desc: "Premium men's wellness app for booking and services.",
+                            playstore: (){
+                          
+                            },
+                            appstore: (){
+                              
+                            },
+                            tools: delta,
+                            context: context,
+                          ),
+                        ),
+                      ),
+                    ),
+        
+                    SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
+        
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 500.ms,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.white.withValues(alpha:0.05),
+                                      Colors.white.withValues(alpha:0.02),
+                                    ],
+                                  ),
+                                  border: Border.all(
+                                    color: Colors.white.withValues(alpha:0.1),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(alpha:0.2),
+                                      blurRadius: 15,
+                                      offset: const Offset(0, 10),
+                                    ),
+                                  ],
                                 ),
-                                TextSpan(
-                                  text: " Projects",
-                                  style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
+                                      Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width : mq.MediaQueryValues(context).width*0.005),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "Personal",
+                                      style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.yellowgreen),
+                                    ),
+                                    TextSpan(
+                                      text: " Projects",
+                                      style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 1000.ms,
-                      child: Text(
-                        "Projects that keep my passion for technology alive.",
-                        style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
-                        textAlign: TextAlign.center,
+                    
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 1000.ms,
+                          child: Text(
+                            "Projects that keep my passion for technology alive.",
+                            style: AppFontStyle.poppinsBodyMedium.copyWith(fontWeight: FontWeight.bold, color: AppColor.grey2),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 1000.ms,
-                      child: ProjectItemHover(
-                        isPersonalProject: true,
-                        isMobile: true,
-                        isImageLeft: false,
-                        image: const CardPreview(),
-                        title: "Forum Discussion",
-                        desc: "Forum Group Discussion is a mobile application that enables users to create and join communities to discuss their hobbies and interests with others online.",
-                        playstore: (){
-                      
-                        },
-                        appstore: (){
+                    SizedBox(height: mq.MediaQueryValues(context).height*0.05,),
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 1000.ms,
+                          child: ProjectItemHover(
+                            isPersonalProject: true,
+                            isMobile: true,
+                            isImageLeft: false,
+                            image: const CardPreview(),
+                            title: "Forum Discussion",
+                            desc: "Forum Group Discussion is a mobile application that enables users to create and join communities to discuss their hobbies and interests with others online.",
+                            playstore: (){
                           
-                        },
-                        tools: dido,
-                        context: context,
+                            },
+                            appstore: (){
+                              
+                            },
+                            tools: dido,
+                            context: context,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 1000.ms,
-                      child: ProjectItemHover(
-                        isPersonalProject: true,
-                        isMobile: true,
-                        isImageLeft: true,
-                        image: const HistoryPreview(),
-                        title: "Hi!Story",
-                        desc: "Hi!Story is a mobile application that allows users to discover and review museums based on their interests and experiences.",
-                        playstore: (){
-                      
-                        },
-                        appstore: (){
+                    
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 1000.ms,
+                          child: ProjectItemHover(
+                            isPersonalProject: true,
+                            isMobile: true,
+                            isImageLeft: true,
+                            image: const HistoryPreview(),
+                            title: "Hi!Story",
+                            desc: "Hi!Story is a mobile application that allows users to discover and review museums based on their interests and experiences.",
+                            playstore: (){
                           
-                        },
-                        tools: cklink,
-                        context: context,
+                            },
+                            appstore: (){
+                              
+                            },
+                            tools: cklink,
+                            context: context,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                
-                RepaintBoundary(
-                  child: FadeInUp(
-                    config: BaseAnimationConfig(
-                      delay: 1000.ms,
-                      child: ProjectItemHover(
-                        isPersonalProject: true,
-                        isMobile: true,
-                        isImageLeft: false,
-                        image: const BankuPreview(),
-                        title: "BanKu",
-                        desc: "BanKu is a mobile application designed to provide users with access to a wide collection of novels that can be read online for free.",
-                        playstore: (){
-                      
-                        },
-                        appstore: (){
+                    
+                    RepaintBoundary(
+                      child: FadeInUp(
+                        config: BaseAnimationConfig(
+                          delay: 1000.ms,
+                          child: ProjectItemHover(
+                            isPersonalProject: true,
+                            isMobile: true,
+                            isImageLeft: false,
+                            image: const BankuPreview(),
+                            title: "BanKu",
+                            desc: "BanKu is a mobile application designed to provide users with access to a wide collection of novels that can be read online for free.",
+                            playstore: (){
                           
-                        },
-                        tools: delta,
-                        context: context,
+                            },
+                            appstore: (){
+                              
+                            },
+                            tools: delta,
+                            context: context,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-          ],
+              ],
+            ),
         ),
+      ],
     ),
   );
 }

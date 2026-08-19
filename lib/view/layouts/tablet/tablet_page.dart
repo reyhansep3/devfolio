@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
@@ -27,6 +28,9 @@ class TabletPage extends StatelessWidget {
             SliverToBoxAdapter(child: ExperienceSection()),
           ] else if (section == 'project') ...[
             SliverToBoxAdapter(child: ProjectList()),
+          ] else if (section == 'blog') ...[
+            const SliverToBoxAdapter(child: BlogPage()),
+            const SliverToBoxAdapter(child: ContactSection())
           ] else ...[
             const SliverToBoxAdapter(child: TopSection()),
             const SliverToBoxAdapter(child: AboutMe()),

@@ -8,14 +8,14 @@ import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
 import 'package:flutter_portofolio/view/pages/blog/widget/blog_card.dart';
 
-class BlogDashboardTablet extends StatefulWidget {
-  const BlogDashboardTablet({super.key});
+class BlogDashboardMobile extends StatefulWidget {
+  const BlogDashboardMobile({super.key});
 
   @override
-  State<BlogDashboardTablet> createState() => _BlogDashboardTabletState();
+  State<BlogDashboardMobile> createState() => _BlogDashboardMobileState();
 }
 
-class _BlogDashboardTabletState extends State<BlogDashboardTablet> {
+class _BlogDashboardMobileState extends State<BlogDashboardMobile> {
   List<Map<String, dynamic>> blogs = [];
 
   bool isLoading = true;
