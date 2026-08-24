@@ -1,0 +1,238 @@
+{
+    "blog":[ 
+        {
+            "id" : 1,
+            "title": "Smaller app size, the better",
+            "subtitle": "My experience: how I managed to reduce my Flutter app size by 50%",
+            "sections": [
+                {
+                "type": "introduction",
+                "title": "Introduction",
+                "content": "After finishing an app, it feels amazing, but there was something bothering me while I was about to build the APK. At first, I thought, \"Oh, it's just a raw app build, so it makes sense why the size is bigger.\" Then I tried pushing the app live, and once it was up and running on the Play Store, I got the same realization: \"Hmm, why does the app size still feel big, even though it's already reduced thanks to App Bundle and the Play Store/App Store?\" So, out of my own curiosity, I tried tweaking my own code to find the root cause of it. After a lot of tweaking and debugging, it was finally done, and the app now feels much smaller. It gave me a real sense of achievement. Based on that experience, I want to show you how I managed to do it."
+                },
+                {
+                "type": "question",
+                "title": "Why do I need to reduce the app size?",
+                "question": "As long as it works, why do I need to reduce the app size?",
+                "content": "Good question! Some developers just take the easy route and leave the app size as is. But personally, I find it annoying when an app is way bigger than it needs to be. Also, my phone's storage is limited, so that's another reason I try to keep app sizes small. Plus, a smaller app usually means faster downloads and installs, which is a win for users too — especially those on slower internet or with older phones that don't have much storage to spare."
+                },
+                {
+                "type": "section",
+                "title": "Cleaning the unused packages/dependencies",
+                "content": "For a Flutter developer, or any developer who works with dependencies, \"dependencies\" or \"packages\" are nothing unfamiliar. They're tools or libraries we use in our code, added into the project so we can use their functionality when needed. Usually, while coding, we start out using certain packages, but later find a better alternative, so the old one just gets left behind in the code and forgotten. Over time, these unused packages pile up, and while modern build tools like Flutter's can strip out code that's never referenced, that tree shaking isn't always perfect, especially for packages that include native code, assets, or platform-specific files. On top of that, unused dependencies still bloat the pubspec.yaml and lockfile, slow down pub get and build times, and can introduce outdated or unmaintained code that's a potential security risk. Because of that, I make it a habit to remove unused packages. It keeps the codebase cleaner, speeds up builds, reduces potential security risks, and helps avoid unnecessary bloat in the production build."
+                },
+                {
+                "type": "section",
+                "title": "Deleting unused assets and compressing large assets",
+                "content": "For frontend development, assets are usually used to complete the UI. But did you know that using assets impacts your app size? Assets are stored directly in the app's storage, specifically in the app's asset directory. Also, the more assets you use — used or unused — in an app, the more space gets consumed. All these assets get bundled together into the app's package, whether it's an APK, AAB, or .app file, which directly increases the app's size. So, build the habit of compressing large-size assets and removing unused ones."
+                },
+                {
+                "type": "section",
+                "title": "Finding the real problem",
+                "content": "While digging deeper, I found the real problem: one package was bundling a large amount of data directly inside the app — JSON files, high-res images, videos, reference data, and more. This single \"data-heavy\" package turned out to be the biggest contributor to the app size, adding around 82.4 MB by itself. The issue was, every user downloaded everything, even if they only needed a small portion of it. This one package alone was contributing significantly to the initial app size, pushing it up to 158.7 MB.",
+                "key_takeaway": "Sometimes the biggest problem isn't in your code — it's in what you ship with your app."
+                },
+                {
+                "type": "section",
+                "title": "Changing the approach",
+                "content": "So instead of bundling everything inside the app, I moved the large resources to cloud storage and fetched them on-demand via API, with local caching to avoid downloading the same data repeatedly. Rather than shipping the app with all the data baked in, the app now installs smaller, and only downloads the data from the cloud when the user actually needs it — then stores it in a local cache for faster access next time.",
+                "comparison": {
+                    "before": "Everything bundled inside the app → large initial download, uses more storage, large update size, and users end up downloading things they may never use.",
+                    "after": "Data stored in cloud storage and downloaded via API only when needed, then cached locally → smaller initial download, less storage used, smaller update size, and users only download what they actually need."
+                },
+                "result": {
+                    "before_size": "128 MB",
+                    "after_size": "56 MB",
+                    "reduction": "roughly 50%"
+                },
+                "results_text": "The results? Smaller app size, less storage used, faster installs, and happier users.",
+                "key_takeaway": "Optimize the delivery, not just the code. Give users control by letting them download what they need."
+                },
+                {
+                "type": "bonus",
+                "title": "Bonus",
+                "sections": [
+                    {
+                    "title": "Honorable Mentions",
+                    "content": "These are a few extra techniques that also help shrink a Flutter app's size, but the impact is small compared to bigger techniques like splitting APKs per ABI or using an App Bundle."
+                    },
+                    {
+                    "title": "Using const on static widgets",
+                    "content": "A widget marked const, like const Text('Hello'), is basically built once and reused every time the screen rebuilds, instead of being recreated from scratch each time. Think of it like printing a poster once and reusing it, instead of reprinting it every time someone looks at the wall. This mostly makes your app run smoother and faster — it barely affects the final app size, since Dart is already smart enough to avoid storing duplicate copies of the same constant value."
+                    },
+                    {
+                    "title": "Tree shake icons (--tree-shake-icons)",
+                    "content": "By default, Flutter bundles the entire icon library, like all of Material Icons, into your app, even if you only use 5 icons out of thousands. This flag scans your code, figures out exactly which icons you actually used, and strips out all the unused ones. It's like packing only the clothes you'll actually wear on a trip instead of your whole closet. Good to know: newer versions of Flutter already do this automatically in release builds, so you may not even need to add the flag yourself. It also won't work if you're picking icons dynamically, for example based on a variable at runtime, since Flutter needs to know in advance which icons are used."
+                    },
+                    {
+                    "title": "Reducing heavy animations/images like Lottie",
+                    "content": "Animation files like Lottie (.json) or GIFs tend to be much bigger than simple vector icons or well-compressed images, especially if the animation is detailed. On top of that, using Lottie means adding an extra library to your app, which also adds a bit of size. If you still need animations, a lighter option is to use Flutter's built-in AnimationController + Tween for simple effects — no extra files needed. If you truly need Lottie for complex animations, just make sure to compress the file and only use it where it's really necessary."
+                    }
+                ]
+                },
+                {
+                "type": "conclusion",
+                "title": "Conclusion",
+                "content": "Reducing app size isn't just about chasing a smaller number, it's about respecting your users' storage, bandwidth, and overall experience. Through this process, I learned that app size issues rarely come from just one place, sometimes it's unused dependencies quietly piling up in your codebase, sometimes it's assets that never got compressed or removed, and sometimes it's a single package silently bundling way more data than the app actually needs. By cleaning up unused packages, compressing and removing unnecessary assets, and moving large resources to an on-demand download approach with cloud storage and caching, I managed to bring my app size down significantly.",
+                "final_takeaway": "If there's one thing I'd want other developers to take away from this, it's this: don't assume your app size is \"just how it is.\" Take the time to dig into what's actually being shipped inside your build, more often than not, you'll find room to optimize that you didn't even know was there, and your users (and their phone storage) will thank you for it."
+                }
+            ]
+        },
+        {
+            "id" : 2,
+            "title": "Smaller app size, the better",
+            "subtitle": "My experience: how I managed to reduce my Flutter app size by 50%",
+            "sections": [
+                {
+                "type": "introduction",
+                "title": "Introduction",
+                "content": "After finishing an app, it feels amazing, but there was something bothering me while I was about to build the APK. At first, I thought, \"Oh, it's just a raw app build, so it makes sense why the size is bigger.\" Then I tried pushing the app live, and once it was up and running on the Play Store, I got the same realization: \"Hmm, why does the app size still feel big, even though it's already reduced thanks to App Bundle and the Play Store/App Store?\" So, out of my own curiosity, I tried tweaking my own code to find the root cause of it. After a lot of tweaking and debugging, it was finally done, and the app now feels much smaller. It gave me a real sense of achievement. Based on that experience, I want to show you how I managed to do it."
+                },
+                {
+                "type": "question",
+                "title": "Why do I need to reduce the app size?",
+                "question": "As long as it works, why do I need to reduce the app size?",
+                "content": "Good question! Some developers just take the easy route and leave the app size as is. But personally, I find it annoying when an app is way bigger than it needs to be. Also, my phone's storage is limited, so that's another reason I try to keep app sizes small. Plus, a smaller app usually means faster downloads and installs, which is a win for users too — especially those on slower internet or with older phones that don't have much storage to spare."
+                },
+                {
+                "type": "section",
+                "title": "Cleaning the unused packages/dependencies",
+                "content": "For a Flutter developer, or any developer who works with dependencies, \"dependencies\" or \"packages\" are nothing unfamiliar. They're tools or libraries we use in our code, added into the project so we can use their functionality when needed. Usually, while coding, we start out using certain packages, but later find a better alternative, so the old one just gets left behind in the code and forgotten. Over time, these unused packages pile up, and while modern build tools like Flutter's can strip out code that's never referenced, that tree shaking isn't always perfect, especially for packages that include native code, assets, or platform-specific files. On top of that, unused dependencies still bloat the pubspec.yaml and lockfile, slow down pub get and build times, and can introduce outdated or unmaintained code that's a potential security risk. Because of that, I make it a habit to remove unused packages. It keeps the codebase cleaner, speeds up builds, reduces potential security risks, and helps avoid unnecessary bloat in the production build."
+                },
+                {
+                "type": "section",
+                "title": "Deleting unused assets and compressing large assets",
+                "content": "For frontend development, assets are usually used to complete the UI. But did you know that using assets impacts your app size? Assets are stored directly in the app's storage, specifically in the app's asset directory. Also, the more assets you use — used or unused — in an app, the more space gets consumed. All these assets get bundled together into the app's package, whether it's an APK, AAB, or .app file, which directly increases the app's size. So, build the habit of compressing large-size assets and removing unused ones."
+                },
+                {
+                "type": "section",
+                "title": "Finding the real problem",
+                "content": "While digging deeper, I found the real problem: one package was bundling a large amount of data directly inside the app — JSON files, high-res images, videos, reference data, and more. This single \"data-heavy\" package turned out to be the biggest contributor to the app size, adding around 82.4 MB by itself. The issue was, every user downloaded everything, even if they only needed a small portion of it. This one package alone was contributing significantly to the initial app size, pushing it up to 158.7 MB.",
+                "key_takeaway": "Sometimes the biggest problem isn't in your code — it's in what you ship with your app."
+                },
+                {
+                "type": "section",
+                "title": "Changing the approach",
+                "content": "So instead of bundling everything inside the app, I moved the large resources to cloud storage and fetched them on-demand via API, with local caching to avoid downloading the same data repeatedly. Rather than shipping the app with all the data baked in, the app now installs smaller, and only downloads the data from the cloud when the user actually needs it — then stores it in a local cache for faster access next time.",
+                "comparison": {
+                    "before": "Everything bundled inside the app → large initial download, uses more storage, large update size, and users end up downloading things they may never use.",
+                    "after": "Data stored in cloud storage and downloaded via API only when needed, then cached locally → smaller initial download, less storage used, smaller update size, and users only download what they actually need."
+                },
+                "result": {
+                    "before_size": "128 MB",
+                    "after_size": "56 MB",
+                    "reduction": "roughly 50%"
+                },
+                "results_text": "The results? Smaller app size, less storage used, faster installs, and happier users.",
+                "key_takeaway": "Optimize the delivery, not just the code. Give users control by letting them download what they need."
+                },
+                {
+                "type": "bonus",
+                "title": "Bonus",
+                "sections": [
+                    {
+                    "title": "Honorable Mentions",
+                    "content": "These are a few extra techniques that also help shrink a Flutter app's size, but the impact is small compared to bigger techniques like splitting APKs per ABI or using an App Bundle."
+                    },
+                    {
+                    "title": "Using const on static widgets",
+                    "content": "A widget marked const, like const Text('Hello'), is basically built once and reused every time the screen rebuilds, instead of being recreated from scratch each time. Think of it like printing a poster once and reusing it, instead of reprinting it every time someone looks at the wall. This mostly makes your app run smoother and faster — it barely affects the final app size, since Dart is already smart enough to avoid storing duplicate copies of the same constant value."
+                    },
+                    {
+                    "title": "Tree shake icons (--tree-shake-icons)",
+                    "content": "By default, Flutter bundles the entire icon library, like all of Material Icons, into your app, even if you only use 5 icons out of thousands. This flag scans your code, figures out exactly which icons you actually used, and strips out all the unused ones. It's like packing only the clothes you'll actually wear on a trip instead of your whole closet. Good to know: newer versions of Flutter already do this automatically in release builds, so you may not even need to add the flag yourself. It also won't work if you're picking icons dynamically, for example based on a variable at runtime, since Flutter needs to know in advance which icons are used."
+                    },
+                    {
+                    "title": "Reducing heavy animations/images like Lottie",
+                    "content": "Animation files like Lottie (.json) or GIFs tend to be much bigger than simple vector icons or well-compressed images, especially if the animation is detailed. On top of that, using Lottie means adding an extra library to your app, which also adds a bit of size. If you still need animations, a lighter option is to use Flutter's built-in AnimationController + Tween for simple effects — no extra files needed. If you truly need Lottie for complex animations, just make sure to compress the file and only use it where it's really necessary."
+                    }
+                ]
+                },
+                {
+                "type": "conclusion",
+                "title": "Conclusion",
+                "content": "Reducing app size isn't just about chasing a smaller number, it's about respecting your users' storage, bandwidth, and overall experience. Through this process, I learned that app size issues rarely come from just one place, sometimes it's unused dependencies quietly piling up in your codebase, sometimes it's assets that never got compressed or removed, and sometimes it's a single package silently bundling way more data than the app actually needs. By cleaning up unused packages, compressing and removing unnecessary assets, and moving large resources to an on-demand download approach with cloud storage and caching, I managed to bring my app size down significantly.",
+                "final_takeaway": "If there's one thing I'd want other developers to take away from this, it's this: don't assume your app size is \"just how it is.\" Take the time to dig into what's actually being shipped inside your build, more often than not, you'll find room to optimize that you didn't even know was there, and your users (and their phone storage) will thank you for it."
+                }
+            ]
+        },
+        {
+            "id" : 3,
+            "title": "Smaller app size, the better",
+            "subtitle": "My experience: how I managed to reduce my Flutter app size by 50%",
+            "sections": [
+                {
+                "type": "introduction",
+                "title": "Introduction",
+                "content": "After finishing an app, it feels amazing, but there was something bothering me while I was about to build the APK. At first, I thought, \"Oh, it's just a raw app build, so it makes sense why the size is bigger.\" Then I tried pushing the app live, and once it was up and running on the Play Store, I got the same realization: \"Hmm, why does the app size still feel big, even though it's already reduced thanks to App Bundle and the Play Store/App Store?\" So, out of my own curiosity, I tried tweaking my own code to find the root cause of it. After a lot of tweaking and debugging, it was finally done, and the app now feels much smaller. It gave me a real sense of achievement. Based on that experience, I want to show you how I managed to do it."
+                },
+                {
+                "type": "question",
+                "title": "Why do I need to reduce the app size?",
+                "question": "As long as it works, why do I need to reduce the app size?",
+                "content": "Good question! Some developers just take the easy route and leave the app size as is. But personally, I find it annoying when an app is way bigger than it needs to be. Also, my phone's storage is limited, so that's another reason I try to keep app sizes small. Plus, a smaller app usually means faster downloads and installs, which is a win for users too — especially those on slower internet or with older phones that don't have much storage to spare."
+                },
+                {
+                "type": "section",
+                "title": "Cleaning the unused packages/dependencies",
+                "content": "For a Flutter developer, or any developer who works with dependencies, \"dependencies\" or \"packages\" are nothing unfamiliar. They're tools or libraries we use in our code, added into the project so we can use their functionality when needed. Usually, while coding, we start out using certain packages, but later find a better alternative, so the old one just gets left behind in the code and forgotten. Over time, these unused packages pile up, and while modern build tools like Flutter's can strip out code that's never referenced, that tree shaking isn't always perfect, especially for packages that include native code, assets, or platform-specific files. On top of that, unused dependencies still bloat the pubspec.yaml and lockfile, slow down pub get and build times, and can introduce outdated or unmaintained code that's a potential security risk. Because of that, I make it a habit to remove unused packages. It keeps the codebase cleaner, speeds up builds, reduces potential security risks, and helps avoid unnecessary bloat in the production build."
+                },
+                {
+                "type": "section",
+                "title": "Deleting unused assets and compressing large assets",
+                "content": "For frontend development, assets are usually used to complete the UI. But did you know that using assets impacts your app size? Assets are stored directly in the app's storage, specifically in the app's asset directory. Also, the more assets you use — used or unused — in an app, the more space gets consumed. All these assets get bundled together into the app's package, whether it's an APK, AAB, or .app file, which directly increases the app's size. So, build the habit of compressing large-size assets and removing unused ones."
+                },
+                {
+                "type": "section",
+                "title": "Finding the real problem",
+                "content": "While digging deeper, I found the real problem: one package was bundling a large amount of data directly inside the app — JSON files, high-res images, videos, reference data, and more. This single \"data-heavy\" package turned out to be the biggest contributor to the app size, adding around 82.4 MB by itself. The issue was, every user downloaded everything, even if they only needed a small portion of it. This one package alone was contributing significantly to the initial app size, pushing it up to 158.7 MB.",
+                "key_takeaway": "Sometimes the biggest problem isn't in your code — it's in what you ship with your app."
+                },
+                {
+                "type": "section",
+                "title": "Changing the approach",
+                "content": "So instead of bundling everything inside the app, I moved the large resources to cloud storage and fetched them on-demand via API, with local caching to avoid downloading the same data repeatedly. Rather than shipping the app with all the data baked in, the app now installs smaller, and only downloads the data from the cloud when the user actually needs it — then stores it in a local cache for faster access next time.",
+                "comparison": {
+                    "before": "Everything bundled inside the app → large initial download, uses more storage, large update size, and users end up downloading things they may never use.",
+                    "after": "Data stored in cloud storage and downloaded via API only when needed, then cached locally → smaller initial download, less storage used, smaller update size, and users only download what they actually need."
+                },
+                "result": {
+                    "before_size": "128 MB",
+                    "after_size": "56 MB",
+                    "reduction": "roughly 50%"
+                },
+                "results_text": "The results? Smaller app size, less storage used, faster installs, and happier users.",
+                "key_takeaway": "Optimize the delivery, not just the code. Give users control by letting them download what they need."
+                },
+                {
+                "type": "bonus",
+                "title": "Bonus",
+                "sections": [
+                    {
+                    "title": "Honorable Mentions",
+                    "content": "These are a few extra techniques that also help shrink a Flutter app's size, but the impact is small compared to bigger techniques like splitting APKs per ABI or using an App Bundle."
+                    },
+                    {
+                    "title": "Using const on static widgets",
+                    "content": "A widget marked const, like const Text('Hello'), is basically built once and reused every time the screen rebuilds, instead of being recreated from scratch each time. Think of it like printing a poster once and reusing it, instead of reprinting it every time someone looks at the wall. This mostly makes your app run smoother and faster — it barely affects the final app size, since Dart is already smart enough to avoid storing duplicate copies of the same constant value."
+                    },
+                    {
+                    "title": "Tree shake icons (--tree-shake-icons)",
+                    "content": "By default, Flutter bundles the entire icon library, like all of Material Icons, into your app, even if you only use 5 icons out of thousands. This flag scans your code, figures out exactly which icons you actually used, and strips out all the unused ones. It's like packing only the clothes you'll actually wear on a trip instead of your whole closet. Good to know: newer versions of Flutter already do this automatically in release builds, so you may not even need to add the flag yourself. It also won't work if you're picking icons dynamically, for example based on a variable at runtime, since Flutter needs to know in advance which icons are used."
+                    },
+                    {
+                    "title": "Reducing heavy animations/images like Lottie",
+                    "content": "Animation files like Lottie (.json) or GIFs tend to be much bigger than simple vector icons or well-compressed images, especially if the animation is detailed. On top of that, using Lottie means adding an extra library to your app, which also adds a bit of size. If you still need animations, a lighter option is to use Flutter's built-in AnimationController + Tween for simple effects — no extra files needed. If you truly need Lottie for complex animations, just make sure to compress the file and only use it where it's really necessary."
+                    }
+                ]
+                },
+                {
+                "type": "conclusion",
+                "title": "Conclusion",
+                "content": "Reducing app size isn't just about chasing a smaller number, it's about respecting your users' storage, bandwidth, and overall experience. Through this process, I learned that app size issues rarely come from just one place, sometimes it's unused dependencies quietly piling up in your codebase, sometimes it's assets that never got compressed or removed, and sometimes it's a single package silently bundling way more data than the app actually needs. By cleaning up unused packages, compressing and removing unnecessary assets, and moving large resources to an on-demand download approach with cloud storage and caching, I managed to bring my app size down significantly.",
+                "final_takeaway": "If there's one thing I'd want other developers to take away from this, it's this: don't assume your app size is \"just how it is.\" Take the time to dig into what's actually being shipped inside your build, more often than not, you'll find room to optimize that you didn't even know was there, and your users (and their phone storage) will thank you for it."
+                }
+            ]
+        }
+    ]
+}

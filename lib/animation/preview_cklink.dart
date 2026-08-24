@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_portofolio/core/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CKlinkPreview extends StatelessWidget {
   const CKlinkPreview({super.key});
 
-  final String urlDIDO =
-      "https://play.google.com/store/apps/details?id=com.cklcargo.cklink";
+  
 
   @override
   Widget build(BuildContext context) {

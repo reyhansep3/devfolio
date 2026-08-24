@@ -1,0 +1,105 @@
+{
+    "experience":[
+        {
+            "id" : 1,
+            "job_title" : "Mobile Developer - Flutter",
+            "job_name" : "PT. CKL Cargo",
+            "date" : "14 Aug 2023 - Present",
+            "status" : "Contract",
+            "job_experience" : [
+                "Developed and maintained HRIS and Driver Management System applications, significantly reducing manual paperwork and improving operational efficiency across the HR and Logistics departments.",
+                "Collaborated closely with cross-functional teams, including UI/UX designers, backend engineers, and QA testers, to deliver high-quality mobile applications.",
+                "Published multiple Flutter applications to both the Play Store and App Store.",
+                "Built scalable and maintainable applications using Provider, BLoC, and Cubit for state management.",
+                "Applied MVVM and Clean Architecture principles to create well-structured, modular, and maintainable codebases.",
+                "Ensured app stability through troubleshooting, feature enhancements, and performance optimizations on both Android and iOS.",
+                "Monitored application health and stability using Firebase Crashlytics to identify, analyze, and resolve crashes and runtime issues.",
+                "Successfully migrated a mobile application to the web using the Flutter framework."
+            ],
+            "tools" : [
+                "Flutter",
+                "Android Studio",
+                "Xcode",
+                "Firebase",
+                "Github",
+                "Provider",
+                "Cubit",
+                "Https",
+                "Dio",
+                "Websocket",
+                "Insomnia",
+                "Playstore Console",
+                "Appstore Connect"
+            ]
+        },
+        {
+            "id" : 2,
+            "job_title" : "Mobile Developer - Flutter",
+            "job_name" : "Astabyte",
+            "date" : "30 Oct 2024 - 11 March 2025",
+            "status" : "Freelance",
+            "job_experience" : [
+                "Developed and deployed a Flutter-based mobile app for spa treatment bookings on both Android and iOS platforms.",
+                "Collaborated with UI/UX designers and backend developers to ensure smooth feature integration and project alignment.",
+                "Resolved technical issues and maintained app stability across platforms.",
+                "Integrated Xendit payment gateway for secure, in-app customer transactions."
+            ],
+            "tools" : [
+                "Flutter",
+                "Android",
+                "iOS",
+                "Firebase",
+                "REST API",
+                "Xendit Payment Gateway",
+                "Provider",
+                "Jira",
+                "Dio",
+                "Golang",
+                "Postman"
+            ]
+        },
+        {
+            "id" : 3,
+            "job_title" : "Mobile Developer - Flutter",
+            "job_name" : "Loker Programmer",
+            "date" : "2 Jul 2023 - 2 Oct 2023",
+            "status" : "Internship",
+            "job_experience" : [
+                "Involved in front-end mobile development for application projects using Flutter.",
+                "Applied GetX architecture and state management to build scalable and maintainable codebases.",
+                "Integrated RESTful APIs over HTTPS.",
+                "Implemented various features and enhancements for Android applications using Flutter."
+            ],
+            "tools" : [
+                "Flutter",
+                "Android",
+                "iOS",
+                "REST API",
+                "GetX",
+                "Https"
+            ]
+        },
+        {
+            "id" : 4,
+            "job_title" : "Mobile Developer",
+            "job_name" : "Jr. Mobile Inovation",
+            "date" : " 28 Nov 2021 – 3 Jan 2022",
+            "status" : "Internship",
+            "job_experience" : [
+                "Created an Android Application prototype app for mental health application.",
+                "Collaborate with UI/UX and Business Analyst to create a mobile application project.",
+                "Consume Rest API using Dio.",
+                "Employ Provider State Management using MVVM Architecture."
+            ],
+            "tools" : [
+
+                "Flutter",
+                "Android",
+                "iOS",
+                "REST API",
+                "Provider",
+                "Https"
+            ]
+        }
+    ]
+}

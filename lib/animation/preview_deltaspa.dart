@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_portofolio/core/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DeltaSpaPreview extends StatelessWidget {
   const DeltaSpaPreview({super.key});
 
-  final String urlDelta =
-      "https://play.google.com/store/apps/details?id=com.Deltaspa";
 
   @override
   Widget build(BuildContext context) {
