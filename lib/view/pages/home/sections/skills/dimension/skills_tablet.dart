@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/skills/widgets/skill_tree.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/skills/widgets/trophy_part.dart';
@@ -17,13 +18,44 @@ Widget skillsTabletBody(
   return Container(
     color: Colors.black,
     height: screenHeight - navbarHeight,
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+    child: Stack(
       children: [
-        skillsMainTree(context),
-        SizedBox(width: context.width*0.02,),
-        trophyWidget(context)
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            skillsMainTree(context),
+            SizedBox(width: context.width*0.02,),
+            trophyWidget(context)
+          ],
+        ),
+        Positioned(
+          right: 40,
+          bottom: 40,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const RotatedBox(
+                quarterTurns: 1,
+                child: Text(
+                  "SKILLS",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColor.white,
+                    letterSpacing: 2,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Container(
+                width: 2,
+                height: 120,
+                color: AppColor.white,
+              ),
+            ],
+          ),
+        )
       ],
     ),
   );

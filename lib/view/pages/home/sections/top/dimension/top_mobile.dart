@@ -23,7 +23,6 @@ Widget mobileBody(
     child: Stack(
       children: [
         backgroundImage(),
-
         SizedBox(
           height: bodyHeight,
           width: mq.MediaQueryValues(context).width,
@@ -183,7 +182,7 @@ Widget mobileBody(
         ),
         
         Positioned(
-          right: 40,
+          left: 40,
           bottom: 40,
           child: Column(
             mainAxisSize: MainAxisSize.min,

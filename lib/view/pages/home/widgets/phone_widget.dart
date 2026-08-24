@@ -143,7 +143,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
                       ..translate(0.0, -12.0)
                       ..rotateZ(-0.03))
                     : Matrix4.identity(),
-                child: _buildPhone(context),
+                child: _buildPhone(context, scale),
               ),
         
               // ── Custom cursor ──
@@ -179,14 +179,19 @@ class _PhoneWidgetState extends State<PhoneWidget>
         );
   }
 
-  Widget _buildPhone(BuildContext context) {
-
-      // final scale = (context.width / 1024).clamp(0.5, 1.5);
-      // final phoneWidth = (context.width * 0.15 * scale).clamp(140.0, double.infinity);
-      // final phoneHeight = (context.height * 0.55 * scale).clamp(280.0, double.infinity);    
+  Widget _buildPhone(BuildContext context, double scale) {
+    // ── Ukuran TETAP: tidak ikut menyusut saat window di-resize vertikal ──
+    // Semua ukuran di bawah HANYA bergantung pada `scale`, yang dihitung dari
+    // LEBAR layar (lihat build(): context.width / 1024). Jadi saat user
+    // mengecilkan browser secara VERTIKAL, tinggi `context.height` turun tapi
+    // phone TETAP ukurannya. Phone baru menyesuaikan kalau LEBAR yang berubah.
+    const double basePhoneHeight = 400.0; // ubah angka ini untuk resize phone
+    const double basePhoneWidth = 220.0;  // rasio ~0.5 (phone)
+    final double phoneHeight = basePhoneHeight * scale;
+    final double phoneWidth = basePhoneWidth * scale;
     return Container(
-      width: context.height*0.35,
-      height: context.height*0.7,
+      width: phoneWidth,
+      height: phoneHeight,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(36),

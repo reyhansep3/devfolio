@@ -24,7 +24,6 @@ Widget tabletBody(
     child: Stack(
       children: [
         backgroundImage(),
-
         SizedBox(
           height: bodyHeight,
           child: Row(
@@ -198,7 +197,7 @@ Widget tabletBody(
           ),
         ),
         Positioned(
-          right: 40,
+          left: 40,
           bottom: 40,
           child: Column(
             mainAxisSize: MainAxisSize.min,

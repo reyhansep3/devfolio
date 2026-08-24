@@ -144,7 +144,7 @@ Widget mobileBody({
                         category: "PERFORMANCE",
                         title: "Building Smaller App",
                         description:
-                            "Practical techniques i use to reduce app size without sacrificing functionality.",
+                            "Techniques i use to reduce app size without sacrificing functionality.",
                       ),
                     ),
                   ),

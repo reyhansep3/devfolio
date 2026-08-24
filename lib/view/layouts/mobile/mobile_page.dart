@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
@@ -27,15 +28,15 @@ class MobilePage extends StatelessWidget {
             children: [
               TextSpan(
                 text: "<DEV",
-                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
+                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 20),
               ),
               TextSpan(
                 text: "/S3P",
-                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
+                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.yellowgreen, fontSize: 20),
               ),
               TextSpan(
                 text: ">_",
-                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
+                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.yellowgreen, fontSize: 20),
               ),
             ],
           ),
