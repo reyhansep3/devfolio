@@ -124,6 +124,7 @@ Widget tabletBody({
                           Expanded(
                             child: GlassCard(
                               width: mq.MediaQueryValues(context).width,
+                              category: "FLUTTER",
                               title: "Flexbox",
                               description:
                                   "Breaking layout behavior into a model that feels predictable.",
@@ -133,6 +134,7 @@ Widget tabletBody({
                           Expanded(
                             child: GlassCard(
                               width: mq.MediaQueryValues(context).width,
+                              category: "ENGINEERING",
                               title: "Fetching",
                               description:
                                   "A simpler way to think about data flow and rendering tradeoffs.",
@@ -142,9 +144,10 @@ Widget tabletBody({
                           Expanded(
                             child: GlassCard(
                               width: mq.MediaQueryValues(context).width,
-                              title: "And More!",
+                              category: "PERFORMANCE",
+                              title: "Building Smaller App",
                               description:
-                                  "Other write-ups on front-end thinking, systems, and developer taste.",
+                                  "Practical techniques i use to reduce app size without sacrificing functionality.",
                             ),
                           ),
                         ],

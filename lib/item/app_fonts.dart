@@ -28,6 +28,11 @@ class AppFontStyle {
     fontSize: 15,
   );
 
+  // --- ANTONS FONT ---
+   static TextStyle antonMedium = GoogleFonts.anton(
+    color: Colors.white, 
+    fontSize: 15,
+  );
   // --- POPPINS FONT FAMILY ---
   static TextStyle poppinsHeadingLarge = GoogleFonts.poppins(
     color: Colors.white, 

@@ -1,11 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
+import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
 
 class GlassCard extends StatefulWidget {
   final String title;
   final String description;
+  final String category;
   // final double height;
   final double width;
 
@@ -13,6 +15,7 @@ class GlassCard extends StatefulWidget {
     super.key,
     required this.title,
     required this.description,
+    required this.category,
     // required this.height,
     required this.width,
   });
@@ -53,7 +56,7 @@ class _GlassCardState extends State<GlassCard> {
         child: Container(
           width: widget.width,
           // height: widget.height,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             gradient: LinearGradient(
@@ -74,26 +77,59 @@ class _GlassCardState extends State<GlassCard> {
             ],
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              widget.title == "Responsive" ? responsiveCard() : 
-              widget.title == "Fetching" ? fetchingCard() : moreCard(),
-              Text(
-                widget.title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+              Image.asset(
+                "assets/image/responsive.png",
               ),
-              const SizedBox(height: 8),
-              Text(
-                widget.description,
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.7),
-                  fontSize: 13,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.category,
+                    style: AppFontStyle.vtBodyLarge
+                  ),
+                  Text(
+                    widget.title,
+                    style: AppFontStyle.vtBodyLarge.copyWith(
+                      color: Colors.white,
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.sizeOf(context).height*0.01,),
+                  Text(
+                    widget.description,
+                    style: AppFontStyle.poppinsBodySmall.copyWith(
+                      color: AppColor.grey2,
+                    ),
+                  ),
+                ],
               ),
+              
+              Container(
+                margin: const EdgeInsets.all(5),
+                height: 1,
+                width: widget.width,
+                color: AppColor.yellowgreen.withValues(alpha: 0.4),
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "4 min read",
+                    style: AppFontStyle.poppinsBodySmall.copyWith(
+                      color: AppColor.grey2,
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_outward_outlined,
+                    color: AppColor.yellowgreen,
+                    size: 20,
+                  )
+                ],
+              )
             ],
           ),
         ),

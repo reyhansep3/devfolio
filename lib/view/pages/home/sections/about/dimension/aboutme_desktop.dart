@@ -5,6 +5,7 @@ import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
 import 'package:flutter_portofolio/view/pages/blog/dimension_dashboard/blog_dashboard_desktop.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/about/widgets/glass_card.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Widget desktopBody({
   required double widthBody,
@@ -47,10 +48,10 @@ Widget desktopBody({
         ),
         Padding(
           padding: EdgeInsets.only(
-              left: mq.MediaQueryValues(context).width*0.15,
-              right: mq.MediaQueryValues(context).width*0.15,
-              bottom: mq.MediaQueryValues(context).height*0.1,
-              top: mq.MediaQueryValues(context).height*0.1),
+            left: mq.MediaQueryValues(context).width*0.15,
+            right: mq.MediaQueryValues(context).width*0.15,
+            bottom: mq.MediaQueryValues(context).height*0.1,
+            top: mq.MediaQueryValues(context).height*0.1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -134,8 +135,8 @@ Widget desktopBody({
                   config: BaseAnimationConfig(
                     delay: 1000.ms,
                     child: Text(
-                      "Principles I rely on to turn complex problems into simple, scalable\nsolutions.",
-                      style: AppFontStyle.poppinsBodyLarge.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                      "Principles I rely on to turn complex problems\ninto simple, scalablesolutions.",
+                      style: AppFontStyle.poppinsBodyLarge.copyWith(color: AppColor.grey2),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -162,6 +163,7 @@ Widget desktopBody({
                                 },
                                 child: GlassCard(
                                   width: mq.MediaQueryValues(context).width,
+                                  category: "FLUTTER",
                                   title: "Responsive",
                                   description:
                                       "Breaking layout behavior into a model that feels predictable.",
@@ -172,6 +174,7 @@ Widget desktopBody({
                             Expanded(
                               child: GlassCard(
                                 width: mq.MediaQueryValues(context).width,
+                                category: "ENGINEERING",
                                 title: "Fetching",
                                 description:
                                     "A simpler way to think about data flow and rendering tradeoffs.",
@@ -180,10 +183,11 @@ Widget desktopBody({
                             SizedBox(width: mq.MediaQueryValues(context).width*0.02),
                             Expanded(
                               child: GlassCard(
+                                category: "PERFORMANCE",
                                 width: mq.MediaQueryValues(context).width,
-                                title: "And More!",
+                                title: "Building Smaller App",
                                 description:
-                                    "Other write-ups on front-end thinking, systems, and developer taste.",
+                                    "Practical techniques i use to reduce app size without sacrificing functionality.",
                               ),
                             ),
                           ],
@@ -194,19 +198,58 @@ Widget desktopBody({
                 ),
               ),
               SizedBox(height: mq.MediaQueryValues(context).height*0.04,),
+              SvgPicture.asset(
+                "assets/icons/book.svg",
+                width: MediaQuery.of(context).size.width*0.015,
+              ),
+              SizedBox(height: mq.MediaQueryValues(context).height*0.01),
               RepaintBoundary(
                 child: FadeInUp(
                   config: BaseAnimationConfig(
                     delay: 1000.ms,
-                    child: Text("FEEL FREE TO CHECK IT OUT.", //AVAILABLE FOR FULLTIME, PART-TIME, & FREELANCE
-                    style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+                    child: Text("CURIOUS ABOUT HOW I THINK AND BUILD?",
+                    style: AppFontStyle.poppinsBodySmall.copyWith(
                       color: AppColor.white, 
                       fontSize: 14 ,
-                      letterSpacing: 0.5,
-                      fontWeight: FontWeight.bold)
+                      letterSpacing: 0.5)
                     ),
                   ),
                 ),
+              ),
+              SizedBox(height: mq.MediaQueryValues(context).height*0.02),
+              IntrinsicWidth(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColor.yellowgreen),
+                    borderRadius: BorderRadius.circular(100)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: AppColor.yellowgreen,
+                              borderRadius: BorderRadius.circular(100)
+                            ),
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.01,),
+                          Text("VIEW ALL ARTICLES",
+                          style: AppFontStyle.poppinsBodySmall.copyWith(
+                            color: AppColor.white, 
+                            letterSpacing: 0.5,
+                            fontWeight: FontWeight.bold)
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.01,),
+                          const Icon(
+                            Icons.arrow_forward_outlined,
+                            color: AppColor.yellowgreen,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
               ),
             ],
           )

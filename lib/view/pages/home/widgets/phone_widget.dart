@@ -434,7 +434,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
             'Hello, World!',
             style: TextStyle(
               fontFamily: 'monospace',
-              fontSize: 30,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: AppColor.yellowgreen,
               letterSpacing: 0.5,
@@ -462,17 +462,15 @@ class _PhoneWidgetState extends State<PhoneWidget>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _codeText("// ══════════════════", AppColor.grey2),
                 _codeText("// Reyhan Septri Asta", AppColor.grey2),
                 _codeText("// Flutter Mobile Developer · 3 Years", AppColor.grey2),
                 _codeText("// Currently @ CKL Cargo", AppColor.grey2),
-                _codeText("// ══════════════════", AppColor.grey2),
+                _codeText("// ══════════════", AppColor.grey2),
                 _codeText("// I build intuitive mobile experiences", AppColor.grey2),
                 _codeText("// using Flutter. Passionate about clean", AppColor.grey2),
                 _codeText("// architecture, smooth UX, and code", AppColor.grey2),
                 _codeText("// that scales.", AppColor.grey2),
-                _codeText("// ══════════════════", AppColor.grey2),
-                SizedBox(height: context.height*0.02,),
+                _codeText("// ══════════════", AppColor.grey2),
                 _codeLine('void', ' main() {', null),
                 _codeLine(null, '  runApp(', null),
                 _codeLine(null, '    ', 'MyApp()'),
