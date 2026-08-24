@@ -4,6 +4,11 @@ import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 
+/// Tinggi navbar (desktop & tablet). Single source of truth — dipakai baik
+/// oleh wrapper navbar di DesktopPage maupun untuk menghitung sisa tinggi
+/// hero di top_desktop. Ubah di sini kalau tinggi navbar berubah.
+const double kNavbarHeight = 80.0;
+
 class Navbar extends StatelessWidget {
   final Function(String)? onNavTap;
   final String? selectedSection;
@@ -45,7 +50,7 @@ class Navbar extends StatelessWidget {
 
   Widget mobileBody(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Colors.transparent,
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,12 +72,16 @@ class Navbar extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
-              color: Colors.teal,
+              color: Colors.white.withValues(alpha: 0.20),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Text(
+            child: Text(
               "Download CV",
-              style: TextStyle(color: Colors.white),
+              style: AppFontStyle.vcrMonoBodyLarge.copyWith(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           )
         ],
@@ -111,7 +120,7 @@ class Navbar extends StatelessWidget {
 
         if (isCompact) {
           return Container(
-            color: Colors.black,
+            color: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -158,7 +167,7 @@ class Navbar extends StatelessWidget {
         }
 
         return Container(
-          color: Colors.black,
+          color: Colors.transparent,
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,15 +177,15 @@ class Navbar extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: "<DEV",
-                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 20),
                     ),
                     TextSpan(
                       text: "/S3P",
-                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.yellowgreen, fontSize: 20),
                     ),
                     TextSpan(
                       text: ">_",
-                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
+                      style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.yellowgreen, fontSize: 20),
                     ),
                   ],
                 ),
@@ -185,12 +194,16 @@ class Navbar extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                  color: Colors.teal,
+                  color: Colors.white.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Text(
-                  "Download CV",
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  "DOWNLOAD CV",
+                  style: AppFontStyle.vcrMonoBodyLarge.copyWith(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               )
             ],
@@ -232,7 +245,7 @@ Widget _navItem(
         title,
         style: AppFontStyle.vcrMonoBodyLarge.copyWith(
           color: isActive ? Colors.tealAccent : Colors.white,
-          fontSize: 15,
+          fontSize: 12,
           fontWeight: isActive ? FontWeight.w700 : FontWeight.normal,
         ),
       ),

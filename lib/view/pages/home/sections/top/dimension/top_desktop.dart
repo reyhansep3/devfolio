@@ -134,10 +134,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
-import 'package:flutter_portofolio/view/pages/home/widgets/background_gradient.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/icon_widget.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
+import 'package:flutter_portofolio/view/navigation_bar.dart';
 
 Widget desktopBody(
   BuildContext context,
@@ -146,21 +146,46 @@ Widget desktopBody(
   bool isHovered,
   void Function(bool) onHoverChanged,
 ) {
-  // Jangan pakai height dari viewport untuk menghitung layout utama.
-  // Ini biar widget tidak ikut mengecil ketika browser diresize ke bawah.
-  const minHeroHeight = 720.0;
+  // Hero mengisi sisa tinggi layar SETELAH navbar. `height` sudah di-lock di
+  // root (main.dart) sehingga tidak ikut menyusut saat browser di-resize
+  // vertikal. Tinggi navbar diambil dari konstanta navbar (bukan hardcode),
+  // supaya total tinggi = navbar + hero = persis 1 layar (tidak kelebihan).
+  final heroHeight = height - kNavbarHeight;
 
   final scale = (width / 1024).clamp(0.5, 1.3);
   final titleFontSize = 80 * scale;
 
   return ConstrainedBox(
-    constraints: const BoxConstraints(minHeight: minHeroHeight),
+    constraints: BoxConstraints(minHeight: heroHeight),
     child: Container(
       width: double.infinity,
       color: Colors.black,
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          backgroundImage(),
+          Positioned.fill(
+            child: Image.asset(
+              "assets/image/background.png",
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment.center,
+                  radius: 0.75,
+                  colors: [
+                    Colors.black54,
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.black,
+                  ],
+                  stops: [0.5, 0.72, 0.9, 1.0],
+                ),
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -342,7 +367,7 @@ Widget desktopBody(
             ],
           ),
           Positioned(
-            right: 40,
+            left: 40,
             bottom: 40,
             child: Column(
               mainAxisSize: MainAxisSize.min,

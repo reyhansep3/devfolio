@@ -19,15 +19,22 @@ class DesktopPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff00285d),
-      body: Column(
+      body: Stack(
         children: [
-          Container(
-            height: 80,
-            color: Colors.black,
-            child: Navbar(selectedSection: section),
+          // Konten halaman: spacer seukuran navbar lalu halaman mengisi sisa.
+          // Expanded HARUS di dalam Column (bukan Stack) agar tidak crash.
+          Stack(
+            children: [
+              const SizedBox(height: kNavbarHeight),
+              Expanded(
+                child: _buildPage(context),
+              ),
+            ],
           ),
-          Expanded(
-            child: _buildPage(context),
+          Container(
+            height: kNavbarHeight,
+            color: Colors.transparent,
+            child: Navbar(selectedSection: section),
           ),
         ],
       ),

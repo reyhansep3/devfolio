@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
+import 'package:flutter_portofolio/item/media_query.dart' as mq;
 
 Widget skillsMainTree(BuildContext context) {
   return SizedBox(
@@ -9,15 +10,67 @@ Widget skillsMainTree(BuildContext context) {
     child: Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white.withValues(alpha:0.05),
+                      Colors.white.withValues(alpha:0.02),
+                    ],
+                  ),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha:0.1),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha:0.2),
+                      blurRadius: 15,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
+                      Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
+                    
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(width : mq.MediaQueryValues(context).width*0.005),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "EXPERIENCE",
+                      style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
+                    ),
+                    TextSpan(
+                      text: " & SKILLS",
+                      style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.yellowgreen),
+                    )
+                  ]
+                )
+              ),
+            ],
+          ),
           Text(
             "DEVELOPER LV. 03",
             style: AppFontStyle.vtBodyLarge.copyWith(fontSize: 25),
           ),
           
-          SizedBox(height: context.height * 0.01),
+          SizedBox(height: context.height * 0.02),
           skillsSubTree(
             context,
             "Fundamentals",
