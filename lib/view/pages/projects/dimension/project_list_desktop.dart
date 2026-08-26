@@ -37,9 +37,9 @@ Widget projectDesktopBody({
               children: [
                 Positioned.fill(
                   child: Opacity(
-                    opacity: 0.7,
+                    opacity: 0.5,
                     child: Image.asset(
-                      "assets/image/blog_background.png",
+                      "assets/image/project_background.png",
                       fit: BoxFit.cover,
                     ),
                   ),

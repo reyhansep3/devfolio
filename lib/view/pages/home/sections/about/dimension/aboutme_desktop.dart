@@ -10,7 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 Widget desktopBody({
   required double widthBody,
   required double heightBody,
-  required BuildContext context
+  required BuildContext context,
+  VoidCallback? onViewAllArticles,
 }) {
   return Container(
     width: mq.MediaQueryValues(context).width,
@@ -218,7 +219,11 @@ Widget desktopBody({
               ),
               SizedBox(height: mq.MediaQueryValues(context).height*0.02),
               IntrinsicWidth(
-                child: Container(
+                child: GestureDetector(
+                  onTap: onViewAllArticles,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColor.yellowgreen),
                     borderRadius: BorderRadius.circular(100)
@@ -250,7 +255,9 @@ Widget desktopBody({
                       ),
                     ),
                   ),
+                ),
               ),
+            ),
             ],
           )
         ),

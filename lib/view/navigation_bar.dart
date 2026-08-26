@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_glass_morphism/flutter_glass_morphism.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
+
 
 /// Tinggi navbar (desktop & tablet). Single source of truth — dipakai baik
 /// oleh wrapper navbar di DesktopPage maupun untuk menghitung sisa tinggi
@@ -101,21 +103,32 @@ class Navbar extends StatelessWidget {
           {'key': 'project', 'label': 'PROJECT', 'width': 112.0},
           {'key': 'blog', 'label': 'BLOG', 'width': 112.0},
         ];
-        Widget navRow = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: navItems.map((item) {
-            final key = item['key'] as String;
-            final label = item['label'] as String;
-            final isActive = activeSection == key;
-            return Padding(
-              padding: const EdgeInsets.only(right: 24),
-              child: _navItem(
-                label,
-                isActive: isActive,
-                onTap: () => _navigate(context, key),
-              ),
-            );
-          }).toList(),
+        Widget navRow = GlassMorphismMaterial(
+          blurIntensity: 20.0,
+          opacity: 0.15,
+          glassThickness: 1.0,
+          tintColor: Colors.black,
+          borderRadius: BorderRadius.circular(50),
+          enableBackgroundDistortion: true,
+          enableGlassBorder: true,
+
+          // color: Colors.white,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: navItems.map((item) {
+              final key = item['key'] as String;
+              final label = item['label'] as String;
+              final isActive = activeSection == key;
+              return Padding(
+                padding: const EdgeInsets.all(5),
+                child: _navItem(
+                  label,
+                  isActive: isActive,
+                  onTap: () => _navigate(context, key),
+                ),
+              );
+            }).toList(),
+          ),
         );
 
         if (isCompact) {

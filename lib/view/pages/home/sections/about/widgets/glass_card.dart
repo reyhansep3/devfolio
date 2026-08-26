@@ -79,11 +79,16 @@ class _GlassCardState extends State<GlassCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/image/responsive.png",
+              Expanded(
+                child: Image.asset(
+                  "assets/image/responsive.png",
+                  fit: BoxFit.cover,
+                  width: widget.width,
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     widget.category,
@@ -106,7 +111,6 @@ class _GlassCardState extends State<GlassCard> {
                   ),
                 ],
               ),
-              
               Container(
                 margin: const EdgeInsets.all(5),
                 height: 1,

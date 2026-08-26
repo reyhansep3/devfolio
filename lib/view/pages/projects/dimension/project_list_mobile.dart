@@ -38,7 +38,7 @@ Widget projectMobilebBody({
                 child: Opacity(
                   opacity: 0.7,
                   child: Image.asset(
-                    "assets/image/blog_background.png",
+                    "assets/image/project_background.png",
                     fit: BoxFit.cover,
                   ),
                 ),
