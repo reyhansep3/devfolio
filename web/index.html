@@ -15,7 +15,7 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Reyhan Septri Asta — Flutter Mobile Developer Portfolio">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -72,12 +72,14 @@
     }
   </style>
 
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+  <!--
+    Flutter 3.29 bootstrap. `flutter_bootstrap.js` membaca `_flutter.buildConfig`
+    dan otomatis memilih build yang kompatibel (WASM / skwasm / JS fallback),
+    sehingga file ini aman dipakai baik untuk `flutter run` (JS) maupun
+    `flutter build web --wasm` (WASM). JANGAN pakai `flutter.js` + inline
+    loader lama, karena itu hanya support JS-mode dan akan 404 saat WASM.
+  -->
+  <script src="flutter_bootstrap.js" defer></script>
 </head>
 <body>
   <!-- Progress bar (muncul sebelum Flutter siap, hilang setelah runApp) -->
@@ -91,7 +93,6 @@
       var fill = document.getElementById('loading-bar-fill');
 
       function startIndeterminate() {
-        // mulai dari 0 lalu langsung ke 90% (animasi CSS handle easing)
         requestAnimationFrame(function () {
           fill.style.width = '15%';
           requestAnimationFrame(function () {
@@ -103,7 +104,6 @@
       function finish() {
         bar.classList.remove('indeterminate');
         fill.style.width = '100%';
-        // setelah bar penuh, fade out lalu hapus dari DOM
         setTimeout(function () {
           bar.classList.add('done');
           setTimeout(function () {
@@ -112,28 +112,29 @@
         }, 220);
       }
 
-      window.addEventListener('load', function (ev) {
-        startIndeterminate();
-        _flutter.loader
-          .loadEntrypoint({
-            serviceWorker: { serviceWorkerVersion: serviceWorkerVersion },
-          })
-          .then(function (engineInitializer) {
-            return engineInitializer.initializeEngine();
-          })
-          .then(function (appRunner) {
-            return appRunner.runApp();
-          })
-          .then(function () {
-            // App sudah ke-render frame pertama -> selesaikan loading
+      // flutter_bootstrap.js mengisi window._flutter.loader dan memanggil
+      // .load() sendiri. Kita hanya perlu menunggu app selesai di-render.
+      function waitForApp() {
+        if (window._flutter && window._flutter.loader) {
+          startIndeterminate();
+          // .load() mengembalikan Promise saat engine siap + runApp selesai.
+          window._flutter.loader.load({
+            serviceWorkerSettings: {
+              serviceWorkerVersion: '{{flutter_service_worker_version}}'
+            }
+          }).then(function () {
             finish();
-          })
-          .catch(function (err) {
-            // kalau gagal, tetap sembunyikan bar biar tidak nyangkut
+          }).catch(function (err) {
             console.error(err);
             finish();
           });
-      });
+        } else {
+          // bootstrap belum siap, coba lagi sebentar lagi.
+          setTimeout(waitForApp, 30);
+        }
+      }
+
+      waitForApp();
     })();
   </script>
 </body>
