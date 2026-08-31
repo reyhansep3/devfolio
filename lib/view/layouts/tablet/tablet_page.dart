@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/skills/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
@@ -100,51 +101,137 @@ class _TabletPageState extends State<TabletPage> {
       });
     }
 
+      Widget _buildPage(BuildContext context) {
+    if (widget.section == 'home') {
+      return CustomScrollView(
+        key: const ValueKey('home'),
+        controller: _scrollController,
+        slivers: [
+          const SliverToBoxAdapter(child: TopSection()),
+          const SliverToBoxAdapter(child: SkillSection()),
+          SliverToBoxAdapter(
+            child: AboutMe(
+              onViewAllArticles: () => _handleNav('/blog'),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ProjectSection(
+              onViewAll: () => GoRouter.of(context).go('/project'),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ContactSection(onNavigate: _handleNav),
+          ),
+        ],
+      );
+    }
+
+    if (widget.section == 'formalities') {
+      return CustomScrollView(
+        key: const ValueKey('formalities'),
+        controller: _scrollController,
+        slivers: [
+          const SliverToBoxAdapter(child: FormalitiesSection()),
+          SliverToBoxAdapter(child: ExperienceSection()),
+          SliverToBoxAdapter(
+            child: ContactSection(onNavigate: _handleNav),
+          ),
+        ],
+      );
+    }
+
+    if (widget.section == 'project') {
+      return CustomScrollView(
+        key: const ValueKey('project'),
+        controller: _scrollController,
+        slivers: [
+          SliverToBoxAdapter(child: ProjectList()),
+          SliverToBoxAdapter(
+            child: ContactSection(onNavigate: _handleNav),
+          ),
+        ],
+      );
+    }
+
+    if (widget.section == 'blog') {
+      return CustomScrollView(
+        key: const ValueKey('blog'),
+        controller: _scrollController,
+        slivers: [
+          const SliverToBoxAdapter(child: BlogPage()),
+          SliverToBoxAdapter(
+            child: ContactSection(onNavigate: _handleNav),
+          ),
+        ],
+      );
+    }
+
+    return const SizedBox();
+  }
+
+
     return Scaffold(
       backgroundColor: const Color(0xff00285d),
       body: Stack(
         children: [
-          CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              SliverToBoxAdapter(
-                // Navbar pakai navigasi default (langsung pindah, tanpa efek).
-                child: Navbar(selectedSection: widget.section),
-              ),
-              if (widget.section == 'formalities') ...[
-                const SliverToBoxAdapter(child: FormalitiesSection()),
-                SliverToBoxAdapter(child: ExperienceSection()),
-              ] else if (widget.section == 'project') ...[
-                SliverToBoxAdapter(child: ProjectList()),
-              ] else if (widget.section == 'blog') ...[
-                const SliverToBoxAdapter(child: BlogPage()),
-                SliverToBoxAdapter(
-                  child: ContactSection(onNavigate: _handleNav),
-                ),
-              ] else ...[
-                const SliverToBoxAdapter(child: TopSection()),
-                SliverToBoxAdapter(
-                  child: AboutMe(
-                    onViewAllArticles: () => _handleNav('/blog'),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: ProjectSection(
-                    onViewAll: () => GoRouter.of(context).go('/project'),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: ContactSection(onNavigate: _handleNav),
-                ),
-              ],
-            ],
-          ),
+          _buildPage(context),
+          // Layer penutup: menyembunyikan background biru scaffold pada frame
+          // pertama sebelum posisi scroll benar-benar di bawah.
           if (_coverVisible)
             const Positioned.fill(
               child: ColoredBox(color: Colors.black),
             ),
+          Container(
+            height: kNavbarHeight,
+            color: Colors.transparent,
+            // Navbar pakai navigasi default (langsung pindah, tanpa efek).
+            child: Navbar(selectedSection: widget.section),
+          ),
         ],
       ),
+      // body: Stack(
+      //   children: [
+      //     CustomScrollView(
+      //       controller: _scrollController,
+      //       slivers: [
+      //         // SliverToBoxAdapter(
+      //         //   // Navbar pakai navigasi default (langsung pindah, tanpa efek).
+      //         //   child: Navbar(selectedSection: widget.section),
+      //         // ),
+      //         if (widget.section == 'formalities') ...[
+      //           const SliverToBoxAdapter(child: FormalitiesSection()),
+      //           SliverToBoxAdapter(child: ExperienceSection()),
+      //         ] else if (widget.section == 'project') ...[
+      //           SliverToBoxAdapter(child: ProjectList()),
+      //         ] else if (widget.section == 'blog') ...[
+      //           const SliverToBoxAdapter(child: BlogPage()),
+      //           SliverToBoxAdapter(
+      //             child: ContactSection(onNavigate: _handleNav),
+      //           ),
+      //         ] else ...[
+      //           const SliverToBoxAdapter(child: TopSection()),
+      //           SliverToBoxAdapter(
+      //             child: AboutMe(
+      //               onViewAllArticles: () => _handleNav('/blog'),
+      //             ),
+      //           ),
+      //           SliverToBoxAdapter(
+      //             child: ProjectSection(
+      //               onViewAll: () => GoRouter.of(context).go('/project'),
+      //             ),
+      //           ),
+      //           SliverToBoxAdapter(
+      //             child: ContactSection(onNavigate: _handleNav),
+      //           ),
+      //         ],
+      //       ],
+      //     ),
+      //     if (_coverVisible)
+      //       const Positioned.fill(
+      //         child: ColoredBox(color: Colors.black),
+      //       ),
+      //   ],
+      // ),
     );
   }
 }

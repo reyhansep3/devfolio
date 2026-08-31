@@ -189,7 +189,10 @@ Widget tabletBody(
                 child: FadeInUp(
                 config: BaseAnimationConfig(
                   delay: 700.ms,
-                    child: const PhoneWidget()
+                    child: const PhoneWidget(
+                      height: 470,
+                      width: 240,
+                    )
                   ),
                 ),
               ),

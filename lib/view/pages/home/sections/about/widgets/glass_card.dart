@@ -79,12 +79,10 @@ class _GlassCardState extends State<GlassCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Image.asset(
-                  "assets/image/responsive.png",
-                  fit: BoxFit.cover,
-                  width: widget.width,
-                ),
+              Image.asset(
+                "assets/image/responsive.png",
+                fit: BoxFit.cover,
+                width: widget.width,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

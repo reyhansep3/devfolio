@@ -4,9 +4,10 @@ import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
 
-Widget skillsMainTree(BuildContext context) {
+Widget skillsMainTree(BuildContext context, {double? treeWidth}) {
+  final double treeW = treeWidth ?? context.width * .4;
   return SizedBox(
-    width: context.width * .4,
+    width: treeW,
     child: Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -43,7 +44,6 @@ Widget skillsMainTree(BuildContext context) {
                     children: [
                       Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
                       Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                    
                     ],
                   ),
                 ),

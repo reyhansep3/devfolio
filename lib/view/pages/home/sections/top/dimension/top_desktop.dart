@@ -134,7 +134,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
-import 'package:flutter_portofolio/view/pages/home/widgets/icon_widget.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
 import 'package:flutter_portofolio/view/navigation_bar.dart';
@@ -302,18 +301,18 @@ Widget desktopBody(
                             delay: 500.ms,
                             child: Row(
                               children: [
-                                Text("// CLEAN CODE.",
-                                    style: AppFontStyle.vcrMonoHeadingSmall
+                                Text("I DO CODE, CLEAN CODE.",
+                                    style: AppFontStyle.poppinsBodyLarge
                                         .copyWith(
                                             color: AppColor.white,
-                                            fontSize: 14 * scale,
+                                            fontSize: 10 * scale,
                                             letterSpacing: 0.5,
                                             fontWeight: FontWeight.bold)),
-                                Text(" SCALABLE SOLUTIONS.",
-                                    style: AppFontStyle.vcrMonoHeadingSmall
+                                Text(" SCALABLE SOLUTIONS CODE.",
+                                    style: AppFontStyle.poppinsBodyLarge
                                         .copyWith(
                                             color: AppColor.yellowgreen,
-                                            fontSize: 14 * scale,
+                                            fontSize: 10 * scale,
                                             letterSpacing: 0.5,
                                             fontWeight: FontWeight.bold)),
                               ],
@@ -323,37 +322,6 @@ Widget desktopBody(
                       ),
                     ],
                   ),
-                  const SizedBox(height: 28),
-                  RepaintBoundary(
-                    child: FadeInUp(
-                      config: BaseAnimationConfig(
-                        delay: 500.ms,
-                        child: Row(
-                          children: [
-                            Text("Find Me On",
-                                style: AppFontStyle.vcrMonoHeadingSmall
-                                    .copyWith(
-                                        color: AppColor.yellowgreen,
-                                        fontSize: 15 * scale,
-                                        letterSpacing: 0.5,
-                                        fontWeight: FontWeight.bold)),
-                            SizedBox(
-                                width:
-                                    mq.MediaQueryValues(context).width * 0.02),
-                            icon("assets/icons/facebook.svg", context, scale),
-                            SizedBox(
-                                width:
-                                    mq.MediaQueryValues(context).width * 0.03),
-                            icon("assets/icons/instagram.svg", context, scale),
-                            SizedBox(
-                                width:
-                                    mq.MediaQueryValues(context).width * 0.03),
-                            icon("assets/icons/linkedin.svg", context, scale),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
               SizedBox(
@@ -362,7 +330,10 @@ Widget desktopBody(
               RepaintBoundary(
                 child: FadeInUp(
                     config: BaseAnimationConfig(
-                        delay: 700.ms, child: const PhoneWidget())),
+                        delay: 700.ms, child: const PhoneWidget(
+                          height: 550,
+                          width: 280,
+                        ))),
               ),
             ],
           ),

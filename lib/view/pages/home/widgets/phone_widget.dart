@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
-import 'package:flutter_portofolio/item/media_query.dart';
 
 class PhoneWidget extends StatefulWidget {
-  const PhoneWidget({super.key});
+  final int height;
+  final int width;
+  const PhoneWidget({super.key, required this.height, required this.width});
 
   @override
   State<PhoneWidget> createState() => _PhoneWidgetState();
@@ -124,7 +125,11 @@ class _PhoneWidgetState extends State<PhoneWidget>
   @override
   Widget build(BuildContext context) {
 
-    final scale = (context.width / 1024).clamp(0.5, 1.3);
+    // ── STATIK: ukuran phone TIDAK ikut lebar layar ──
+    // Dulu: (context.width / 1024).clamp(0.5, 1.3) → pas width dikecilkan
+    // horizontal, hp ikut mengecil & overflow. Sekarang scale = 1.0 tetap,
+    // jadi di desktop & tablet width phone selalu segitu (lihat basePhone*).
+    const double scale = 1.0;
 
     return MouseRegion(
           cursor: SystemMouseCursors.none,
@@ -143,7 +148,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
                       ..translate(0.0, -12.0)
                       ..rotateZ(-0.03))
                     : Matrix4.identity(),
-                child: _buildPhone(context, scale),
+                child: _buildPhone(context, scale, widget.height, widget.width),
               ),
         
               // ── Custom cursor ──
@@ -179,14 +184,14 @@ class _PhoneWidgetState extends State<PhoneWidget>
         );
   }
 
-  Widget _buildPhone(BuildContext context, double scale) {
+  Widget _buildPhone(BuildContext context, double scale, int height, int width) {
     // ── Ukuran TETAP: tidak ikut menyusut saat window di-resize vertikal ──
     // Semua ukuran di bawah HANYA bergantung pada `scale`, yang dihitung dari
     // LEBAR layar (lihat build(): context.width / 1024). Jadi saat user
     // mengecilkan browser secara VERTIKAL, tinggi `context.height` turun tapi
     // phone TETAP ukurannya. Phone baru menyesuaikan kalau LEBAR yang berubah.
-    const double basePhoneHeight = 400.0; // ubah angka ini untuk resize phone
-    const double basePhoneWidth = 220.0;  // rasio ~0.5 (phone)
+    int basePhoneHeight = height; // ubah angka ini untuk resize phone
+    int basePhoneWidth = width;  // rasio ~0.5 (phone)
     final double phoneHeight = basePhoneHeight * scale;
     final double phoneWidth = basePhoneWidth * scale;
     return Container(

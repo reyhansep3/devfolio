@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
-import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/skills/widgets/skill_tree.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/skills/widgets/trophy_part.dart';
 
@@ -10,24 +9,36 @@ Widget skillsTabletBody(
 ) {
   final screenHeight = MediaQuery.of(context).size.height;
   const navbarHeight = 70.0;
-  // final bodyHeight = screenHeight - navbarHeight;
 
-  // final scale = (width / 1024).clamp(0.5, 1.3);
-  // final titleFontSize = 70 * scale;
+  // Lebar konten dibatasi agar di tablet (800–1023px) tidak melebar anjlr
+  // tapi juga tidak numpuk. skillsMainTree diberi lebar ~52%, trophy ~38%.
+  final double contentWidth = width.clamp(800.0, 1023.0);
+  final double skillsWidth = contentWidth * 0.52;
+  final double trophyWidth = contentWidth * 0.38;
 
   return Container(
     color: Colors.black,
     height: screenHeight - navbarHeight,
     child: Stack(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            skillsMainTree(context),
-            SizedBox(width: context.width*0.02,),
-            trophyWidget(context)
-          ],
+        Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // ── Skills tree ──
+              SizedBox(
+                width: skillsWidth,
+                child: skillsMainTree(context, treeWidth: skillsWidth),
+              ),
+              SizedBox(width: contentWidth * 0.04),
+              // ── Trophy / specialize card ──
+              SizedBox(
+                width: trophyWidth,
+                child: trophyWidget(context, cardWidth: trophyWidth),
+              ),
+            ],
+          ),
         ),
         Positioned(
           right: 40,

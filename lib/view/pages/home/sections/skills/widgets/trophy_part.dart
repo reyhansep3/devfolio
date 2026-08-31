@@ -3,12 +3,13 @@ import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
 
-Widget trophyWidget(BuildContext context){
+Widget trophyWidget(BuildContext context, {double? cardWidth}) {
+  final double cardW = cardWidth ?? context.width * 0.2;
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Container(
-        width: context.width*0.2,
+        width: cardW,
         decoration: BoxDecoration(
           border: Border.all(color: AppColor.yellowgreen),
           borderRadius: BorderRadius.circular(10),

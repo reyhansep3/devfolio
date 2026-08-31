@@ -45,7 +45,7 @@ dependencies:
   responsive_framework: ^1.4.0
   shared_preferences: ^2.2.0
   svg_flutter: ^0.0.1
-  url_launcher: ^6.1.7
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

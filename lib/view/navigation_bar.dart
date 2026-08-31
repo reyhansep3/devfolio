@@ -111,8 +111,6 @@ class Navbar extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           enableBackgroundDistortion: true,
           enableGlassBorder: true,
-
-          // color: Colors.white,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: navItems.map((item) {
@@ -133,47 +131,45 @@ class Navbar extends StatelessWidget {
 
         if (isCompact) {
           return Container(
-            color: Colors.transparent,
+            color: Colors.black,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "<DEV",
-                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
-                          ),
-                          TextSpan(
-                            text: "/S3P",
-                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
-                          ),
-                          TextSpan(
-                            text: ">_",
-                            style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 25),
-                          ),
-                        ],
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "<DEV",
+                        style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 20),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.teal,
-                        borderRadius: BorderRadius.circular(8),
+                      TextSpan(
+                        text: "/S3P",
+                        style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 20),
                       ),
-                      child: const Text(
-                        "Download CV",
-                        style: TextStyle(color: Colors.white),
+                      TextSpan(
+                        text: ">_",
+                        style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 20),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 16),
-                Center(child: navRow),
+                navRow,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.20),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    "DOWNLOAD CV",
+                    style: AppFontStyle.vcrMonoBodyLarge.copyWith(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                )
               ],
             ),
           );

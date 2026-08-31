@@ -1,0 +1,51 @@
+[build]
+  # WASM (WasmGC) renderer: engine native → startup execution lebih cepat dari
+  # CanvasKit JS. Download sedikit lebih besar dari HTML renderer, tapi TTI lebih baik.
+  command = "flutter build web --wasm --release --no-source-maps --dart2js-optimization=O4"
+  publish = "build/web"
+
+# SPA fallback: semua route (go_router) dilempar ke index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ── Long cache lifetime ──
+# File Flutter web (main.dart.js, part-*.js, assets/*, fonts) sudah di-hash
+# content-based oleh build → aman di-cache 1 tahun & di-mark 'immutable'
+# (Lighthouse: "A long cache lifetime can speed up repeat visits").
+[[headers]]
+  for = "/main.dart.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/flutter.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/main.dart.wasm"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/canvaskit/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# index.html & service worker: jangan di-cache lama (bisa ada update rute/versi)
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/flutter_service_worker.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
