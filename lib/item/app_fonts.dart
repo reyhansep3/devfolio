@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppFontStyle {
@@ -199,5 +200,11 @@ class AppFontStyle {
     fontSize: 18,
     fontWeight: FontWeight.bold,
     color: Colors.white, // Menambahkan warna agar konsisten dengan yang lain
+  );
+
+  // NEW
+  static TextStyle poppins = GoogleFonts.poppins(
+    color: AppColor.pureBlack, 
+    fontSize: 14,
   );
 }
