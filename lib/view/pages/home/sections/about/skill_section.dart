@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/skills/dimension/skills_desktop.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/skills/dimension/skills_mobile.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/skills/dimension/skills_tablet.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/about/dimension/about_desktop.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/about/dimension/about_mobile.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/about/dimension/about_tablet.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 
 class SkillSection extends StatefulWidget {

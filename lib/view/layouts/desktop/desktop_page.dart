@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/skills/skill_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/about/aboutme_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/aboutme_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
@@ -110,7 +111,7 @@ class _DesktopPageState extends State<DesktopPage> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xff00285d),
+      backgroundColor: AppColor.primary,
       body: Stack(
         children: [
           _buildPage(context),
@@ -118,7 +119,7 @@ class _DesktopPageState extends State<DesktopPage> {
           // pertama sebelum posisi scroll benar-benar di bawah.
           if (_coverVisible)
             const Positioned.fill(
-              child: ColoredBox(color: Colors.black),
+              child: ColoredBox(color: AppColor.primary),
             ),
           Container(
             height: kNavbarHeight,

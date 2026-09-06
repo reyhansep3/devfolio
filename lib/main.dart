@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/home/home_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -52,19 +53,6 @@ void main() {
   runApp(const MyApp());
 }
 
-/// Tinggi "design" untuk viewport. Semua widget yang memakai
-/// `context.height` / `MediaQuery...height` akan membaca nilai INI,
-/// BUKAN tinggi window asli. Akibatnya: saat user me-resize browser
-/// SECARA VERTIKAL, layout TIDAK menyesuaikan sama sekali (widget tetap
-/// ukurannya). Resize HORIZONTAL tetap responsif (breakpoint + scaling).
-///
-/// Cara kerja:
-///   - Jika window LEBIH PENDEK dari baseline -> tinggi di-lock ke baseline
-///     (tidak menyusut, overflow ditangani oleh scroll).
-///   - Jika window LEBIH TINGGI dari baseline -> mengikuti tinggi asli
-///     (tidak ada "celah" kosong di bawah konten).
-/// Kalau mau RESTRICT TOTAL (samsek tidak berubah, termasuk saat membesar),
-/// ganti baris `lockedHeight` di bawah jadi konstanta `kDesignViewportHeight`.
 const double kDesignViewportHeight = 900.0;
 
 class MyApp extends StatelessWidget {
@@ -77,15 +65,13 @@ class MyApp extends StatelessWidget {
     final lockedHeight = mq.size.height < kDesignViewportHeight
         ? kDesignViewportHeight
         : mq.size.height;
-    // Untuk RESTRICT TOTAL (vertikal sama sekali tidak berubah), pakai:
-    // final lockedHeight = kDesignViewportHeight;
     return MediaQuery(
       data: mq.copyWith(size: Size(mq.size.width, lockedHeight)),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Flutter',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: AppColor.primary,
         ),
         routerConfig: _router,
       ),

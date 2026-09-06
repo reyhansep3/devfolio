@@ -18,8 +18,8 @@ Widget mobileBody(
 
   final nameFontSize = 20 * scale;
   final titleFontSize = 56 * scale;
-  final descriptionFontSize = 14 * scale;
-  final taglineFontSize = 10 * scale;
+  final descriptionFontSize = 15 * scale;
+  final taglineFontSize = 15 * scale;
 
   return ConstrainedBox(
     constraints: BoxConstraints(
@@ -30,7 +30,6 @@ Widget mobileBody(
       color: AppColor.primary,
       child: Stack(
         children: [
-
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: width * 0.07,

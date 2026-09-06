@@ -167,10 +167,7 @@ class _ContactSectionState extends State<ContactSection> {
   }
 }
 
-/// Link footer yang bisa diklik — navigasi via go_router, sama seperti navbar.
-/// Efek hover: cursor berubah jadi pointer & teks jadi putih.
-/// Kalau `onNavigate` diberikan (desktop/tablet), pakai itu agar halaman
-/// yang sama bisa di-smooth-scroll ke atas.
+
 class _FooterLink extends StatefulWidget {
   final String label;
   final String path;

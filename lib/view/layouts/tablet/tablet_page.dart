@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/skills/skill_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/about/aboutme_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/aboutme_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';

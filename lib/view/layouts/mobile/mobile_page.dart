@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/about/aboutme_section.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/aboutme_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
@@ -19,24 +20,24 @@ class MobilePage extends StatelessWidget {
     final body = _buildBody(context);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColor.primary,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: AppColor.darkUI),
         title: RichText(
           text: TextSpan(
             children: [
               TextSpan(
                 text: "<DEV",
-                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: Colors.white, fontSize: 20),
+                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.darkUI, fontSize: 20),
               ),
               TextSpan(
                 text: "/S3P",
-                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.yellowgreen, fontSize: 20),
+                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.darkUI, fontSize: 20),
               ),
               TextSpan(
                 text: ">_",
-                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.yellowgreen, fontSize: 20),
+                style: AppFontStyle.vcrMonoBodyLarge.copyWith(color: AppColor.darkUI, fontSize: 20),
               ),
             ],
           ),
@@ -109,6 +110,7 @@ class MobilePage extends StatelessWidget {
     return Column(
       children: [
         const TopSection(),
+        const SkillSection(),
         const AboutMe(),
         ProjectSection(
           onViewAll: () => GoRouter.of(context).go('/project'),

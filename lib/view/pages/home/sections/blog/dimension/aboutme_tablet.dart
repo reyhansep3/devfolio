@@ -3,7 +3,7 @@ import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
-import 'package:flutter_portofolio/view/pages/home/sections/about/widgets/glass_card.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/widgets/glass_card.dart';
 
 Widget tabletBody({
   required double widthBody,

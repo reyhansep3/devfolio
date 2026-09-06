@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/about/dimension/aboutme_desktop.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/about/dimension/aboutme_mobile.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/about/dimension/aboutme_tablet.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/dimension/aboutme_desktop.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/dimension/aboutme_mobile.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/dimension/aboutme_tablet.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
 
 class AboutMe extends StatelessWidget {

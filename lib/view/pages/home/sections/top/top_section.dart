@@ -26,9 +26,6 @@ class _TopSectionState extends State<TopSection> {
         isHovered,
         (val) => setState(() => isHovered = val),
       ),
-      // mobile: mobileBody(
-      //   context, width, height, isHovered,(val) => setState(() => isHovered = val), 
-      // ),
       tablet: (context) => tabletBody(
         context,
         context.width,

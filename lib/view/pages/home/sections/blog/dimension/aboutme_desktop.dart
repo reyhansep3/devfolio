@@ -4,7 +4,7 @@ import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
 import 'package:flutter_portofolio/view/pages/blog/dimension_dashboard/blog_dashboard_desktop.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/about/widgets/glass_card.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/blog/widgets/glass_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 Widget desktopBody({
