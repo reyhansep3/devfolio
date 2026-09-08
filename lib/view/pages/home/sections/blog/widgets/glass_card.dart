@@ -39,7 +39,7 @@ class _GlassCardState extends State<GlassCard> {
 
         transform: Matrix4.translationValues(
           0,
-          isHovering ? -20 : 0, // naik 20px
+          isHovering ? -10 : 0, 
           0,
         ),
 
@@ -54,85 +54,77 @@ class _GlassCardState extends State<GlassCard> {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
         child: Container(
-          width: widget.width,
-          // height: widget.height,
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            gradient: LinearGradient(
-              colors: [
-                Colors.white.withValues(alpha: 0.05),
-                Colors.white.withValues(alpha: 0.02),
-              ],
-            ),
             border: Border.all(
               color: Colors.white.withValues(alpha: 0.1),
             ),
+            color: AppColor.lightGray,
             boxShadow: [
               BoxShadow(
-                color: Colors.white.withValues(alpha : isHovering ? 0.1 : 0.0),
+                color: Colors.white.withValues(alpha: isHovering ? 0.1 : 0.0),
                 blurRadius: isHovering ? 30 : 15,
                 offset: const Offset(0, 10),
               ),
             ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/image/responsive.png",
-                fit: BoxFit.cover,
-                width: widget.width,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.category,
-                    style: AppFontStyle.vtBodyLarge
-                  ),
-                  Text(
-                    widget.title,
-                    style: AppFontStyle.vtBodyLarge.copyWith(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
+          child: IntrinsicWidth(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.category,
+                      style: AppFontStyle.vtBodyLarge.copyWith(
+                        color: AppColor.darkUI,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height*0.01,),
-                  Text(
-                    widget.description,
-                    style: AppFontStyle.poppinsBodySmall.copyWith(
-                      color: AppColor.grey2,
+                    Text(
+                      widget.title,
+                      style: AppFontStyle.vtBodyLarge.copyWith(
+                        color: AppColor.darkUI,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.all(5),
-                height: 1,
-                width: widget.width,
-                color: AppColor.yellowgreen.withValues(alpha: 0.4),
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "4 min read",
-                    style: AppFontStyle.poppinsBodySmall.copyWith(
-                      color: AppColor.grey2,
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
+                    Text(
+                      widget.description,
+                      style: AppFontStyle.poppinsBodySmall.copyWith(
+                        color: AppColor.darkUI,
+                      ),
                     ),
-                  ),
-                  const Icon(
-                    Icons.arrow_outward_outlined,
-                    color: AppColor.yellowgreen,
-                    size: 20,
-                  )
-                ],
-              )
-            ],
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.all(5),
+                  height: 1,
+                  width: double.infinity,
+                  color: AppColor.darkGray.withValues(alpha: 0.4),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "4 min read",
+                      style: AppFontStyle.poppins.copyWith(
+                        color: AppColor.darkUI,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.arrow_outward_outlined,
+                      color: AppColor.darkUI,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

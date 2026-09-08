@@ -37,13 +37,14 @@ Widget skillsTabletBody(
                         color: Colors.black,
                       ),
                     ),
+                    SizedBox(height: context.height*0.02,),
                     Text(
                       'A brief introduction my journey as a software engineer.',
                       style: GoogleFonts.poppins(
-                        fontSize: 16 * scale,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 13 * scale,
+                        fontWeight: FontWeight.w500,
                         height: 1.6,
-                        color: AppColor.darkGray,
+                        color: AppColor.darkUI,
                       ),
                     ),
                     SizedBox(height: context.height*0.02,),

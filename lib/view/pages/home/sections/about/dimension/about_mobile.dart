@@ -9,7 +9,7 @@ Widget skillsMobileBody(
   BuildContext context, double width, double height,
   bool isHovered, void Function(bool) onHoverChanged,
 ) {
-    final screenHeight = MediaQuery.of(context).size.height;
+  final screenHeight = MediaQuery.of(context).size.height;
 
   final scale = (width / 1024).clamp(0.5, 1.3);
 
@@ -74,8 +74,8 @@ Widget skillsMobileBody(
                 Text(
                   'A brief introduction my journey as a software engineer.',
                   style: GoogleFonts.poppins(
-                    fontSize: 25 * scale,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                     height: 1.6,
                     color: AppColor.darkUI,
                   ),
