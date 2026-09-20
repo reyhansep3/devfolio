@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/skills_expertise/skills_experties_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
@@ -132,7 +133,9 @@ class _TabletPageState extends State<TabletPage> {
         controller: _scrollController,
         slivers: [
           const SliverToBoxAdapter(child: FormalitiesSection()),
+          const SliverToBoxAdapter(child: SkillsExpertiesSection(),),
           SliverToBoxAdapter(child: ExperienceSection()),
+          
           SliverToBoxAdapter(
             child: ContactSection(onNavigate: _handleNav),
           ),

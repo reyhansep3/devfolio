@@ -20,6 +20,7 @@
       height: screenHeight,
       child: Stack(
         children: [
+          // HoverTextReveal(text: "HIDUP JOKOWIIIIII"),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -49,6 +50,7 @@
                           color: AppColor.darkUI,
                         ),
                       ),
+                      // widget(child: HoverTextReveal(text: "sadgasgduyasgduygasyudgyasduga")),
                       SizedBox(height: context.height*0.02,),
                       Container(
                         height: 4,

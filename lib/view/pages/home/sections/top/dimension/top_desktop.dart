@@ -35,76 +35,84 @@ Widget desktopBody(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // LEFT CONTENT
                   Flexible(
                     flex: 6,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Reyhan Septri Asta',
-                          style: GoogleFonts.poppins(
-                            fontSize: 26 * scale,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.darkGray,
-                          ),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        Text(
-                          'Mobile Software\nEngineer',
-                          style: GoogleFonts.poppins(
-                            fontSize: 72 * scale,
-                            fontWeight: FontWeight.w900,
-                            height: 0.95,
-                            letterSpacing: -2,
-                            color: Colors.black,
-                          ),
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        Text(
-                            "Hi! I'm Reyhan, a Flutter-focused Software Engineer "
-                            "passionate about building scalable and intuitive "
-                            "digital experiences. I specialize in developing "
-                            "production-ready mobile applications with clean "
-                            "architecture, smooth UX, and maintainable code. ",
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              height: 1.6,
-                              color: AppColor.darkGray,
-                            ),
-                          ),
-
-                        const SizedBox(height: 24),
-
-                        Row(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColor.pureWhite,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '// I DO CODE, CLEAN CODE.',
+                              'Reyhan Septri Asta',
                               style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.5,
-                                color: AppColor.pureBlack,
+                                fontSize: 26 * scale,
+                                fontWeight: FontWeight.w600,
+                                color: AppColor.darkGray,
                               ),
                             ),
+                        
+                            const SizedBox(height: 16),
+                        
                             Text(
-                              ' SCALABLE SOLUTIONS CODE.',
+                              'Mobile Software\nEngineer',
                               style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.5,
-                                color: AppColor.darkUI,
+                                fontSize: 72 * scale,
+                                fontWeight: FontWeight.w900,
+                                height: 0.95,
+                                letterSpacing: -2,
+                                color: Colors.black,
                               ),
+                            ),
+                        
+                            const SizedBox(height: 24),
+                        
+                            Text(
+                                "Hi! I'm Reyhan, a Flutter-focused Software Engineer "
+                                "passionate about building scalable and intuitive "
+                                "digital experiences. I specialize in developing "
+                                "production-ready mobile applications with clean "
+                                "architecture, smooth UX, and maintainable code. ",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.6,
+                                  color: AppColor.darkGray,
+                                ),
+                              ),
+                        
+                            const SizedBox(height: 24),
+                        
+                            Row(
+                              children: [
+                                Text(
+                                  '// I DO CODE, CLEAN CODE.',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.5,
+                                    color: AppColor.pureBlack,
+                                  ),
+                                ),
+                                Text(
+                                  ' SCALABLE SOLUTIONS CODE.',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.5,
+                                    color: AppColor.darkUI,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
 
@@ -128,30 +136,30 @@ Widget desktopBody(
               ),
             ),
           ),
-          Positioned(
-            bottom: 40,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                    "SCROLL",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.darkGray,
-                      letterSpacing: 2,
-                    ),
-                  ),
+          // Positioned(
+          //   bottom: 40,
+          //   child: Column(
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       const Text(
+          //           "SCROLL",
+          //           style: TextStyle(
+          //             fontSize: 12,
+          //             fontWeight: FontWeight.w600,
+          //             color: AppColor.darkGray,
+          //             letterSpacing: 2,
+          //           ),
+          //         ),
 
-                const SizedBox(height: 10),
-                Container(
-                  width: 2,
-                  height: 60,
-                  color: AppColor.darkGray,
-                ),
-              ],
-            ),
-          )
+          //       const SizedBox(height: 10),
+          //       Container(
+          //         width: 2,
+          //         height: 60,
+          //         color: AppColor.darkGray,
+          //       ),
+          //     ],
+          //   ),
+          // )
         ],
       ),
     ),

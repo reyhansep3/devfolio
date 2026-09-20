@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
+// import 'package:flutter_portofolio/view/pages/formalities/sections/about_me_stories/about_stories_section.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/skills_expertise/skills_experties_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
@@ -98,6 +100,8 @@ class MobilePage extends StatelessWidget {
       return Column(
         children: [
           const FormalitiesSection(),
+          // const AboutMeSection(),
+          const SkillsExpertiesSection(),
           ExperienceSection(),
         ],
       );
@@ -111,7 +115,7 @@ class MobilePage extends StatelessWidget {
       children: [
         const TopSection(),
         const SkillSection(),
-        const AboutMe(),
+        // const AboutMe(),
         ProjectSection(
           onViewAll: () => GoRouter.of(context).go('/project'),
         ),

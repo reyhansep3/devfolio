@@ -11,8 +11,8 @@ class Formalitiespage extends StatelessWidget {
     return Scaffold(
       body: Responsivelayout(
         desktop: (context) => const FormalitiesSection(),
-        mobile: (context) => MobilePage(section: 'formalities'),
-        tablet: (context) => TabletPage(section: 'formalities'),
+        mobile: (context) => const MobilePage(section: 'formalities'),
+        tablet: (context) => const TabletPage(section: 'formalities'),
       ),
     );
   }

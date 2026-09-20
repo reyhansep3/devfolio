@@ -1,3 +1,11 @@
 {
-    "cmake.sourceDirectory": "/Users/ckl-septri/Desktop/Personal/portofolio/S3Pfolio/linux"
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  // Remove .fvm files from search
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  }
 }

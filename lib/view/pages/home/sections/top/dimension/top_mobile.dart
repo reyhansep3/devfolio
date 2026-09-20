@@ -155,31 +155,31 @@ Widget mobileBody(
             ),
           ),
 
-          Positioned(
-            bottom: 24,
-            left: 0,
-            right: 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'SCROLL',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.darkGray,
-                    letterSpacing: 2,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  width: 2,
-                  height: 45,
-                  color: AppColor.darkGray,
-                ),
-              ],
-            ),
-          ),
+          // Positioned(
+          //   bottom: 24,
+          //   left: 0,
+          //   right: 0,
+          //   child: Column(
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       const Text(
+          //         'SCROLL',
+          //         style: TextStyle(
+          //           fontSize: 10,
+          //           fontWeight: FontWeight.w600,
+          //           color: AppColor.darkGray,
+          //           letterSpacing: 2,
+          //         ),
+          //       ),
+          //       const SizedBox(height: 8),
+          //       Container(
+          //         width: 2,
+          //         height: 45,
+          //         color: AppColor.darkGray,
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     ),

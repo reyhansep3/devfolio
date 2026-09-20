@@ -5,83 +5,67 @@ import 'package:flutter_portofolio/data/datasource/model/experience_model.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart' as mq;
+import 'package:google_fonts/google_fonts.dart';
 
 
 Widget experienceTabletBody(BuildContext context, double width, double height, ExperienceLocalDatasource data) {
   final screenHeight = MediaQuery.of(context).size.height;
   const navbarHeight = 80.0; // masih belum fix
+  final scale = (width / 1024).clamp(0.5, 1.3);
 
   return SingleChildScrollView(
     child: ConstrainedBox(
       constraints: BoxConstraints(minHeight: screenHeight - navbarHeight),
       child: Container(
-        color: Colors.black,
+        color: AppColor.primary,
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: mq.MediaQueryValues(context).width * 0.15,
-            vertical: mq.MediaQueryValues(context).width * 0.05,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: mq.MediaQueryValues(context).width * 0.08),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RepaintBoundary(
-                child: FadeInUp(
-                  config: BaseAnimationConfig(
-                    delay: 1000.ms,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.white.withValues(alpha:0.05),
-                                Colors.white.withValues(alpha:0.02),
-                              ],
-                            ),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha:0.1),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha:0.2),
-                                blurRadius: 15,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                                Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(width : mq.MediaQueryValues(context).width*0.005),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "WORK",
-                                style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
-                              ),
-                              TextSpan(
-                                text: " EXPERIENCE",
-                                style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.yellowgreen),
-                              )
-                            ]
-                          )
-                        ),
-                      ],
-                    ),
-                  ),
+              Text(
+                'WORK EXPERIENCE',
+                style: GoogleFonts.poppins(
+                  fontSize: 20 * scale,
+                  fontWeight: FontWeight.w800,
+                  height: 0.95,
+                  letterSpacing: 5,
+                  color: AppColor.darkUI,
                 ),
               ),
+              SizedBox(
+                height: mq.MediaQueryValues(context).height * 0.02,
+              ),
+          
+              Container(
+                height: 4,
+                width: mq.MediaQueryValues(context).width * 0.07,
+                decoration: BoxDecoration(
+                  color: AppColor.grey1,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+          
+              SizedBox(
+                height: mq.MediaQueryValues(context).height * 0.02,
+              ),
+          
+              Container(
+                margin: EdgeInsets.only(
+                  left: mq.MediaQueryValues(context).width * 0.02,
+                ),
+                height: 4,
+                width: mq.MediaQueryValues(context).width * 0.1,
+                decoration: BoxDecoration(
+                  color: AppColor.grey1,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+              SizedBox(
+                height: mq.MediaQueryValues(context).height * 0.02,
+              ),
+              
               SizedBox(height: mq.MediaQueryValues(context).height * 0.02),
               FutureBuilder<List<ExperienceModel>>(
                 future: data.getExperience(),
@@ -112,7 +96,8 @@ Widget experienceTabletBody(BuildContext context, double width, double height, E
                                           child: Text(
                                             "${snapshot.data?[index].jobTitle}",
                                             style: AppFontStyle.poppinsHeadingSmall.copyWith(
-                                              fontWeight: FontWeight.bold
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColor.pureBlack
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -134,7 +119,7 @@ Widget experienceTabletBody(BuildContext context, double width, double height, E
                                           child: Text(
                                             "${snapshot.data?[index].jobName}",
                                             style: AppFontStyle.poppinsBodySmall.copyWith(
-                                              color: AppColor.grey1,
+                                              color: AppColor.pureBlack,
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -144,7 +129,7 @@ Widget experienceTabletBody(BuildContext context, double width, double height, E
                                           child: Text(
                                             "${snapshot.data?[index].status}",
                                             style: AppFontStyle.poppinsBodySmall.copyWith(
-                                              color: AppColor.white,
+                                              color: AppColor.pureBlack,
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -161,14 +146,14 @@ Widget experienceTabletBody(BuildContext context, double width, double height, E
                                           padding: EdgeInsets.only(bottom: mq.MediaQueryValues(context).height * 0.01),
                                           child: Text(
                                             "• ${snapshot.data![index].jobExperience[index2]}",
-                                            style: AppFontStyle.poppinsBodySmall,
+                                            style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.pureBlack),
                                           ),
                                         );
                                       },
                                     ),
                                     
                                     SizedBox(height: mq.MediaQueryValues(context).height * 0.02),
-                                    Text("Tools I use :", style: AppFontStyle.poppinsBodySmall),
+                                    Text("Tools I use :", style: AppFontStyle.poppinsBodySmall.copyWith(color: AppColor.pureBlack),),
                                     SizedBox(height: mq.MediaQueryValues(context).height * 0.01),
                                     SizedBox(
                                       height: mq.MediaQueryValues(context).height * 0.05,
@@ -183,20 +168,14 @@ Widget experienceTabletBody(BuildContext context, double width, double height, E
                                               borderRadius: BorderRadius.circular(15),
                                               gradient: LinearGradient(
                                                 colors: [
-                                                  Colors.white.withValues(alpha: 0.05),
-                                                  Colors.white.withValues(alpha: 0.02),
+                                                  AppColor.darkUI.withValues(alpha: 0.05),
+                                                  AppColor.darkUI.withValues(alpha: 0.02),
                                                 ],
                                               ),
                                               border: Border.all(
-                                                color: Colors.white.withValues(alpha: 0.1),
+                                                color: AppColor.darkUI.withValues(alpha: 0.05),
                                               ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black.withValues(alpha: 0.2),
-                                                  blurRadius: 15,
-                                                  offset: const Offset(0, 10),
-                                                ),
-                                              ],
+                                              
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
@@ -205,7 +184,7 @@ Widget experienceTabletBody(BuildContext context, double width, double height, E
                                                   snapshot.data![index].tools[index2],
                                                   style: AppFontStyle.poppinsBodySmall.copyWith(
                                                     fontWeight: FontWeight.bold,
-                                                    color: AppColor.grey2,
+                                                    color: AppColor.darkUI,
                                                   ),
                                                 ),
                                               ),

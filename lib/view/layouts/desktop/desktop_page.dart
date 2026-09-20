@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/about_me_stories/about_stories_section.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/skills_expertise/skills_experties_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/blog/aboutme_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/navigation_bar.dart';
 
-/// Flag module-level: di-set oleh _handleNav (dipanggil dari link footer
-/// "Resources") SEBELUM go_router, lalu dikonsumsi saat halaman tujuan
-/// dibangun untuk memicu efek "mulai dari bawah lalu scroll ke atas".
+
 bool _scrollUpFromBottom = false;
 
 class DesktopPage extends StatefulWidget {
@@ -140,11 +139,11 @@ class _DesktopPageState extends State<DesktopPage> {
         slivers: [
           const SliverToBoxAdapter(child: TopSection()),
           const SliverToBoxAdapter(child: SkillSection()),
-          SliverToBoxAdapter(
-            child: AboutMe(
-              onViewAllArticles: () => _handleNav('/blog'),
-            ),
-          ),
+          // SliverToBoxAdapter(
+          //   child: AboutMe(
+          //     onViewAllArticles: () => _handleNav('/blog'),
+          //   ),
+          // ),
           SliverToBoxAdapter(
             child: ProjectSection(
               onViewAll: () => GoRouter.of(context).go('/project'),
@@ -163,6 +162,8 @@ class _DesktopPageState extends State<DesktopPage> {
         controller: _scrollController,
         slivers: [
           const SliverToBoxAdapter(child: FormalitiesSection()),
+          const SliverToBoxAdapter(child: AboutMeSection(),),
+          const SliverToBoxAdapter(child: SkillsExpertiesSection(),),
           SliverToBoxAdapter(child: ExperienceSection()),
           SliverToBoxAdapter(
             child: ContactSection(onNavigate: _handleNav),

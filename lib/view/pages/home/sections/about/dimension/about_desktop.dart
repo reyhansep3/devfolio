@@ -4,112 +4,160 @@ import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:svg_flutter/svg_flutter.dart';
 
 Widget skillsDesktopBody(
-  BuildContext context, double width, double height,
-  bool isHovered,void Function(bool) onHoverChanged,
+  BuildContext context,
+  double width,
+  double height,
+  bool isHovered,
+  void Function(bool) onHoverChanged,
 ) {
   final screenHeight = MediaQuery.of(context).size.height;
 
   final scale = (width / 1024).clamp(0.5, 1.3);
 
   return Container(
-    color: AppColor.primary,
+    width: double.infinity,
     height: screenHeight,
+    color: AppColor.primary,
     child: Stack(
       children: [
         Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.width * 0.12,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'About Me',
-                      style: GoogleFonts.poppins(
-                        fontSize: 65 * scale,
-                        fontWeight: FontWeight.w800,
-                        height: 0.95,
-                        letterSpacing: -2,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: context.height*0.02,),
-                    Text(
-                      'A brief introduction my journey as a software engineer.',
-                      style: GoogleFonts.poppins(
-                        fontSize: 13 * scale,
-                        fontWeight: FontWeight.w500,
-                        height: 1.6,
-                        color: AppColor.darkUI,
-                      ),
-                    ),
-                    SizedBox(height: context.height*0.02,),
-                    Container(
-                      height: 4,
-                      width: context.width*0.07,
-                      decoration: BoxDecoration(
-                        color: AppColor.grey1,
-                        borderRadius: BorderRadius.circular(100)
-                      ),
-                    ),
-                    SizedBox(height: context.height*0.02,),
-                    Container(
-                      margin: EdgeInsets.only(left: context.width*0.02),
-                      height: 4,
-                      width: context.width*0.1,
-                      decoration: BoxDecoration(
-                        color: AppColor.grey1,
-                        borderRadius: BorderRadius.circular(100)
-                      ),
-                    ),
-                    SizedBox(height: context.height*0.04,),
-                    GestureDetector(
-                      onTap: (){
-                        GoRouter.of(context).go('/formalities');
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColor.darkUI,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: Text(
-                            "Learn More",
-                            style: AppFontStyle.poppins.copyWith(
-                              color: AppColor.pureWhite
+                    Flexible(
+                      flex: 5,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'About Me',
+                            style: GoogleFonts.poppins(
+                              fontSize: 65 * scale,
+                              fontWeight: FontWeight.w800,
+                              height: 0.95,
+                              letterSpacing: -2,
+                              color: Colors.black,
                             ),
                           ),
+
+                          SizedBox(
+                            height: context.height * 0.02,
+                          ),
+
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: context.width * 0.35,
+                            ),
+                            child: Text(
+                              "I'm Reyhan a Mobile Developer in Jakarta who loves turning ideas into a products people love and helping business grow",
+                              style: GoogleFonts.poppins(
+                                fontSize: 13 * scale,
+                                fontWeight: FontWeight.w500,
+                                height: 1.6,
+                                color: AppColor.darkUI,
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: context.height * 0.02,
+                          ),
+
+                          // Line 1
+                          Container(
+                            height: 4,
+                            width: context.width * 0.07,
+                            decoration: BoxDecoration(
+                              color: AppColor.grey1,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: context.height * 0.02,
+                          ),
+
+                          // Line 2
+                          Container(
+                            margin: EdgeInsets.only(
+                              left: context.width * 0.02,
+                            ),
+                            height: 4,
+                            width: context.width * 0.1,
+                            decoration: BoxDecoration(
+                              color: AppColor.grey1,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: context.height * 0.04,
+                          ),
+
+                          // Learn More Button
+                          GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).go('/formalities');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColor.darkUI,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 18,
+                                vertical: 14,
+                              ),
+                              child: Text(
+                                "Learn More",
+                                style: AppFontStyle.poppins.copyWith(
+                                  color: AppColor.pureWhite,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      flex: 5,
+                      child: Center(
+                        child: MouseRegion(
+                          onEnter: (_) => onHoverChanged(true),
+                          onExit: (_) => onHoverChanged(false),
+                          child: isHovered
+                              ? Image.asset(
+                                  "assets/image/about_picture.jpeg",
+                                  width: 400 * scale,
+                                  fit: BoxFit.contain,
+                                )
+                              : ColorFiltered(
+                                  colorFilter: const ColorFilter.mode(
+                                    Colors.grey,
+                                    BlendMode.saturation,
+                                  ),
+                                  child: Image.asset(
+                                    "assets/image/about_picture.jpeg",
+                                    width: 400 * scale,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-                MouseRegion(
-                  onEnter: (_) => onHoverChanged(true),
-                  onExit: (_) => onHoverChanged(false),
-                  child: isHovered
-                      ? Image.asset(
-                          "assets/image/about_picture.jpeg",
-                          width: 400 * scale,
-                        )
-                      : ColorFiltered(
-                          colorFilter: const ColorFilter.mode(
-                            Colors.grey,
-                            BlendMode.saturation,
-                          ),
-                          child: Image.asset(
-                            "assets/image/about_picture.jpeg",
-                            width: 400 * scale,
-                          ),
-                        ),
-                )
-              ],
+              ),
             ),
           ],
         ),
@@ -131,7 +179,9 @@ Widget skillsDesktopBody(
                   ),
                 ),
               ),
+
               const SizedBox(height: 18),
+
               Container(
                 width: 2,
                 height: 120,
@@ -139,7 +189,7 @@ Widget skillsDesktopBody(
               ),
             ],
           ),
-        )
+        ),
       ],
     ),
   );

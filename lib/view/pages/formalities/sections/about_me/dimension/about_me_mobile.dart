@@ -1,189 +1,121 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
-import 'package:flutter_portofolio/item/app_fonts.dart';
-import 'package:flutter_portofolio/item/media_query.dart' as mq;
-import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
+ import 'package:flutter_portofolio/item/media_query.dart' as mq;
+import 'package:google_fonts/google_fonts.dart';
 
 Widget aboutMeMobileBody(BuildContext context, double width, double height) {
   // final screenHeight = MediaQuery.of(context).size.height; // di tahan dlu
   // const navbarHeight = 80.0; // masih belum fix
 
   final scale = (width / 1024).clamp(0.5, 1.3);
-  final titleFontSize = 60 * scale;
+  // final titleFontSize = 60 * scale;
   return Container(
-    color: Colors.black,
-    width: mq.MediaQueryValues(context).width,
-    // height: screenHeight - navbarHeight,
+    width: double.infinity,
+    color: AppColor.primary,
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      // left: context.width * 0.12,
       children: [
         SizedBox(
           width: double.infinity,
-          height: mq.MediaQueryValues(context).height * 0.4,
+          height: mq.MediaQueryValues(context).height,
           child: Stack(
             children: [
-              Positioned.fill(
-                child: Opacity(
-                  opacity: 0.7,
-                  child: Image.asset(
-                    "assets/image/blog_background.png",
-                    fit: BoxFit.cover,
-                  ),
+              Positioned(
+                right: 0,
+                child: Image.asset(
+                  "assets/image/about_picture.jpeg",
+                  width:  mq.MediaQueryValues(context).width,
+                  height: mq.MediaQueryValues(context).height,
                 ),
               ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.white.withValues(alpha:0.05),
-                                Colors.white.withValues(alpha:0.02),
-                              ],
+              Positioned(
+                left: mq.MediaQueryValues(context).width * 0.12,
+                right: mq.MediaQueryValues(context).width * 0.5,
+                top: 0,
+                bottom: 0,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: AppColor.pureBlack,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'About Me',
+                            style: GoogleFonts.poppins(
+                              fontSize: 65 * scale,
+                              fontWeight: FontWeight.w800,
+                              height: 0.95,
+                              letterSpacing: -2,
+                              color: Colors.white,
                             ),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha:0.1),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha:0.2),
-                                blurRadius: 15,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
                           ),
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: mq.MediaQueryValues(context).height * 0.02,
+                      ),
+
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: mq.MediaQueryValues(context).width * 0.4,
+                        ),
+                        child: Container(
+                        color: AppColor.pureBlack,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.arrow_back_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                                Icon(Icons.arrow_forward_ios_rounded, color: Colors.green, size: mq.MediaQueryValues(context).height*0.02,),
-                              
-                              ],
+                            child: Text(
+                              "I'm Reyhan a Mobile Developer in Jakarta who loves turning ideas into a products people love and helping business grow",
+                              style: GoogleFonts.poppins(
+                                fontSize: 20 * scale,
+                                fontWeight: FontWeight.w500,
+                                height: 1.6,
+                                color: AppColor.white,
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(width : mq.MediaQueryValues(context).width*0.005),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "ABOUT",
-                                style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.white),
-                              ),
-                              TextSpan(
-                                text: " ME",
-                                style: AppFontStyle.vcrMonoHeadingSmall.copyWith(fontWeight: FontWeight.bold, color: AppColor.yellowgreen),
-                              )
-                            ]
-                          )
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
-                    Text(
-                      "Mobile Developer with 3 years of experience developing scalable, high-performance applications,\ncollaborating with teams, and creating seamless user experiences.",
-                      style: AppFontStyle.poppinsBodyMedium.copyWith(color: AppColor.white),
-                      textAlign: TextAlign.center,
-                    ),
-                    
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: mq.MediaQueryValues(context).height*0.04,),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: mq.MediaQueryValues(context).width * 0.15),
-          child: Row(
-            children: [
-              RepaintBoundary(
-                child: FadeInLeft(
-                  config: BaseAnimationConfig(
-                    delay: 500.ms,
-                    child: Image.asset("assets/image/profile2.png", height: mq.MediaQueryValues(context).height*0.6,),
-                  ),
-                ),
-              ),
-              SizedBox(width: mq.MediaQueryValues(context).width*0.03,),
-              Expanded(
-                child: RepaintBoundary(
-                child: FadeInRight(
-                  config: BaseAnimationConfig(
-                    delay: 500.ms,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [ 
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "HEY, I'M",
-                                  style: AppFontStyle.vtBodyLarge.copyWith(
-                                    fontSize: titleFontSize/2,
-                                    color: Colors.white, 
-                                    fontWeight: FontWeight.bold,
-                                    height: 0.92,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "\nREYHAN",
-                                  style: AppFontStyle.vtBodyLarge.copyWith(
-                                    fontSize: titleFontSize,
-                                    color: AppColor.yellowgreen, 
-                                    fontWeight: FontWeight.bold,
-                                    height: 0.92,
-                                  ),
-                                ),
-                                
-                              ]
-                            )
-                          ),
-                          SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "I’m Reyhan Septri Asta, a mobile developer and product enthusiast who enjoys turning ideas into seamless digital experiences. I focus on building products that are not only functional, but intuitive, scalable, and enjoyable to use.",
-                                      style: AppFontStyle.poppinsBodyMedium
-                                          .copyWith(fontWeight: FontWeight.w300, color: const Color(0xFFDEDEDE)),
-                                    ),
-                                    SizedBox(height: mq.MediaQueryValues(context).height*0.02,),
-                                    Text(
-                                      "With a background in mobile development, I work across the product lifecycle—from understanding requirements and shaping user flows to building polished, production-ready experiences. I enjoy bridging the gap between design and engineering to create products that feel simple on the surface and thoughtful underneath.",
-                                      style: AppFontStyle.poppinsBodyMedium
-                                          .copyWith(fontWeight: FontWeight.w300, color: const Color(0xFFDEDEDE)),
-                                    ),
-                                    
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
                       ),
-                    ),
+
+                      SizedBox(
+                        height: mq.MediaQueryValues(context).height * 0.02,
+                      ),
+
+                      Container(
+                        height: 4,
+                        width: mq.MediaQueryValues(context).width * 0.07,
+                        decoration: BoxDecoration(
+                          color: AppColor.grey1,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: mq.MediaQueryValues(context).height * 0.02,
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: mq.MediaQueryValues(context).width * 0.02,
+                        ),
+                        height: 4,
+                        width: mq.MediaQueryValues(context).width * 0.1,
+                        decoration: BoxDecoration(
+                          color: AppColor.grey1,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+             
             ],
           ),
-        ),
+        )
       ],
     ),
   );

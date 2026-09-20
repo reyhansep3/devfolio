@@ -71,13 +71,19 @@ Widget skillsMobileBody(
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'A brief introduction my journey as a software engineer.',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    height: 1.6,
-                    color: AppColor.darkUI,
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: context.width * 0.8,
+                  ),
+                  child: Text(
+                    "I'm Reyhan a Mobile Developer in Jakarta who loves turning ideas into a products people love and helping business grow",
+                    style: GoogleFonts.poppins(
+                      fontSize: 25 * scale,
+                      fontWeight: FontWeight.w500,
+                      height: 1.6,
+                      color: AppColor.darkUI,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(height: context.height*0.02,),
