@@ -1,117 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
-import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart';
-// import 'package:flutter_portofolio/item/media_query.dart' as mq;
+import 'package:google_fonts/google_fonts.dart';
 
-Widget blogCard(
-  BuildContext context,
-  Map<String, dynamic> blog,
-) {
-  return InkWell(
-    borderRadius: BorderRadius.circular(12),
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => BlogDetailPage(
-            blog: blog,
-          ),
+const _ink = Color(0xFF151715);
+const _surface = Color(0xFF202420);
+const _rule = Color(0xFF424A42);
+const _muted = Color(0xFFB9BDB6);
+const _accent = AppColor.yellowgreen;
+
+Widget blogCard(BuildContext context, Map<String, dynamic> blog, {int index = 1}) =>
+    _JournalCard(blog: blog, index: index);
+
+class _JournalCard extends StatefulWidget {
+  const _JournalCard({required this.blog, required this.index});
+
+  final Map<String, dynamic> blog;
+  final int index;
+
+  @override
+  State<_JournalCard> createState() => _JournalCardState();
+}
+
+class _JournalCardState extends State<_JournalCard> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final compact = MediaQuery.sizeOf(context).width < 800;
+    final image = Container(
+      width: double.infinity,
+      height: compact ? 205 : 305,
+      decoration: const BoxDecoration(
+        color: _ink,
+        image: DecorationImage(
+          image: AssetImage('assets/image/blog_background.png'),
+          fit: BoxFit.cover,
+          opacity: .55,
         ),
-      );
-    },
-    child: Card(
-      color: AppColor.grey1.withValues(alpha: 0.2),
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(
-          color: AppColor.grey2,
-          width: 0.5,        
+      ),
+      padding: const EdgeInsets.all(25),
+      alignment: Alignment.bottomLeft,
+      child: Text('DEV / NOTES', style: GoogleFonts.spaceMono(
+        color: _accent, fontSize: 12, letterSpacing: 1.4)),
+    );
+    final details = Padding(
+      padding: EdgeInsets.all(compact ? 24 : 42),
+      child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('FIELD NOTE  ${widget.index.toString().padLeft(2, '0')}',
+          style: GoogleFonts.spaceMono(color: _accent, fontSize: 12, letterSpacing: 1.2)),
+        const SizedBox(height: 18),
+        Text(widget.blog['title']?.toString() ?? 'Untitled', style: GoogleFonts.poppins(
+          color: Colors.white, fontSize: compact ? 27 : 36,
+          fontWeight: FontWeight.w700, height: 1.2, letterSpacing: -1.2)),
+        const SizedBox(height: 15),
+        Text(widget.blog['subtitle']?.toString() ?? '', style: GoogleFonts.poppins(
+          color: _muted, fontSize: compact ? 13 : 15, height: 1.7)),
+        const SizedBox(height: 28),
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          Text('READ ARTICLE', style: GoogleFonts.spaceMono(
+            color: _accent, fontSize: 12, letterSpacing: 1.1)),
+          const SizedBox(width: 10),
+          const Icon(Icons.arrow_outward_rounded, size: 16, color: _accent),
+        ]),
+      ]),
+    );
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => BlogDetailPage(blog: widget.blog))),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          decoration: BoxDecoration(
+            color: _surface,
+            border: Border.all(color: _hovered ? _accent : _rule),
+            boxShadow: _hovered
+              ? [BoxShadow(color: _accent.withValues(alpha: .12), blurRadius: 26)]
+              : null,
+          ),
+          child: compact
+            ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [image, details])
+            : Row(children: [Expanded(flex: 4, child: image), Expanded(flex: 6, child: details)]),
         ),
-        borderRadius: BorderRadius.circular(10.0),
       ),
-      
-      elevation: 4.0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-              child: AspectRatio(
-                aspectRatio: 4,
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.grey2)
-                  ),
-                  child: Image.asset(
-                    blog['image']?.toString() ??
-                        "assets/image/mobile_size_blog.png",
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Image.asset(
-                      "assets/image/mobile_size_blog.png",
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  blog['title']?.toString() ?? '-',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppFontStyle.poppinsBodyLarge.copyWith(
-                    color: AppColor.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-          
-                const SizedBox(height: 8),
-          
-                Text(
-                  blog['subtitle']?.toString() ?? '-',
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppFontStyle.poppinsBodySmall.copyWith(
-                    color: AppColor.grey2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  blog['read_time']?.toString() ?? "4 Min Read",
-                  style: AppFontStyle.poppinsBodySmall.copyWith(
-                    color: AppColor.grey2,
-                  ),
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: AppColor.grey2,
-                  size: 15,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
+    );
+  }
 }

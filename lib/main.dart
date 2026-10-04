@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/home/home_page.dart';
+import 'package:flutter_portofolio/view/portfolio_cursor.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter _router = GoRouter(
@@ -63,9 +64,16 @@ class MyApp extends StatelessWidget {
     // clipped sections while resizing.
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter',
+      title: 'Rey.dev',
       theme: ThemeData(
         primaryColor: AppColor.primary,
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: AppColor.yellowgreen.withValues(alpha: 0.4),
+          selectionHandleColor: AppColor.yellowgreen,
+        ),
+      ),
+      builder: (context, child) => PortfolioCursor(
+        child: child ?? const SizedBox.shrink(),
       ),
       routerConfig: _router,
     );

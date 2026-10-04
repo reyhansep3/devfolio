@@ -14,7 +14,6 @@ class PhoneWidget extends StatefulWidget {
 class _PhoneWidgetState extends State<PhoneWidget>
     with TickerProviderStateMixin {
   bool isHovered = false;
-  final ValueNotifier<Offset> _cursor = ValueNotifier(Offset.zero);
 
   late AnimationController _slideController;
   late Animation<Offset> _slideOut;
@@ -110,7 +109,6 @@ class _PhoneWidgetState extends State<PhoneWidget>
     _slideController.dispose();
     _blinkController.dispose();
     _notificationController.dispose();
-    _cursor.dispose();
     super.dispose();
   }
 
@@ -132,17 +130,9 @@ class _PhoneWidgetState extends State<PhoneWidget>
     const double scale = 1.0;
 
     return MouseRegion(
-          cursor: SystemMouseCursors.none,
-          // Pointer movement can fire dozens of times per frame. Updating only
-          // the cursor overlay prevents rebuilding the animated phone screen.
-          onHover: (e) => _cursor.value = e.localPosition,
           onEnter: (_) => _onHover(true),
           onExit: (_) => _onHover(false),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              // ── Phone body ──
-              AnimatedContainer(
+          child: AnimatedContainer(
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.elasticOut,
                 transform: isHovered
@@ -152,39 +142,6 @@ class _PhoneWidgetState extends State<PhoneWidget>
                     : Matrix4.identity(),
                 child: _buildPhone(context, scale, widget.height, widget.width),
               ),
-        
-              // ── Custom cursor ──
-              ValueListenableBuilder<Offset>(
-                valueListenable: _cursor,
-                builder: (context, cursor, child) => AnimatedPositioned(
-                  duration: const Duration(milliseconds: 60),
-                  curve: Curves.easeOut,
-                  left: cursor.dx - (isHovered ? 40 : 0),
-                  top: cursor.dy - (isHovered ? 40 : 0),
-                  child: IgnorePointer(
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      width: isHovered ? 80 : 0,
-                      height: isHovered ? 80 : 0,
-                      decoration: BoxDecoration(
-                        color: isHovered
-                            ? AppColor.yellowgreen.withValues(alpha: 0.15)
-                            : Colors.transparent,
-                        border: Border.all(
-                          color: AppColor.yellowgreen,
-                          width: 1.5,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          isHovered ? 0 : 99,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
         );
   }
 

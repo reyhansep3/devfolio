@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_page.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me_stories/about_stories_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/skills_expertise/skills_experties_section.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/what_drives_me_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
@@ -111,15 +111,21 @@ class _DesktopPageState extends State<DesktopPage> {
     }
 
     return Scaffold(
-      backgroundColor: AppColor.primary,
+      backgroundColor: widget.section == 'project'
+          ? const Color(0xFFF0F0EB)
+          : const Color(0xFF151715),
       body: Stack(
         children: [
           _buildPage(context),
           // Layer penutup: menyembunyikan background biru scaffold pada frame
           // pertama sebelum posisi scroll benar-benar di bawah.
           if (_coverVisible)
-            const Positioned.fill(
-              child: ColoredBox(color: AppColor.primary),
+            Positioned.fill(
+              child: ColoredBox(
+                color: widget.section == 'project'
+                    ? const Color(0xFFF0F0EB)
+                    : const Color(0xFF151715),
+              ),
             ),
           Container(
             height: kNavbarHeight,
@@ -138,15 +144,10 @@ class _DesktopPageState extends State<DesktopPage> {
         key: const ValueKey('home'),
         controller: _scrollController,
         slivers: [
-          const SliverToBoxAdapter(child: ScrollReveal(child: TopSection())),
+          const SliverToBoxAdapter(child: TopSection()),
           const SliverToBoxAdapter(
             child: ScrollReveal(fromLeft: false, child: SkillSection()),
           ),
-          // SliverToBoxAdapter(
-          //   child: AboutMe(
-          //     onViewAllArticles: () => _handleNav('/blog'),
-          //   ),
-          // ),
           SliverToBoxAdapter(
             child: ProjectSection(
               onViewAll: () => GoRouter.of(context).go('/project'),
@@ -155,7 +156,11 @@ class _DesktopPageState extends State<DesktopPage> {
           SliverToBoxAdapter(
             child: ScrollReveal(
               fromLeft: false,
-              child: ContactSection(onNavigate: _handleNav),
+              child: ContactSection(
+                onNavigate: _handleNav,
+                editorialStyle: true,
+                homeContact: true,
+              ),
             ),
           ),
         ],
@@ -167,9 +172,7 @@ class _DesktopPageState extends State<DesktopPage> {
         key: const ValueKey('formalities'),
         controller: _scrollController,
         slivers: [
-          const SliverToBoxAdapter(
-            child: ScrollReveal(child: FormalitiesSection()),
-          ),
+          const SliverToBoxAdapter(child: FormalitiesSection()),
           const SliverToBoxAdapter(
             child: ScrollReveal(
               fromLeft: false,
@@ -185,8 +188,15 @@ class _DesktopPageState extends State<DesktopPage> {
               child: ExperienceSection(),
             ),
           ),
+          const SliverToBoxAdapter(child: WhatDrivesMeSection()),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              darkStyle: true,
+              eyebrow: '06  /  GET IN TOUCH',
+              headline: 'Let’s build\nwhat’s next.',
+            ),
           ),
         ],
       );
@@ -197,9 +207,13 @@ class _DesktopPageState extends State<DesktopPage> {
         key: const ValueKey('project'),
         controller: _scrollController,
         slivers: [
-          SliverToBoxAdapter(child: ProjectList()),
+          const SliverToBoxAdapter(child: ProjectList()),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              eyebrow: '07  /  GET IN TOUCH',
+            ),
           ),
         ],
       );
@@ -212,7 +226,12 @@ class _DesktopPageState extends State<DesktopPage> {
         slivers: [
           const SliverToBoxAdapter(child: BlogPage()),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              darkStyle: true,
+              eyebrow: '02  /  GET IN TOUCH',
+            ),
           ),
         ],
       );

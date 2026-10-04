@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
+import 'package:flutter_portofolio/view/cv_download.dart';
 
 
 /// Tinggi navbar (desktop & tablet). Single source of truth — dipakai baik
@@ -71,7 +72,9 @@ class Navbar extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          GestureDetector(
+            onTap: downloadCv,
+            child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.20),
@@ -84,6 +87,7 @@ class Navbar extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.normal,
               ),
+            ),
             ),
           )
         ],
@@ -155,7 +159,9 @@ class Navbar extends StatelessWidget {
                   ),
                 ),
                 navRow,
-                Container(
+                GestureDetector(
+                  onTap: downloadCv,
+                  child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.20),
@@ -168,6 +174,7 @@ class Navbar extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
                     ),
+                  ),
                   ),
                 )
               ],
@@ -200,7 +207,9 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               navRow,
-              Container(
+              GestureDetector(
+                onTap: downloadCv,
+                child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.20),
@@ -213,6 +222,7 @@ class Navbar extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
+                ),
                 ),
               )
             ],

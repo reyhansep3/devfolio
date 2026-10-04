@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portofolio/item/app_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+// Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4
+const _ink = Color(0xFF151715);
+const _paper = Color(0xFFF0F0EB);
+const _surface = Color(0xFF202420);
+const _body = Color(0xFF515850);
+const _muted = Color(0xFFB9BDB6);
+const _rule = Color(0xFFB9BDB6);
+const _accent = AppColor.yellowgreen;
 
 class BlogDetailPage extends StatefulWidget {
-  final Map<String, dynamic> blog;
+  const BlogDetailPage({super.key, required this.blog});
 
-  const BlogDetailPage({
-    super.key,
-    required this.blog,
-  });
+  final Map<String, dynamic> blog;
 
   @override
   State<BlogDetailPage> createState() => _BlogDetailPageState();
@@ -14,891 +22,352 @@ class BlogDetailPage extends StatefulWidget {
 
 class _BlogDetailPageState extends State<BlogDetailPage> {
   final ScrollController _scrollController = ScrollController();
-
-  final List<GlobalKey> _headingKeys = [];
-
-  late List<BlogSection> sections;
-
+  late final List<_SectionEntry> _entries;
   int _activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
-
-    sections = _parseSections();
-
-    _createHeadingKeys();
-
+    _entries = _parseEntries();
     _scrollController.addListener(_handleScroll);
-
-    debugPrint('================================');
-    debugPrint('BLOG DETAIL');
-    debugPrint('Title: ${widget.blog['title']}');
-    debugPrint('ID: ${widget.blog['id']}');
-    debugPrint(
-      'Sections type: ${widget.blog['sections']?.runtimeType}',
-    );
-    debugPrint('Sections count: ${sections.length}');
-    debugPrint('================================');
   }
 
-  // ============================================================
-  // PARSE SECTIONS
-  // ============================================================
+  List<_SectionEntry> _parseEntries() {
+    final raw = widget.blog['sections'];
+    if (raw is! List) return [];
+    final sections = raw.whereType<Map>().map((item) =>
+      BlogSection.fromJson(Map<String, dynamic>.from(item))).toList();
+    final entries = <_SectionEntry>[];
+    var mainSectionNumber = 0;
 
-  List<BlogSection> _parseSections() {
-    final rawSections = widget.blog['sections'];
-
-    if (rawSections == null) {
-      debugPrint('WARNING: blog tidak memiliki key "sections"');
-      return [];
-    }
-
-    if (rawSections is! List) {
-      debugPrint(
-        'WARNING: sections bukan List. '
-        'Type: ${rawSections.runtimeType}',
-      );
-      return [];
-    }
-
-    return rawSections
-        .whereType<Map>()
-        .map(
-          (item) => BlogSection.fromJson(
-            Map<String, dynamic>.from(item),
-          ),
-        )
-        .toList();
-  }
-
-  // ============================================================
-  // CREATE HEADING KEYS
-  // ============================================================
-
-  void _createHeadingKeys() {
-    _headingKeys.clear();
-
-    _addKeysRecursively(sections);
-  }
-
-  void _addKeysRecursively(List<BlogSection> items) {
-    for (final section in items) {
-      _headingKeys.add(GlobalKey());
-
-      if (section.children.isNotEmpty) {
-        _addKeysRecursively(section.children);
-      }
-    }
-  }
-
-  // ============================================================
-  // FLATTEN SECTIONS
-  // ============================================================
-
-  List<_SectionEntry> _flattenSections() {
-    final result = <_SectionEntry>[];
-
-    int keyIndex = 0;
-
-    void addSections(
-      List<BlogSection> items,
-      int level,
-    ) {
+    void add(List<BlogSection> items, int level) {
       for (final section in items) {
-        result.add(
-          _SectionEntry(
-            section: section,
-            level: level,
-            key: _headingKeys[keyIndex],
-            keyIndex: keyIndex,
-          ),
-        );
-
-        keyIndex++;
-
-        if (section.children.isNotEmpty) {
-          addSections(
-            section.children,
-            level + 1,
-          );
-        }
+        if (level == 1) mainSectionNumber++;
+        entries.add(_SectionEntry(
+          section: section,
+          level: level,
+          key: GlobalKey(),
+          index: entries.length,
+          displayNumber: mainSectionNumber,
+        ));
+        if (section.children.isNotEmpty) add(section.children, level + 1);
       }
     }
 
-    addSections(sections, 1);
-
-    return result;
+    add(sections, 1);
+    return entries;
   }
-
-  // ============================================================
-  // SCROLL LISTENER
-  // ============================================================
 
   void _handleScroll() {
-    final entries = _flattenSections();
-
-    if (entries.isEmpty) {
-      return;
+    var active = 0;
+    for (final entry in _entries) {
+      final renderObject = entry.key.currentContext?.findRenderObject();
+      if (renderObject is! RenderBox || !renderObject.hasSize) continue;
+      if (renderObject.localToGlobal(Offset.zero).dy <= 220) active = entry.index;
     }
-
-    int activeIndex = 0;
-
-    for (final entry in entries) {
-      final context = entry.key.currentContext;
-
-      if (context == null) {
-        continue;
-      }
-
-      final renderObject = context.findRenderObject();
-
-      if (renderObject is! RenderBox) {
-        continue;
-      }
-
-      final position = renderObject.localToGlobal(
-        Offset.zero,
-      );
-
-      if (position.dy <= 180) {
-        activeIndex = entry.keyIndex;
-      }
-    }
-
-    if (activeIndex != _activeIndex && mounted) {
-      setState(() {
-        _activeIndex = activeIndex;
-      });
-    }
+    if (active != _activeIndex && mounted) setState(() => _activeIndex = active);
   }
 
-  // ============================================================
-  // SCROLL TO SECTION
-  // ============================================================
-
-  void _scrollToSection(int index) {
-    if (index < 0 || index >= _headingKeys.length) {
-      return;
-    }
-
-    final context = _headingKeys[index].currentContext;
-
-    if (context == null) {
-      return;
-    }
-
-    Scrollable.ensureVisible(
-      context,
+  void _scrollTo(_SectionEntry entry) {
+    final target = entry.key.currentContext;
+    if (target == null) return;
+    Scrollable.ensureVisible(target,
       duration: const Duration(milliseconds: 450),
-      curve: Curves.easeInOut,
-      alignment: 0.05,
-    );
-
-    setState(() {
-      _activeIndex = index;
-    });
+      curve: Curves.easeInOutCubic,
+      alignment: .06);
+    setState(() => _activeIndex = entry.index);
   }
-
-  // ============================================================
-  // DISPOSE
-  // ============================================================
 
   @override
   void dispose() {
-    _scrollController.removeListener(_handleScroll);
     _scrollController.dispose();
-
     super.dispose();
   }
 
-  // ============================================================
-  // BUILD
-  // ============================================================
-
   @override
   Widget build(BuildContext context) {
-    final title = widget.blog['title']?.toString() ?? 'Blog';
-
-    return Scaffold(
+    return SelectionArea(
+      child: Scaffold(
+      backgroundColor: _paper,
       appBar: AppBar(
-        title: Text(title),
-        backgroundColor: Colors.black,
+        backgroundColor: _ink,
         foregroundColor: Colors.white,
+        title: Text('DEV / NOTES', style: GoogleFonts.spaceMono(
+          color: _accent, fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 1.2)),
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final isWide = constraints.maxWidth >= 900;
-
-          if (isWide) {
-            return _buildDesktopLayout();
-          }
-
-          return _buildMobileLayout();
-        },
-      ),
-    );
-  }
-
-  // ============================================================
-  // MOBILE
-  // ============================================================
-
-  Widget _buildMobileLayout() {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      padding: const EdgeInsets.fromLTRB(
-        24,
-        24,
-        24,
-        100,
-      ),
-      child: _buildContent(),
-    );
-  }
-
-  // ============================================================
-  // DESKTOP
-  // ============================================================
-
-  Widget _buildDesktopLayout() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // ========================================================
-        // CONTENT
-        // ========================================================
-
-        Expanded(
-          child: SingleChildScrollView(
+      body: LayoutBuilder(builder: (context, constraints) {
+        final compact = constraints.maxWidth < 1000;
+        if (compact) {
+          return SingleChildScrollView(
             controller: _scrollController,
-            padding: const EdgeInsets.fromLTRB(
-              48,
-              32,
-              48,
-              100,
-            ),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 900,
-                ),
-                child: _buildContent(),
+            child: Column(children: [_hero(true), _article(true)]),
+          );
+        }
+        return Row(children: [
+          Expanded(child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(children: [_hero(false), _article(false)]),
+          )),
+          SizedBox(
+            width: 280,
+            height: constraints.maxHeight,
+            child: ColoredBox(
+              color: _surface,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(25, 38, 25, 40),
+                child: _tableOfContents(dark: true),
               ),
             ),
           ),
-        ),
-
-        const SizedBox(width: 40),
-
-        // ========================================================
-        // TABLE OF CONTENT
-        // ========================================================
-
-        SizedBox(
-          width: 280,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 32,
-              right: 32,
-            ),
-            child: _buildTableOfContents(),
-          ),
-        ),
-      ],
+        ]);
+      }),
+      ),
     );
   }
 
-  // ============================================================
-  // CONTENT
-  // ============================================================
+  Widget _hero(bool compact) => Container(
+    width: double.infinity,
+    constraints: BoxConstraints(minHeight: compact ? 360 : 460),
+    decoration: const BoxDecoration(
+      color: _ink,
+      image: DecorationImage(
+        image: AssetImage('assets/image/blog_background.png'),
+        fit: BoxFit.cover,
+        opacity: .28,
+      ),
+    ),
+    padding: EdgeInsets.symmetric(horizontal: compact ? 24 : 64, vertical: compact ? 55 : 80),
+    child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text('FIELD NOTE  /  REYHAN SEPTRI ASTA', style: GoogleFonts.spaceMono(
+        color: _accent, fontSize: 12, letterSpacing: 1.2)),
+      const SizedBox(height: 24),
+      ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 760),
+        child: Text(widget.blog['title']?.toString() ?? 'Untitled', style: GoogleFonts.poppins(
+          color: Colors.white,
+          fontSize: compact ? 42 : 65,
+          fontWeight: FontWeight.w700,
+          height: 1.08,
+          letterSpacing: -2.2,
+        )),
+      ),
+      const SizedBox(height: 22),
+      Container(width: 58, height: 3, color: _accent),
+      const SizedBox(height: 22),
+      ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 650),
+        child: Text(widget.blog['subtitle']?.toString() ?? '', style: GoogleFonts.poppins(
+          color: _muted, fontSize: compact ? 14 : 17, height: 1.65)),
+      ),
+    ]),
+  );
 
-  Widget _buildContent() {
-    final entries = _flattenSections();
-
-    if (entries.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.all(40),
-        child: Center(
-          child: Text(
-            'No content available',
-            style: TextStyle(
-              fontSize: 18,
-            ),
+  Widget _article(bool compact) => Container(
+    width: double.infinity,
+    color: _paper,
+    padding: EdgeInsets.fromLTRB(compact ? 24 : 64, compact ? 45 : 75,
+      compact ? 24 : 64, compact ? 88 : 110),
+    child: Center(child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 780),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (compact && _entries.isNotEmpty) ...[
+          Theme(data: Theme.of(context).copyWith(dividerColor: Colors.transparent), child:
+            ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              title: Text('IN THIS ARTICLE', style: GoogleFonts.spaceMono(
+                color: _ink, fontSize: 12, letterSpacing: 1.1)),
+              children: [for (final entry in _entries) _tocItem(entry, dark: false)],
+            )),
+          const SizedBox(height: 32),
+        ],
+        if (_entries.isEmpty)
+          Text('No content available.', style: GoogleFonts.poppins(color: _body)),
+        for (final entry in _entries) _section(entry, compact),
+        const SizedBox(height: 55),
+        OutlinedButton.icon(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_rounded, size: 18),
+          label: const Text('Back to writing'),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: _ink,
+            side: const BorderSide(color: _ink),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+            textStyle: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600),
           ),
         ),
-      );
-    }
+      ]),
+    )),
+  );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...entries.map(
-          (entry) => _buildSectionWidget(entry),
-        ),
-      ],
-    );
-  }
-
-  // ============================================================
-  // SECTION WIDGET
-  // ============================================================
-
-  Widget _buildSectionWidget(
-    _SectionEntry entry,
-  ) {
+  Widget _section(_SectionEntry entry, bool compact) {
     final section = entry.section;
-
-    if (entry.level == 1) {
-      return _buildMainSection(
-        section: section,
-        key: entry.key,
-      );
-    }
-
-    return _buildChildSection(
-      section: section,
+    final main = entry.level == 1;
+    return Container(
       key: entry.key,
-      level: entry.level,
-    );
-  }
-
-  // ============================================================
-  // MAIN SECTION
-  // ============================================================
-
-  Widget _buildMainSection({
-    required BlogSection section,
-    required GlobalKey key,
-  }) {
-    return Container(
-      key: key,
-      margin: const EdgeInsets.only(
-        bottom: 48,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // TITLE
-          Text(
-            section.title,
-            style: const TextStyle(
-              fontSize: 30,
-              height: 1.2,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 18),
-
-          // QUESTION
-          if (section.question != null &&
-              section.question!.trim().isNotEmpty)
-            _buildQuestion(
-              section.question!,
-            ),
-
-          // CONTENT
-          if (section.content.trim().isNotEmpty)
-            _buildContentText(
-              section.content,
-            ),
-
-          // COMPARISON
-          if (section.comparison != null)
-            _buildComparison(
-              section.comparison!,
-            ),
-
-          // RESULT
-          if (section.result != null)
-            _buildResult(
-              section.result!,
-            ),
-
-          // RESULTS TEXT
-          if (section.resultsText != null &&
-              section.resultsText!.trim().isNotEmpty)
-            _buildResultsText(
-              section.resultsText!,
-            ),
-
-          // KEY TAKEAWAY
-          if (section.keyTakeaway != null &&
-              section.keyTakeaway!.trim().isNotEmpty)
-            _buildTakeaway(
-              section.keyTakeaway!,
-            ),
-
-          // FINAL TAKEAWAY
-          if (section.finalTakeaway != null &&
-              section.finalTakeaway!.trim().isNotEmpty)
-            _buildTakeaway(
-              section.finalTakeaway!,
-            ),
-        ],
-      ),
-    );
-  }
-
-  // ============================================================
-  // CHILD SECTION
-  // ============================================================
-
-  Widget _buildChildSection({
-    required BlogSection section,
-    required GlobalKey key,
-    required int level,
-  }) {
-    final leftPadding = 20.0 + ((level - 2) * 12);
-
-    return Container(
-      key: key,
-      margin: EdgeInsets.only(
-        left: leftPadding,
-        bottom: 36,
-      ),
-      padding: const EdgeInsets.only(
-        left: 20,
-      ),
-      decoration: BoxDecoration(
-        border: Border(
-          left: BorderSide(
-            color: Colors.grey.shade700,
-            width: 1,
-          ),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            section.title,
-            style: TextStyle(
-              fontSize: level == 2 ? 22 : 19,
-              height: 1.3,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-
-          const SizedBox(height: 12),
-
-          if (section.question != null &&
-              section.question!.trim().isNotEmpty)
-            _buildQuestion(
-              section.question!,
-            ),
-
-          if (section.content.trim().isNotEmpty)
-            _buildContentText(
-              section.content,
-            ),
-
-          if (section.comparison != null)
-            _buildComparison(
-              section.comparison!,
-            ),
-
-          if (section.result != null)
-            _buildResult(
-              section.result!,
-            ),
-
-          if (section.resultsText != null &&
-              section.resultsText!.trim().isNotEmpty)
-            _buildResultsText(
-              section.resultsText!,
-            ),
-
-          if (section.keyTakeaway != null &&
-              section.keyTakeaway!.trim().isNotEmpty)
-            _buildTakeaway(
-              section.keyTakeaway!,
-            ),
-
-          if (section.finalTakeaway != null &&
-              section.finalTakeaway!.trim().isNotEmpty)
-            _buildTakeaway(
-              section.finalTakeaway!,
-            ),
-        ],
-      ),
-    );
-  }
-
-  // ============================================================
-  // QUESTION
-  // ============================================================
-
-  Widget _buildQuestion(String text) {
-    return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(
-        bottom: 18,
-      ),
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 17,
-          height: 1.5,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  // ============================================================
-  // CONTENT TEXT
-  // ============================================================
-
-  Widget _buildContentText(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 16,
-        height: 1.7,
-      ),
-    );
-  }
-
-  // ============================================================
-  // RESULTS TEXT
-  // ============================================================
-
-  Widget _buildResultsText(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 20,
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 17,
-          height: 1.5,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  // ============================================================
-  // COMPARISON
-  // ============================================================
-
-  Widget _buildComparison(
-    Map<String, dynamic> data,
-  ) {
-    final before = data['before']?.toString() ?? '';
-    final after = data['after']?.toString() ?? '';
-
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 24,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Before',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 8),
-
-          _buildInfoBox(
-            before,
-          ),
-
-          const SizedBox(height: 16),
-
-          const Text(
-            'After',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 8),
-
-          _buildInfoBox(
-            after,
-          ),
+      margin: EdgeInsets.fromLTRB(main ? 0 : (compact ? 12 : 22), main ? 55 : 28, 0, 0),
+      padding: EdgeInsets.only(left: main ? 0 : 20, top: main ? 25 : 0),
+      decoration: BoxDecoration(border: Border(
+        top: main ? const BorderSide(color: _rule) : BorderSide.none,
+        left: main ? BorderSide.none : const BorderSide(color: _rule),
+      )),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (main) ...[
+          Text('SECTION  ${entry.displayNumber.toString().padLeft(2, '0')}',
+            style: GoogleFonts.spaceMono(color: _body, fontSize: 12, letterSpacing: 1.2)),
+          const SizedBox(height: 15),
         ],
-      ),
-    );
-  }
-
-  // ============================================================
-  // RESULT
-  // ============================================================
-
-  Widget _buildResult(
-    Map<String, dynamic> data,
-  ) {
-    final before =
-        data['before_size']?.toString() ?? '-';
-
-    final after =
-        data['after_size']?.toString() ?? '-';
-
-    final reduction =
-        data['reduction']?.toString() ?? '-';
-
-    return Container(
-      margin: const EdgeInsets.only(
-        top: 24,
-      ),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: _buildResultItem(
-              'Before',
-              before,
-            ),
-          ),
-
-          Expanded(
-            child: _buildResultItem(
-              'After',
-              after,
-            ),
-          ),
-
-          Expanded(
-            child: _buildResultItem(
-              'Reduction',
-              reduction,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildResultItem(
-    String label,
-    String value,
-  ) {
-    return Column(
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.grey.shade400,
-          ),
-        ),
-
-        const SizedBox(height: 6),
-
-        Text(
-          value,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
-  }
-
-  // ============================================================
-  // INFO BOX
-  // ============================================================
-
-  Widget _buildInfoBox(String text) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 15,
-          height: 1.5,
-        ),
-      ),
-    );
-  }
-
-  // ============================================================
-  // TAKEAWAY
-  // ============================================================
-
-  Widget _buildTakeaway(String text) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(
-        top: 24,
-      ),
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
-        border: Border(
-          left: BorderSide(
-            color: Colors.grey.shade500,
-            width: 3,
-          ),
-        ),
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(8),
-          bottomRight: Radius.circular(8),
-        ),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 15,
-          height: 1.6,
-          fontStyle: FontStyle.italic,
-        ),
-      ),
-    );
-  }
-
-  // ============================================================
-  // TABLE OF CONTENTS
-  // ============================================================
-
-  Widget _buildTableOfContents() {
-    final entries = _flattenSections();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'On this page',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
+        Text(section.title, style: GoogleFonts.poppins(
+          color: _ink,
+          fontSize: main ? (compact ? 28 : 34) : (compact ? 20 : 23),
+          fontWeight: FontWeight.w700,
+          height: 1.25,
+          letterSpacing: main ? -.9 : -.4,
+        )),
         const SizedBox(height: 16),
-
-        Container(
-          width: double.infinity,
-          height: 1,
-          color: Colors.grey.shade800,
-        ),
-
-        const SizedBox(height: 10),
-
-        if (entries.isEmpty)
-          Text(
-            'No sections',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey.shade500,
-            ),
-          ),
-
-        ...entries.map(
-          (entry) => _buildTocItem(
-            entry,
-          ),
-        ),
-      ],
+        if (section.question != null && section.question!.trim().isNotEmpty)
+          _question(section.question!),
+        if (section.content.trim().isNotEmpty) _paragraph(section.content),
+        if (section.comparison != null) _comparison(section.comparison!),
+        if (section.result != null) _result(section.result!),
+        if (section.resultsText != null && section.resultsText!.trim().isNotEmpty)
+          Padding(padding: const EdgeInsets.only(top: 20), child: _paragraph(section.resultsText!)),
+        if (section.keyTakeaway != null && section.keyTakeaway!.trim().isNotEmpty)
+          _takeaway(section.keyTakeaway!),
+        if (section.finalTakeaway != null && section.finalTakeaway!.trim().isNotEmpty)
+          _takeaway(section.finalTakeaway!),
+      ]),
     );
   }
 
-  // ============================================================
-  // TOC ITEM
-  // ============================================================
+  Widget _paragraph(String text) => Text(text, style: GoogleFonts.poppins(
+    color: _body, fontSize: 15, height: 1.85));
 
-  Widget _buildTocItem(
-    _SectionEntry entry,
-  ) {
-    final isActive =
-        entry.keyIndex == _activeIndex;
+  Widget _question(String text) => Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(bottom: 20),
+    padding: const EdgeInsets.all(20),
+    decoration: const BoxDecoration(
+      color: Color(0xFFE4E9D9),
+      border: Border(left: BorderSide(color: _ink, width: 3)),
+    ),
+    child: Text(text, style: GoogleFonts.poppins(
+      color: _ink, fontSize: 16, height: 1.6, fontWeight: FontWeight.w600)),
+  );
 
-    final leftPadding =
-        (entry.level - 1) * 16.0;
+  Widget _comparison(Map<String, dynamic> data) => Padding(
+    padding: const EdgeInsets.only(top: 27),
+    child: LayoutBuilder(builder: (context, constraints) {
+      final before = _comparisonPanel('BEFORE', data['before']?.toString() ?? '');
+      final after = _comparisonPanel('AFTER', data['after']?.toString() ?? '');
+      return constraints.maxWidth < 620
+        ? Column(children: [before, const SizedBox(height: 12), after])
+        : Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Expanded(child: before), const SizedBox(width: 12), Expanded(child: after),
+          ]);
+    }),
+  );
 
+  Widget _comparisonPanel(String label, String text) => Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(color: Colors.white, border: Border.all(color: _rule)),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(label, style: GoogleFonts.spaceMono(color: _body, fontSize: 12, letterSpacing: 1.1)),
+      const SizedBox(height: 13),
+      Text(text, style: GoogleFonts.poppins(color: _body, fontSize: 13, height: 1.7)),
+    ]),
+  );
+
+  Widget _result(Map<String, dynamic> data) => Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(top: 24),
+    padding: const EdgeInsets.all(22),
+    decoration: const BoxDecoration(color: _ink),
+    child: LayoutBuilder(builder: (context, constraints) {
+      final values = [
+        _resultValue('BEFORE', data['before_size']?.toString() ?? '—'),
+        _resultValue('AFTER', data['after_size']?.toString() ?? '—'),
+        _resultValue('REDUCTION', data['reduction']?.toString() ?? '—'),
+      ];
+      return constraints.maxWidth < 500
+        ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            for (var i = 0; i < values.length; i++) ...[
+              values[i], if (i != values.length - 1) const SizedBox(height: 20),
+            ],
+          ])
+        : Row(children: [for (final value in values) Expanded(child: value)]);
+    }),
+  );
+
+  Widget _resultValue(String label, String value) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(label, style: GoogleFonts.spaceMono(color: _accent, fontSize: 12, letterSpacing: 1.1)),
+      const SizedBox(height: 8),
+      Text(value, style: GoogleFonts.poppins(color: Colors.white,
+        fontSize: 22, fontWeight: FontWeight.w700)),
+    ],
+  );
+
+  Widget _takeaway(String text) => Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(top: 25),
+    padding: const EdgeInsets.all(20),
+    decoration: const BoxDecoration(
+      color: _surface,
+      border: Border(left: BorderSide(color: _accent, width: 3)),
+    ),
+    child: Text(text, style: GoogleFonts.poppins(color: Colors.white,
+      fontSize: 14, height: 1.75)),
+  );
+
+  Widget _tableOfContents({required bool dark}) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text('ON THIS PAGE', style: GoogleFonts.spaceMono(
+        color: dark ? _accent : _ink, fontSize: 12, letterSpacing: 1.2)),
+      const SizedBox(height: 19),
+      for (final entry in _entries) _tocItem(entry, dark: dark),
+    ],
+  );
+
+  Widget _tocItem(_SectionEntry entry, {required bool dark}) {
+    final active = entry.index == _activeIndex;
     return InkWell(
-      onTap: () {
-        _scrollToSection(
-          entry.keyIndex,
-        );
-      },
-      borderRadius: BorderRadius.circular(6),
+      onTap: () => _scrollTo(entry),
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(
-          left: leftPadding + 10,
-          right: 6,
-          top: 6,
-          bottom: 6,
-        ),
-        decoration: BoxDecoration(
-          border: Border(
-            left: BorderSide(
-              color: isActive
-                  ? Colors.white
-                  : Colors.transparent,
-              width: 2,
-            ),
-          ),
-        ),
-        child: Text(
-          entry.section.title,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: entry.level == 1 ? 14 : 13,
+        padding: EdgeInsets.fromLTRB(10 + (entry.level - 1) * 12, 10, 4, 10),
+        decoration: BoxDecoration(border: Border(left: BorderSide(
+          color: active ? _accent : Colors.transparent, width: 2))),
+        child: Text(entry.section.title, maxLines: 2, overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.poppins(
+            color: active ? (dark ? Colors.white : _ink) : (dark ? _muted : _body),
+            fontSize: entry.level == 1 ? 13 : 12,
+            fontWeight: active ? FontWeight.w600 : FontWeight.w400,
             height: 1.4,
-            fontWeight: isActive
-                ? FontWeight.w600
-                : FontWeight.normal,
-            color: isActive
-                ? Colors.white
-                : Colors.grey.shade500,
-          ),
-        ),
+          )),
       ),
     );
   }
 }
 
-// ================================================================
-// SECTION ENTRY
-// ================================================================
-
 class _SectionEntry {
-  final BlogSection section;
-  final int level;
-  final GlobalKey key;
-  final int keyIndex;
-
   const _SectionEntry({
     required this.section,
     required this.level,
     required this.key,
-    required this.keyIndex,
+    required this.index,
+    required this.displayNumber,
   });
-}
 
-// ================================================================
-// BLOG SECTION MODEL
-// ================================================================
+  final BlogSection section;
+  final int level;
+  final GlobalKey key;
+  final int index;
+  final int displayNumber;
+}
 
 class BlogSection {
   final String type;

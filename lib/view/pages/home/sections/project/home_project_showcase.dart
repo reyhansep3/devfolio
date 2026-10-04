@@ -5,6 +5,7 @@ import 'package:flutter_portofolio/animation/preview_dido.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeProjectShowcase extends StatelessWidget {
   const HomeProjectShowcase({super.key, this.onViewAll});
@@ -36,13 +37,183 @@ class HomeProjectShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProjectShowcase(
-      projects: _projects,
-      eyebrow: 'SELECTED WORK',
-      title: 'Projects built for\nreal-world work.',
-      description:
-          'A selection of mobile products shaped around reliable workflows, clear interfaces, and maintainable code.',
-      onViewAll: onViewAll,
+    return _HomeProjects(projects: _projects, onViewAll: onViewAll);
+  }
+}
+
+// Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4
+const _homeInk = Color(0xFF151715);
+const _homeSurface = Color(0xFF202420);
+const _homeRule = Color(0xFF424A42);
+const _homeMuted = Color(0xFFB9BDB6);
+const _homeAccent = AppColor.yellowgreen;
+
+class _HomeProjects extends StatelessWidget {
+  const _HomeProjects({required this.projects, this.onViewAll});
+
+  final List<ProjectShowcaseData> projects;
+  final VoidCallback? onViewAll;
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final compact = width < 800;
+    final inset = compact ? 24.0 : width * .09;
+
+    return Container(
+      width: double.infinity,
+      color: _homeInk,
+      padding: EdgeInsets.fromLTRB(inset, compact ? 76 : 110, inset, compact ? 82 : 110),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ScrollReveal(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('03  /  SELECTED WORK', style: GoogleFonts.spaceMono(
+                  color: _homeAccent, fontSize: 12, letterSpacing: 1.3)),
+                const SizedBox(height: 25),
+                Text('Work made for\nthe real world.', style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: compact ? 43 : 64,
+                  fontWeight: FontWeight.w700,
+                  height: 1.08,
+                  letterSpacing: -2.3,
+                )),
+                const SizedBox(height: 25),
+                Container(width: 58, height: 3, color: _homeAccent),
+                const SizedBox(height: 25),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 550),
+                  child: Text(
+                    'Mobile products shaped around clear interfaces, reliable workflows, and code built to last.',
+                    style: GoogleFonts.poppins(
+                      color: _homeMuted, fontSize: compact ? 14 : 16, height: 1.75),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: compact ? 44 : 64),
+          for (var index = 0; index < projects.length; index++) ...[
+            ScrollReveal(
+              fromLeft: index.isEven,
+              child: _HomeProjectRow(
+                data: projects[index],
+                number: index + 1,
+                compact: compact,
+                imageOnLeft: index.isEven,
+              ),
+            ),
+            if (index != projects.length - 1)
+              SizedBox(height: compact ? 18 : 24),
+          ],
+          if (onViewAll != null) ...[
+            SizedBox(height: compact ? 36 : 48),
+            OutlinedButton.icon(
+              onPressed: onViewAll,
+              icon: const Icon(Icons.arrow_outward_rounded, size: 18),
+              label: const Text('View all projects'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.white,
+                side: const BorderSide(color: _homeAccent),
+                padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                textStyle: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 13),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _HomeProjectRow extends StatefulWidget {
+  const _HomeProjectRow({
+    required this.data,
+    required this.number,
+    required this.compact,
+    required this.imageOnLeft,
+  });
+
+  final ProjectShowcaseData data;
+  final int number;
+  final bool compact;
+  final bool imageOnLeft;
+
+  @override
+  State<_HomeProjectRow> createState() => _HomeProjectRowState();
+}
+
+class _HomeProjectRowState extends State<_HomeProjectRow> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final preview = Container(
+      width: double.infinity,
+      height: widget.compact ? 205 : 300,
+      color: const Color(0xFF2B302B),
+      alignment: Alignment.center,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: RepaintBoundary(child: widget.data.preview),
+      ),
+    );
+    final details = Padding(
+      padding: EdgeInsets.all(widget.compact ? 24 : 42),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('PROJECT  ${widget.number.toString().padLeft(2, '0')}',
+              style: GoogleFonts.spaceMono(
+                color: _homeAccent, fontSize: 12, letterSpacing: 1.2)),
+          const SizedBox(height: 18),
+          Text(widget.data.title, style: GoogleFonts.poppins(
+            color: Colors.white,
+            fontSize: widget.compact ? 27 : 37,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -1.3,
+          )),
+          const SizedBox(height: 13),
+          Text(widget.data.description, style: GoogleFonts.poppins(
+            color: _homeMuted, fontSize: widget.compact ? 13 : 14, height: 1.7)),
+          const SizedBox(height: 26),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: widget.data.tools.map((tool) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+              decoration: BoxDecoration(border: Border.all(color: _homeRule)),
+              child: Text(tool, style: GoogleFonts.spaceMono(
+                color: _homeMuted, fontSize: 12)),
+            )).toList(),
+          ),
+        ],
+      ),
+    );
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOutCubic,
+        decoration: BoxDecoration(
+          color: _homeSurface,
+          border: Border.all(color: _hovered ? _homeAccent : _homeRule),
+        ),
+        child: widget.compact
+          ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              preview,
+              details,
+            ])
+          : Row(children: widget.imageOnLeft
+              ? [Expanded(flex: 5, child: preview), Expanded(flex: 5, child: details)]
+              : [Expanded(flex: 5, child: details), Expanded(flex: 5, child: preview)]),
+      ),
     );
   }
 }
