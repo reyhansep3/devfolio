@@ -111,9 +111,7 @@ class _TabletPageState extends State<TabletPage> {
         controller: _scrollController,
         slivers: [
           const SliverToBoxAdapter(child: TopSection()),
-          const SliverToBoxAdapter(
-            child: ScrollReveal(fromLeft: false, child: SkillSection()),
-          ),
+          const SliverToBoxAdapter(child: SkillSection()),
           SliverToBoxAdapter(
             child: ProjectSection(
               onViewAll: () => GoRouter.of(context).go('/project'),

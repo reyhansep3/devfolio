@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
+import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
 import 'package:flutter_portofolio/view/navigation_bar.dart';
@@ -83,27 +84,62 @@ Widget _heroCopy(double width, bool compact) => Column(
 );
 
 Widget _portrait(double width, bool compact) {
-  final imageHeight = compact
-      ? (width * .72).clamp(230.0, 350.0)
-      : (width * .43).clamp(370.0, 560.0);
-  return Stack(
-    clipBehavior: Clip.none,
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(right: 13, bottom: 13),
-        child: Container(
-          height: imageHeight,
-          width: double.infinity,
-          decoration: BoxDecoration(border: Border.all(color: _accent, width: 1.5)),
-          child: ClipRect(child: Image.asset('assets/image/profile2.png', fit: BoxFit.cover,
-            alignment: const Alignment(0, -.34), semanticLabel: 'Portrait of Reyhan Septri Asta')),
+  final imageWidth = compact
+      ? (width - 48).clamp(220.0, 320.0)
+      : (width * .29).clamp(300.0, 420.0);
+  return Align(
+    alignment: compact ? Alignment.centerLeft : Alignment.centerRight,
+    child: SizedBox(
+      width: imageWidth,
+      child: AspectRatio(
+        aspectRatio: 900 / 1167,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 13, bottom: 13),
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: _accent, width: 1.5),
+                ),
+                child: ClipRect(
+                  child: Image.asset(
+                    'assets/image/profile2.png',
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                    semanticLabel: 'Portrait of Reyhan Septri Asta',
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: Container(
+                width: 60,
+                height: 60,
+                color: _accent,
+                child: const Icon(Icons.north_east_rounded, color: _ink, size: 27),
+              ),
+            ),
+            Positioned(
+              left: 16,
+              bottom: 30,
+              child: Text(
+                '01  /  INTRODUCTION',
+                style: GoogleFonts.spaceMono(
+                  color: Colors.white,
+                  fontSize: 12,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      Positioned(right: 0, bottom: 0, child: Container(width: 60, height: 60, color: _accent,
-        child: const Icon(Icons.north_east_rounded, color: _ink, size: 27))),
-      Positioned(left: 16, bottom: 30, child: Text('01  /  INTRODUCTION',
-        style: GoogleFonts.spaceMono(color: Colors.white, fontSize: 12, letterSpacing: 1.2))),
-    ],
+    ),
   );
 }
 
@@ -120,14 +156,14 @@ Widget homeAbout(BuildContext context, double width, double height) {
       padding: EdgeInsets.symmetric(horizontal: compact ? 24 : width * .09, vertical: compact ? 76 : 90),
       child: compact
         ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            FadeInLeft(config: BaseAnimationConfig(duration: 750.ms, child: copy)),
+            ScrollReveal(child: copy),
             const SizedBox(height: 48),
-            FadeInRight(config: BaseAnimationConfig(delay: 160.ms, duration: 750.ms, child: phone)),
+            ScrollReveal(fromLeft: false, delay: const Duration(milliseconds: 120), child: phone),
           ])
         : Row(children: [
-            Expanded(flex: 5, child: FadeInLeft(config: BaseAnimationConfig(duration: 750.ms, child: copy))),
+            Expanded(flex: 5, child: ScrollReveal(child: copy)),
             SizedBox(width: width * .07),
-            Expanded(flex: 4, child: FadeInRight(config: BaseAnimationConfig(delay: 150.ms, duration: 750.ms, child: phone))),
+            Expanded(flex: 4, child: ScrollReveal(fromLeft: false, delay: const Duration(milliseconds: 120), child: phone)),
           ]),
     ),
   );
