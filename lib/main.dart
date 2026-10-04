@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
     // clipped sections while resizing.
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Rey.dev',
+      title: 's3p/devfolio',
       theme: ThemeData(
         primaryColor: AppColor.primary,
         textSelectionTheme: TextSelectionThemeData(
