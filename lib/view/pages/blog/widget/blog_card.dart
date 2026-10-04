@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
-import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
 const _ink = Color(0xFF151715);
 const _surface = Color(0xFF202420);
@@ -71,8 +71,7 @@ class _JournalCardState extends State<_JournalCard> {
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => BlogDetailPage(blog: widget.blog))),
+        onTap: () => context.go('/blog/${widget.blog['id']}'),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,

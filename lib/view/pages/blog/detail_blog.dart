@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
 // Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4
 const _ink = Color(0xFF151715);
@@ -92,6 +93,11 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
       appBar: AppBar(
         backgroundColor: _ink,
         foregroundColor: Colors.white,
+        leading: IconButton(
+          tooltip: 'Back to writing',
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => context.pop(),
+        ),
         title: Text('DEV / NOTES', style: GoogleFonts.spaceMono(
           color: _accent, fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 1.2)),
       ),
@@ -185,7 +191,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
         for (final entry in _entries) _section(entry, compact),
         const SizedBox(height: 55),
         OutlinedButton.icon(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_rounded, size: 18),
           label: const Text('Back to writing'),
           style: OutlinedButton.styleFrom(
