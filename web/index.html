@@ -39,36 +39,53 @@
       overflow: hidden;
     }
 
-    /* ── Loading bar di paling atas ── */
-    #loading-bar {
+    /* Tampil sebelum Flutter memuat engine dan frame pertama. */
+    #loading-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
+      inset: 0;
       z-index: 9999;
-      background: rgba(200, 245, 90, 0.12); /* yellowgreen transparan */
-      transition: opacity 0.45s ease;
+      display: grid;
+      place-items: center;
+      background: #0b0b0f;
+      color: #c8f55a;
+      font-family: Arial, Helvetica, sans-serif;
+      transition: opacity 0.35s ease;
     }
-    #loading-bar.done {
+    #loading-screen.done {
       opacity: 0;
+      pointer-events: none;
     }
-    #loading-bar-fill {
+    #loading-content {
+      width: min(280px, calc(100vw - 64px));
+    }
+    #loading-label {
+      margin-bottom: 16px;
+      color: #a7a7a7;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+    }
+    #loading-value {
+      font-size: clamp(64px, 15vw, 104px);
+      font-weight: 700;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.06em;
+    }
+    #loading-value span {
+      font-size: 0.42em;
+      vertical-align: 0.12em;
+    }
+    #loading-track {
+      height: 2px;
+      margin-top: 26px;
+      background: rgba(200, 245, 90, 0.2);
+    }
+    #loading-fill {
+      width: 1%;
       height: 100%;
-      width: 0%;
-      background: #c8f55a; /* AppColor.yellowgreen */
-      box-shadow: 0 0 10px rgba(200, 245, 90, 0.7);
-      border-radius: 0 2px 2px 0;
-      transition: width 0.4s ease;
-      /* denyut halus biar terasa "alive" saat loading */
-      animation: pulse 1.1s ease-in-out infinite;
-    }
-    #loading-bar.indeterminate #loading-bar-fill {
-      width: 90% !important;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.85; }
-      50%      { opacity: 0.45; }
+      background: #c8f55a;
+      box-shadow: 0 0 10px rgba(200, 245, 90, 0.5);
     }
   </style>
 
@@ -82,59 +99,49 @@
   <script src="flutter_bootstrap.js" defer></script>
 </head>
 <body>
-  <!-- Progress bar (muncul sebelum Flutter siap, hilang setelah runApp) -->
-  <div id="loading-bar">
-    <div id="loading-bar-fill"></div>
+  <div id="loading-screen" role="progressbar" aria-label="Memuat portofolio" aria-valuemin="1" aria-valuemax="100" aria-valuenow="1">
+    <div id="loading-content">
+      <div id="loading-label">LOADING PORTFOLIO</div>
+      <div id="loading-value">1<span>%</span></div>
+      <div id="loading-track"><div id="loading-fill"></div></div>
+    </div>
   </div>
 
   <script>
     (function () {
-      var bar = document.getElementById('loading-bar');
-      var fill = document.getElementById('loading-bar-fill');
+      var screen = document.getElementById('loading-screen');
+      var value = document.getElementById('loading-value');
+      var fill = document.getElementById('loading-fill');
+      var current = 1;
+      var homeReady = false;
 
-      function startIndeterminate() {
-        requestAnimationFrame(function () {
-          fill.style.width = '15%';
-          requestAnimationFrame(function () {
-            bar.classList.add('indeterminate');
-          });
-        });
+      function show(percent) {
+        if (percent === current) return;
+        current = percent;
+        value.firstChild.nodeValue = String(percent);
+        fill.style.width = percent + '%';
+        screen.setAttribute('aria-valuenow', String(percent));
       }
 
-      function finish() {
-        bar.classList.remove('indeterminate');
-        fill.style.width = '100%';
-        setTimeout(function () {
-          bar.classList.add('done');
+      function advance() {
+        // Naik satu angka tiap 30 ms; tunggu frame Flutter sebelum lewat 95%.
+        if (current < (homeReady ? 100 : 95)) show(current + 1);
+        if (current === 100) {
+          clearInterval(timer);
           setTimeout(function () {
-            if (bar && bar.parentNode) bar.parentNode.removeChild(bar);
-          }, 500);
-        }, 220);
-      }
-
-      // flutter_bootstrap.js mengisi window._flutter.loader dan memanggil
-      // .load() sendiri. Kita hanya perlu menunggu app selesai di-render.
-      function waitForApp() {
-        if (window._flutter && window._flutter.loader) {
-          startIndeterminate();
-          // .load() mengembalikan Promise saat engine siap + runApp selesai.
-          window._flutter.loader.load({
-            serviceWorkerSettings: {
-              serviceWorkerVersion: '{{flutter_service_worker_version}}'
-            }
-          }).then(function () {
-            finish();
-          }).catch(function (err) {
-            console.error(err);
-            finish();
-          });
-        } else {
-          // bootstrap belum siap, coba lagi sebentar lagi.
-          setTimeout(waitForApp, 30);
+            screen.classList.add('done');
+            setTimeout(function () {
+              screen.remove();
+            }, 350);
+          }, 180);
         }
       }
 
-      waitForApp();
+      // Bootstrap memanggil .load() sendiri.
+      window.addEventListener('flutter-first-frame', function () {
+        homeReady = true;
+      }, { once: true });
+      var timer = setInterval(advance, 30);
     })();
   </script>
 </body>

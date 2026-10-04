@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
@@ -37,85 +35,76 @@ Widget desktopBody(
                 children: [
                   Flexible(
                     flex: 6,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColor.pureWhite,
-                        borderRadius: BorderRadius.circular(20)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Reyhan Septri Asta',
-                              style: GoogleFonts.poppins(
-                                fontSize: 26 * scale,
-                                fontWeight: FontWeight.w600,
-                                color: AppColor.darkGray,
-                              ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Reyhan Septri Asta - Mobile Developer',
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16 * scale,
+                              color: AppColor.darkGray,
                             ),
-                        
-                            const SizedBox(height: 16),
-                        
-                            Text(
-                              'Mobile Software\nEngineer',
-                              style: GoogleFonts.poppins(
-                                fontSize: 72 * scale,
-                                fontWeight: FontWeight.w900,
-                                height: 0.95,
-                                letterSpacing: -2,
-                                color: Colors.black,
-                              ),
+                          ),
+
+                          const SizedBox(height: 16),
+
+                          Text(
+                            'I  CODE  TO  BUILD  A  FAST,  SCALABLE,  AND  BEAUTIFUL  DIGITAL  PRODUCTS.', //'I LIKE TO BUILD A FUNCTIONAL AND BEAUTIFUL DIGITAL EXPERIENCE',
+                            style: GoogleFonts.poppins(
+                              fontSize: 42 * scale,
+                              fontWeight: FontWeight.w700,
+                              height: 1.1,
+                              letterSpacing: -2,
+                              color: Colors.black,
                             ),
-                        
-                            const SizedBox(height: 24),
-                        
-                            Text(
-                                "Hi! I'm Reyhan, a Flutter-focused Software Engineer "
-                                "passionate about building scalable and intuitive "
-                                "digital experiences. I specialize in developing "
-                                "production-ready mobile applications with clean "
-                                "architecture, smooth UX, and maintainable code. ",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.6,
-                                  color: AppColor.darkGray,
-                                ),
-                              ),
-                        
-                            const SizedBox(height: 24),
-                        
-                            Row(
-                              children: [
-                                Text(
-                                  '// I DO CODE, CLEAN CODE.',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    letterSpacing: 0.5,
-                                    color: AppColor.pureBlack,
-                                  ),
-                                ),
-                                Text(
-                                  ' SCALABLE SOLUTIONS CODE.',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    letterSpacing: 0.5,
-                                    color: AppColor.darkUI,
-                                  ),
-                                ),
-                              ],
+                          ),
+
+                          const SizedBox(height: 24),
+
+                          Text(
+                            "Between writing lines of code and coffee breaks, I am someonw who is "
+                            "passionate about building a functuonal and beautiful"
+                            "digital experiences. Who specialize in Mobile Development",
+                            style: GoogleFonts.poppins(
+                              fontSize: 14 * scale,
+                              fontWeight: FontWeight.w400,
+                              height: 1.6,
+                              color: AppColor.darkGray,
                             ),
-                          ],
-                        ),
+                          ),
+
+                          // const SizedBox(height: 24),
+
+                          // Wrap(
+                          //   children: [
+                          //     Text(
+                          //       '// I DO CODE, CLEAN CODE.',
+                          //       style: GoogleFonts.poppins(
+                          //         fontSize: 18,
+                          //         fontWeight: FontWeight.w700,
+                          //         letterSpacing: 0.5,
+                          //         color: AppColor.pureBlack,
+                          //       ),
+                          //     ),
+                          //     Text(
+                          //       ' SCALABLE SOLUTIONS CODE.',
+                          //       style: GoogleFonts.poppins(
+                          //         fontSize: 18,
+                          //         fontWeight: FontWeight.w700,
+                          //         letterSpacing: 0.5,
+                          //         color: AppColor.darkUI,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
                       ),
                     ),
                   ),
-
                   Flexible(
                     flex: 3,
                     child: Center(

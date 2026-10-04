@@ -7,11 +7,11 @@ import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/blog/aboutme_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
+import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 
 class MobilePage extends StatelessWidget {
   final String section;
@@ -86,40 +86,38 @@ class MobilePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        color: Colors.black,
-        child: SingleChildScrollView(
-          child: body,
-        ),
-      ),
+      body: ColoredBox(color: Colors.black, child: body),
     );
   }
 
   Widget _buildBody(BuildContext context) {
     if (section == 'formalities') {
-      return Column(
+      return ListView(
         children: [
-          const FormalitiesSection(),
+          const ScrollReveal(child: FormalitiesSection()),
           // const AboutMeSection(),
-          const SkillsExpertiesSection(),
-          ExperienceSection(),
+          const ScrollReveal(
+            fromLeft: false,
+            child: SkillsExpertiesSection(),
+          ),
+          ScrollReveal(child: ExperienceSection()),
         ],
       );
     }
 
     if (section == 'project') {
-      return ProjectList();
+      return ListView(children: const [ProjectList()]);
     }
 
-    return Column(
+    return ListView(
       children: [
         const TopSection(),
-        const SkillSection(),
+        const ScrollReveal(fromLeft: false, child: SkillSection()),
         // const AboutMe(),
         ProjectSection(
           onViewAll: () => GoRouter.of(context).go('/project'),
         ),
-        const ContactSection(),
+        const ScrollReveal(fromLeft: false, child: ContactSection()),
       ],
     );
   }

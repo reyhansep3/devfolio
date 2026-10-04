@@ -15,7 +15,7 @@ Widget skillsMobileBody(
 
   return Container(
     color: AppColor.primary,
-    height: screenHeight,
+    constraints: BoxConstraints(minHeight: screenHeight),
     child: Stack(
       children: [
         Column(

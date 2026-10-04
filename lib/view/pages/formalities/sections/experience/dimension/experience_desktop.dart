@@ -13,9 +13,10 @@ Widget experienceDesktopBody(BuildContext context, double width, double height, 
   const navbarHeight = 80.0; // masih belum fix
   final scale = (width / 1024).clamp(0.5, 1.3);
 
-  return SingleChildScrollView(
-    child: ConstrainedBox(
-      constraints: BoxConstraints(minHeight: screenHeight - navbarHeight),
+  return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: screenHeight > navbarHeight ? screenHeight - navbarHeight : 0,
+      ),
       child: Container(
         color: AppColor.primary,
         width: double.infinity,
@@ -208,6 +209,5 @@ Widget experienceDesktopBody(BuildContext context, double width, double height, 
           ),
         ),
       ),
-    ),
-  );
+    );
 }              

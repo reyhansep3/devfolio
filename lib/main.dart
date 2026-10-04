@@ -53,28 +53,21 @@ void main() {
   runApp(const MyApp());
 }
 
-const double kDesignViewportHeight = 900.0;
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    // Floor: jangan biarkan tinggi turun di bawah baseline saat di-resize vertikal.
-    final lockedHeight = mq.size.height < kDesignViewportHeight
-        ? kDesignViewportHeight
-        : mq.size.height;
-    return MediaQuery(
-      data: mq.copyWith(size: Size(mq.size.width, lockedHeight)),
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter',
-        theme: ThemeData(
-          primaryColor: AppColor.primary,
-        ),
-        routerConfig: _router,
+    // Keep the real viewport dimensions. Overriding MediaQuery height makes
+    // short browser windows lay out as if they were 900px tall and causes
+    // clipped sections while resizing.
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter',
+      theme: ThemeData(
+        primaryColor: AppColor.primary,
       ),
+      routerConfig: _router,
     );
   }
 }

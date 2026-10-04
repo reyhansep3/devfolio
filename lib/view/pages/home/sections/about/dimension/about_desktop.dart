@@ -18,7 +18,9 @@ Widget skillsDesktopBody(
 
   return Container(
     width: double.infinity,
-    height: screenHeight,
+    // This section uses Expanded internally, so it needs a bounded height.
+    // Keep that bound local to the section instead of faking the app viewport.
+    height: screenHeight < 650 ? 650 : screenHeight,
     color: AppColor.primary,
     child: Stack(
       children: [

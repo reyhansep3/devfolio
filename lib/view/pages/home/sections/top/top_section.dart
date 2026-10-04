@@ -14,32 +14,36 @@ class TopSection extends StatefulWidget {
 }
 
 class _TopSectionState extends State<TopSection> {
+  bool _isHovered = false;
+
   @override
   Widget build(BuildContext context) {
-
-    bool isHovered = false;
     return Responsivelayout(
       mobile: (context) => mobileBody(
         context,
         context.width,
         context.height,
-        isHovered,
-        (val) => setState(() => isHovered = val),
+        _isHovered,
+        _setHover,
       ),
       tablet: (context) => tabletBody(
         context,
         context.width,
         context.height,
-        isHovered,
-        (val) => setState(() => isHovered = val),
+        _isHovered,
+        _setHover,
       ),
       desktop: (context) => desktopBody(
         context,
         context.width,
         context.height,
-        isHovered,
-        (val) => setState(() => isHovered = val),
+        _isHovered,
+        _setHover,
       ),
     );
+  }
+
+  void _setHover(bool value) {
+    if (_isHovered != value) setState(() => _isHovered = value);
   }
 }

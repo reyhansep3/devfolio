@@ -1,104 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portofolio/view/pages/projects/dimension/project_list_desktop.dart';
-import 'package:flutter_portofolio/view/pages/projects/dimension/project_list_mobile.dart';
-import 'package:flutter_portofolio/view/pages/projects/dimension/project_list_tablet.dart';
-import 'package:flutter_portofolio/view/responsive_layout.dart';
+import 'package:flutter_portofolio/animation/preview_banku.dart';
+import 'package:flutter_portofolio/animation/preview_cklink.dart';
+import 'package:flutter_portofolio/animation/preview_deltaspa.dart';
+import 'package:flutter_portofolio/animation/preview_dido.dart';
+import 'package:flutter_portofolio/animation/preview_forum.dart';
+import 'package:flutter_portofolio/animation/preview_history.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/project/home_project_showcase.dart';
 
 class ProjectList extends StatelessWidget {
-  ProjectList({Key? key}) : super(key: key);
-  final List<String> forumd = <String>[
-    'Flutter',
-    'Dart',
-    'Golang',
-    'Android Studio',
-    'VsCode',
-    'Figma'
-  ];
+  const ProjectList({super.key});
 
-  final List<String> banku = <String>[
-    'Flutter',
-    'Dart',
-    'Firebase',
-    'Android Studio',
-    'VsCode',
-    'Figma'
-  ];
-
-  final List<String> history = <String>[
-    'Flutter',
-    'Dart',
-    'PhpMyAdmin',
-    'Android Studio',
-    'VsCode',
-    'Figma'
-  ];
-
-  final List<String> cklink = <String>[
-    'Flutter',
-    'Dart',
-    'Android Studio',
-    'VsCode',
-    'Firebase',
-  ];
-
-  final List<String> dido = <String>[
-    'Flutter',
-    'Dart',
-    'Android Studio',
-    'VsCode',
-  ];
-
-  final List<String> delta = <String>[
-    'Flutter',
-    'Dart',
-    'Android Studio',
-    'VsCode',
-    'Firebase',
-    'Xendit',
-    'Jira',
+  static const _projects = <ProjectShowcaseData>[
+    ProjectShowcaseData(
+      title: 'DIDO',
+      description:
+          'Drive In Drop Off: exclusive cargo-delivery companion by PT CKL Indonesia Raya.',
+      tools: ['Flutter', 'Dart', 'Android Studio', 'VsCode'],
+      preview: DidoPreview(),
+    ),
+    ProjectShowcaseData(
+      title: 'CKlink',
+      description:
+          'An internal workspace for attendance, employee data, and daily operations.',
+      tools: ['Flutter', 'Dart', 'Firebase', 'Android Studio', 'VsCode'],
+      preview: CKlinkPreview(),
+    ),
+    ProjectShowcaseData(
+      title: 'Delta Spa',
+      description: 'A premium men’s wellness app for booking and services.',
+      tools: ['Flutter', 'Dart', 'Firebase', 'Xendit', 'Jira'],
+      preview: DeltaSpaPreview(),
+    ),
+    ProjectShowcaseData(
+      title: 'Forum Discussion',
+      description:
+          'A community application for creating and joining conversations around shared interests.',
+      tools: ['Flutter', 'Dart', 'Golang', 'Android Studio', 'VsCode', 'Figma'],
+      preview: CardPreview(),
+    ),
+    ProjectShowcaseData(
+      title: 'Hi!Story',
+      description:
+          'A museum discovery and review application shaped around personal interests and experiences.',
+      tools: ['Flutter', 'Dart', 'PhpMyAdmin', 'Android Studio', 'VsCode', 'Figma'],
+      preview: HistoryPreview(),
+    ),
+    ProjectShowcaseData(
+      title: 'BanKu',
+      description: 'A reader app with a broad online collection of free novels.',
+      tools: ['Flutter', 'Dart', 'Firebase', 'Android Studio', 'VsCode', 'Figma'],
+      preview: BankuPreview(),
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    return Responsivelayout(
-        mobile: (context) => projectMobilebBody(
-          context: context,
-          cklink: cklink,
-            forumd: forumd,
-            delta : delta,
-            banku: banku,
-            dido : dido,
-            history: history,
-            widthBody: width,
-            heightBody: height * 0.27,
-            imageHeight: 200,
-            imageWidth: 200),
-        tablet: (context) => projectTabletBody(
-          context: context,
-          cklink: cklink,
-            forumd: forumd,
-            delta : delta,
-            banku: banku,
-            dido : dido,
-            history: history,
-            widthBody: width,
-            heightBody: height * 0.27,
-            imageHeight: 200,
-            imageWidth: 200),
-        desktop: (context) => projectDesktopBody(
-            cklink: cklink,
-            delta: delta,
-            context: context,
-            forumd: forumd,
-            banku: banku,
-            dido : dido,
-            history: history,
-            widthBody: width,
-            heightBody: height * 0.27,
-            imageHeight: 200,
-            imageWidth: 200),
-      );
+    return const ProjectShowcase(
+      projects: _projects,
+      eyebrow: 'PROJECT ARCHIVE',
+      title: 'Built for work.\nMade to last.',
+      description:
+          'A complete collection of production and personal projects, designed around useful mobile experiences and clean implementation.',
+    );
   }
 }

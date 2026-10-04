@@ -6,12 +6,17 @@ import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget tabletBody(
-  BuildContext context, double width, double height,
-  bool isHovered, void Function(bool) onHoverChanged,
+  BuildContext context,
+  double width,
+  double height,
+  bool isHovered,
+  void Function(bool) onHoverChanged,
 ) {
-    final heroHeight = height - kNavbarHeight;
+  final heroHeight = height - kNavbarHeight;
 
   final scale = (width / 1024).clamp(0.5, 1.3);
+  final phoneWidth = (width * 0.28).clamp(220.0, 280.0).round();
+  final phoneHeight = (phoneWidth * 1.96).round();
 
   return ConstrainedBox(
     constraints: BoxConstraints(minHeight: heroHeight),
@@ -34,12 +39,11 @@ Widget tabletBody(
                   Flexible(
                     flex: 6,
                     child: Container(
-                        decoration: BoxDecoration(
+                      decoration: BoxDecoration(
                           color: AppColor.pureWhite,
-                          borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,9 +56,7 @@ Widget tabletBody(
                                 color: AppColor.darkGray,
                               ),
                             ),
-                        
                             const SizedBox(height: 16),
-                        
                             Text(
                               'Mobile Software\nEngineer',
                               style: GoogleFonts.poppins(
@@ -65,26 +67,22 @@ Widget tabletBody(
                                 color: Colors.black,
                               ),
                             ),
-                        
                             const SizedBox(height: 24),
-                        
                             Text(
-                                "Hi! I'm Reyhan, a Flutter-focused Software Engineer "
-                                "passionate about building scalable and intuitive "
-                                "digital experiences. I specialize in developing "
-                                "production-ready mobile applications with clean "
-                                "architecture, smooth UX, and maintainable code. ",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16 * scale,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.6,
-                                  color: AppColor.darkGray,
-                                ),
+                              "Hi! I'm Reyhan, a Flutter-focused Software Engineer "
+                              "passionate about building scalable and intuitive "
+                              "digital experiences. I specialize in developing "
+                              "production-ready mobile applications with clean "
+                              "architecture, smooth UX, and maintainable code. ",
+                              style: GoogleFonts.poppins(
+                                fontSize: 16 * scale,
+                                fontWeight: FontWeight.w400,
+                                height: 1.6,
+                                color: AppColor.darkGray,
                               ),
-                        
+                            ),
                             const SizedBox(height: 24),
-                        
-                            Row(
+                            Wrap(
                               children: [
                                 Text(
                                   '// I DO CODE, CLEAN CODE.',
@@ -119,9 +117,9 @@ Widget tabletBody(
                         child: FadeInUp(
                           config: BaseAnimationConfig(
                             delay: 700.ms,
-                            child: const PhoneWidget(
-                              height: 550,
-                              width: 280,
+                            child: PhoneWidget(
+                              height: phoneHeight,
+                              width: phoneWidth,
                             ),
                           ),
                         ),

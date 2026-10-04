@@ -14,7 +14,7 @@ class PhoneWidget extends StatefulWidget {
 class _PhoneWidgetState extends State<PhoneWidget>
     with TickerProviderStateMixin {
   bool isHovered = false;
-  Offset cursor = Offset.zero;
+  final ValueNotifier<Offset> _cursor = ValueNotifier(Offset.zero);
 
   late AnimationController _slideController;
   late Animation<Offset> _slideOut;
@@ -96,7 +96,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
       curve: Curves.easeOut,
     );
 
-    Future.delayed(const Duration(milliseconds: 350), () {
+    Future.delayed(const Duration(milliseconds: 1200), () {
       if (mounted) {
         _notificationController.forward();
       }
@@ -110,10 +110,12 @@ class _PhoneWidgetState extends State<PhoneWidget>
     _slideController.dispose();
     _blinkController.dispose();
     _notificationController.dispose();
+    _cursor.dispose();
     super.dispose();
   }
 
   void _onHover(bool val) {
+    if (isHovered == val) return;
     setState(() => isHovered = val);
     if (val) {
       _slideController.forward();
@@ -125,15 +127,15 @@ class _PhoneWidgetState extends State<PhoneWidget>
   @override
   Widget build(BuildContext context) {
 
-    // ── STATIK: ukuran phone TIDAK ikut lebar layar ──
-    // Dulu: (context.width / 1024).clamp(0.5, 1.3) → pas width dikecilkan
-    // horizontal, hp ikut mengecil & overflow. Sekarang scale = 1.0 tetap,
-    // jadi di desktop & tablet width phone selalu segitu (lihat basePhone*).
+    // The parent supplies a breakpoint-aware size, keeping the widget within
+    // the hero column on compact screens.
     const double scale = 1.0;
 
     return MouseRegion(
           cursor: SystemMouseCursors.none,
-          onHover: (e) => setState(() => cursor = e.localPosition),
+          // Pointer movement can fire dozens of times per frame. Updating only
+          // the cursor overlay prevents rebuilding the animated phone screen.
+          onHover: (e) => _cursor.value = e.localPosition,
           onEnter: (_) => _onHover(true),
           onExit: (_) => _onHover(false),
           child: Stack(
@@ -152,28 +154,30 @@ class _PhoneWidgetState extends State<PhoneWidget>
               ),
         
               // ── Custom cursor ──
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 60),
-                curve: Curves.easeOut,
-                left: cursor.dx - (isHovered ? 40 : 0),
-                top: cursor.dy - (isHovered ? 40 : 0),
-                child: IgnorePointer(
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                    width: isHovered ? 80 : 0,
-                    height: isHovered ? 80 : 0,
-                    decoration: BoxDecoration(
-                      color: isHovered
-                          // ignore: deprecated_member_use
-                          ? AppColor.yellowgreen.withOpacity(0.15)
-                          : Colors.transparent,
-                      border: Border.all(
-                        color: AppColor.yellowgreen,
-                        width: 1.5,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        isHovered ? 0 : 99,
+              ValueListenableBuilder<Offset>(
+                valueListenable: _cursor,
+                builder: (context, cursor, child) => AnimatedPositioned(
+                  duration: const Duration(milliseconds: 60),
+                  curve: Curves.easeOut,
+                  left: cursor.dx - (isHovered ? 40 : 0),
+                  top: cursor.dy - (isHovered ? 40 : 0),
+                  child: IgnorePointer(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      width: isHovered ? 80 : 0,
+                      height: isHovered ? 80 : 0,
+                      decoration: BoxDecoration(
+                        color: isHovered
+                            ? AppColor.yellowgreen.withValues(alpha: 0.15)
+                            : Colors.transparent,
+                        border: Border.all(
+                          color: AppColor.yellowgreen,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          isHovered ? 0 : 99,
+                        ),
                       ),
                     ),
                   ),
@@ -185,13 +189,8 @@ class _PhoneWidgetState extends State<PhoneWidget>
   }
 
   Widget _buildPhone(BuildContext context, double scale, int height, int width) {
-    // ── Ukuran TETAP: tidak ikut menyusut saat window di-resize vertikal ──
-    // Semua ukuran di bawah HANYA bergantung pada `scale`, yang dihitung dari
-    // LEBAR layar (lihat build(): context.width / 1024). Jadi saat user
-    // mengecilkan browser secara VERTIKAL, tinggi `context.height` turun tapi
-    // phone TETAP ukurannya. Phone baru menyesuaikan kalau LEBAR yang berubah.
-    int basePhoneHeight = height; // ubah angka ini untuk resize phone
-    int basePhoneWidth = width;  // rasio ~0.5 (phone)
+    final basePhoneHeight = height;
+    final basePhoneWidth = width;
     final double phoneHeight = basePhoneHeight * scale;
     final double phoneWidth = basePhoneWidth * scale;
     return Container(
@@ -306,7 +305,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
         // Wallpaper
         Positioned.fill(
           child: Image.asset(
-            'assets/image/phone_profile.png',
+            'assets/image/phone_profile.webp',
             fit: BoxFit.cover,
           ),
         ),

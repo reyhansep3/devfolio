@@ -20,6 +20,8 @@ Widget mobileBody(
   final titleFontSize = 56 * scale;
   final descriptionFontSize = 15 * scale;
   final taglineFontSize = 15 * scale;
+  final phoneWidth = (width * 0.72).clamp(220.0, 280.0).round();
+  final phoneHeight = (phoneWidth * 1.96).round();
 
   return ConstrainedBox(
     constraints: BoxConstraints(
@@ -39,7 +41,6 @@ Widget mobileBody(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 RepaintBoundary(
                   child: FadeInUp(
                     config: BaseAnimationConfig(
@@ -57,9 +58,7 @@ Widget mobileBody(
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 14),
-
                 RepaintBoundary(
                   child: FadeInUp(
                     config: BaseAnimationConfig(
@@ -78,9 +77,7 @@ Widget mobileBody(
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 24),
-
                 RepaintBoundary(
                   child: FadeInUp(
                     config: BaseAnimationConfig(
@@ -102,9 +99,7 @@ Widget mobileBody(
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 24),
-
                 RepaintBoundary(
                   child: FadeInUp(
                     config: BaseAnimationConfig(
@@ -135,21 +130,18 @@ Widget mobileBody(
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 50),
-
                 RepaintBoundary(
                   child: FadeInUp(
                     config: BaseAnimationConfig(
                       delay: 700.ms,
-                      child: const PhoneWidget(
-                        height: 550,
-                        width: 280,
+                      child: PhoneWidget(
+                        height: phoneHeight,
+                        width: phoneWidth,
                       ),
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 100),
               ],
             ),

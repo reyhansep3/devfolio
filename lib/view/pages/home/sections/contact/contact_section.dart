@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
-import 'package:flutter_portofolio/item/media_query.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ContactSection extends StatefulWidget {
   /// Callback navigasi dari link footer "Resources". Diberikan oleh halaman
@@ -18,15 +16,6 @@ class ContactSection extends StatefulWidget {
 }
 
 class _ContactSectionState extends State<ContactSection> {
-  // Spasi vertikal pakai nilai tetap (bukan context.height) supaya footer
-  // tidak ikut "loncat" saat browser di-resize vertikal. Inset horizontal
-  // tetap mengikuti lebar agar responsif ke resize horizontal.
-  static const double _horizontalInset = 0.15;
-  static const double _verticalPad = 28.0;
-  static const double _gap = 16.0;
-
-  // Kolom "Resources" — setiap item navigasi ke rute go_router-nya.
-  // About di-router memakai path '/formalities' (lihat main.dart).
   static const List<Map<String, String>> _resources = [
     {'label': 'Home', 'path': '/'},
     {'label': 'About', 'path': '/formalities'},
@@ -36,131 +25,143 @@ class _ContactSectionState extends State<ContactSection> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final compact = width < 720;
+    final horizontalPadding = (width * (compact ? 0.07 : 0.12))
+        .clamp(24.0, 180.0)
+        .toDouble();
+
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.black,
-        // Hanya SATU border atas — hindari garis dobel.
-        border: Border(top: BorderSide(color: AppColor.white, width: 0.3)),
-      ),
-      padding: const EdgeInsets.only(bottom: 24),
+      color: AppColor.primary,
+      padding: EdgeInsets.fromLTRB(horizontalPadding, 64, horizontalPadding, 32),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Blok link footer.
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: context.width * _horizontalInset,
-              vertical: _verticalPad,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Reyhan Septri Asta',
-                        style: AppFontStyle.poppinsBodyMedium
-                            .copyWith(color: AppColor.white),
-                      ),
-                      const SizedBox(height: _gap),
-                      Text(
-                        'Crafting intuitive mobile experiences through clean architecture and thoughtful design',
-                        style: AppFontStyle.poppinsBodySmall
-                            .copyWith(color: AppColor.grey1),
-                      ),
-                      const SizedBox(height: _gap),
-                      Text(
-                        'Flutter Developer • Mobile Enthusiast',
-                        style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ],
-                  ),
+          compact
+              ? Column(
+                  children: [
+                    const _ContactIntro(),
+                    const SizedBox(height: 18),
+                    _NavigationCard(onNavigate: widget.onNavigate),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Expanded(flex: 5, child: _ContactIntro()),
+                    const SizedBox(width: 18),
+                    Expanded(
+                      flex: 4,
+                      child: _NavigationCard(onNavigate: widget.onNavigate),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'General',
-                        style: AppFontStyle.poppinsBodySmall
-                            .copyWith(color: AppColor.white),
-                      ),
-                      const SizedBox(height: _gap),
-                      Text('Home',
-                          style: AppFontStyle.poppinsBodySmall
-                              .copyWith(color: AppColor.grey1)),
-                      const SizedBox(height: _gap),
-                      Text('Service',
-                          style: AppFontStyle.poppinsBodySmall
-                              .copyWith(color: AppColor.grey1)),
-                      const SizedBox(height: _gap),
-                      Text('Project',
-                          style: AppFontStyle.poppinsBodySmall
-                              .copyWith(color: AppColor.grey1)),
-                      const SizedBox(height: _gap),
-                      Text('Testimony',
-                          style: AppFontStyle.poppinsBodySmall
-                              .copyWith(color: AppColor.grey1)),
-                      const SizedBox(height: _gap),
-                      Text('Blog',
-                          style: AppFontStyle.poppinsBodySmall
-                              .copyWith(color: AppColor.grey1)),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Resources',
-                        style: AppFontStyle.poppinsBodySmall
-                            .copyWith(color: AppColor.white),
-                      ),
-                      const SizedBox(height: _gap),
-                      for (final item in _resources)
-                        _FooterLink(
-                          label: item['label']!,
-                          path: item['path']!,
-                          onNavigate: widget.onNavigate,
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Garis pemisah — pakai Divider agar benar-benar membentang lebar,
-          // dan sejajar dengan inset horizontal footer di atas.
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: context.width * _horizontalInset),
-            child: const Divider(height: 1, thickness: 1, color: Colors.white24),
-          ),
-          const SizedBox(height: 15),
-
-          // Copyright sejajar dengan link footer (kiri, inset sama).
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: context.width * _horizontalInset),
+          const SizedBox(height: 24),
+          const Divider(height: 1, color: Color(0x26313948)),
+          const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerLeft,
             child: Text(
-              '© 2026 Reyhan. All rights reserved.',
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                color: Colors.white54,
+              '© 2026 Reyhan Septri Asta. Built with care.',
+              style: AppFontStyle.poppinsBodySmall.copyWith(
+                color: AppColor.darkGray,
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ContactIntro extends StatelessWidget {
+  const _ContactIntro();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(28),
+      decoration: BoxDecoration(
+        color: AppColor.pureWhite,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x1A313948),
+            blurRadius: 28,
+            offset: Offset(0, 14),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: AppColor.yellowgreen,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              'LET’S CONNECT',
+              style: AppFontStyle.vcrMonoSmall.copyWith(
+                color: AppColor.darkUI,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          Text(
+            'Good products start\nwith clear thinking.',
+            style: AppFontStyle.vcrMonoHeadingSmall.copyWith(
+              color: AppColor.darkUI,
+              fontSize: 30,
+              height: 1.08,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            'Flutter developer focused on reliable mobile experiences, clean architecture, and thoughtful interface details.',
+            style: AppFontStyle.poppinsBodySmall.copyWith(
+              color: AppColor.darkGray,
+              height: 1.55,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NavigationCard extends StatelessWidget {
+  const _NavigationCard({this.onNavigate});
+
+  final void Function(String path)? onNavigate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(28),
+      decoration: BoxDecoration(
+        color: AppColor.darkUI,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'EXPLORE',
+            style: AppFontStyle.vcrMonoSmall.copyWith(
+              color: AppColor.yellowgreen,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 14),
+          for (final item in _ContactSectionState._resources)
+            _FooterLink(
+              label: item['label']!,
+              path: item['path']!,
+              onNavigate: onNavigate,
+            ),
         ],
       ),
     );
@@ -199,13 +200,33 @@ class _FooterLinkState extends State<_FooterLink> {
             GoRouter.of(context).go(widget.path);
           }
         },
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: _ContactSectionState._gap),
-          child: Text(
-            widget.label,
-            style: AppFontStyle.poppinsBodySmall.copyWith(
-              color: _hover ? AppColor.white : AppColor.grey1,
-            ),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOutCubic,
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          transform: Matrix4.translationValues(_hover ? 4 : 0, 0, 0),
+          decoration: BoxDecoration(
+            color: _hover ? AppColor.yellowgreen : Colors.white.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  widget.label,
+                  style: AppFontStyle.poppinsBodySmall.copyWith(
+                    color: _hover ? AppColor.darkUI : AppColor.pureWhite,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.arrow_outward_rounded,
+                size: 17,
+                color: _hover ? AppColor.darkUI : AppColor.yellowgreen,
+              ),
+            ],
           ),
         ),
       ),

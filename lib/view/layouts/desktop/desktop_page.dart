@@ -12,6 +12,7 @@ import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/navigation_bar.dart';
+import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 
 
 bool _scrollUpFromBottom = false;
@@ -137,8 +138,10 @@ class _DesktopPageState extends State<DesktopPage> {
         key: const ValueKey('home'),
         controller: _scrollController,
         slivers: [
-          const SliverToBoxAdapter(child: TopSection()),
-          const SliverToBoxAdapter(child: SkillSection()),
+          const SliverToBoxAdapter(child: ScrollReveal(child: TopSection())),
+          const SliverToBoxAdapter(
+            child: ScrollReveal(fromLeft: false, child: SkillSection()),
+          ),
           // SliverToBoxAdapter(
           //   child: AboutMe(
           //     onViewAllArticles: () => _handleNav('/blog'),
@@ -150,7 +153,10 @@ class _DesktopPageState extends State<DesktopPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ScrollReveal(
+              fromLeft: false,
+              child: ContactSection(onNavigate: _handleNav),
+            ),
           ),
         ],
       );
@@ -161,10 +167,24 @@ class _DesktopPageState extends State<DesktopPage> {
         key: const ValueKey('formalities'),
         controller: _scrollController,
         slivers: [
-          const SliverToBoxAdapter(child: FormalitiesSection()),
-          const SliverToBoxAdapter(child: AboutMeSection(),),
-          const SliverToBoxAdapter(child: SkillsExpertiesSection(),),
-          SliverToBoxAdapter(child: ExperienceSection()),
+          const SliverToBoxAdapter(
+            child: ScrollReveal(child: FormalitiesSection()),
+          ),
+          const SliverToBoxAdapter(
+            child: ScrollReveal(
+              fromLeft: false,
+              child: AboutMeSection(),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: ScrollReveal(child: SkillsExpertiesSection()),
+          ),
+          SliverToBoxAdapter(
+            child: ScrollReveal(
+              fromLeft: false,
+              child: ExperienceSection(),
+            ),
+          ),
           SliverToBoxAdapter(
             child: ContactSection(onNavigate: _handleNav),
           ),
