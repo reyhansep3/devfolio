@@ -73,7 +73,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
     _blinkController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
-    )..repeat(reverse: true);
+    );
 
     _notificationController = AnimationController(
       vsync: this,
@@ -114,10 +114,13 @@ class _PhoneWidgetState extends State<PhoneWidget>
 
   void _onHover(bool val) {
     if (isHovered == val) return;
-    setState(() => isHovered = val);
+    isHovered = val;
     if (val) {
+      _blinkController.repeat(reverse: true);
       _slideController.forward();
     } else {
+      _blinkController.stop();
+      _blinkController.value = 1;
       _slideController.reverse();
     }
   }
@@ -132,16 +135,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
     return MouseRegion(
           onEnter: (_) => _onHover(true),
           onExit: (_) => _onHover(false),
-          child: AnimatedContainer(
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.elasticOut,
-                transform: isHovered
-                    ? (Matrix4.identity()
-                      ..translate(0.0, -12.0)
-                      ..rotateZ(-0.03))
-                    : Matrix4.identity(),
-                child: _buildPhone(context, scale, widget.height, widget.width),
-              ),
+          child: _buildPhone(context, scale, widget.height, widget.width),
         );
   }
 
@@ -164,6 +158,28 @@ class _PhoneWidgetState extends State<PhoneWidget>
           children: [
             // ── Screen background ──
             Container(color: const Color(0xFF0c0c0c)),
+
+            // ── Idle screen (jam + lock) ──
+            Positioned.fill(
+              child: FadeTransition(
+                opacity: _fadeOut,
+                child: SlideTransition(
+                  position: _slideOut,
+                  child: _buildIdleScreen(),
+                ),
+              ),
+            ),
+
+            // ── Hover screen (hello world + kode) ──
+            Center(
+              child: FadeTransition(
+                opacity: _fadeIn,
+                child: SlideTransition(
+                  position: _slideIn,
+                  child: _buildHoverScreen(),
+                ),
+              ),
+            ),
 
             // ── Status bar ──
             Positioned(
@@ -208,28 +224,6 @@ class _PhoneWidgetState extends State<PhoneWidget>
                       bottomRight: Radius.circular(12),
                     ),
                   ),
-                ),
-              ),
-            ),
-
-            // ── Idle screen (jam + lock) ──
-            Center(
-              child: FadeTransition(
-                opacity: _fadeOut,
-                child: SlideTransition(
-                  position: _slideOut,
-                  child: _buildIdleScreen(),
-                ),
-              ),
-            ),
-
-            // ── Hover screen (hello world + kode) ──
-            Center(
-              child: FadeTransition(
-                opacity: _fadeIn,
-                child: SlideTransition(
-                  position: _slideIn,
-                  child: _buildHoverScreen(),
                 ),
               ),
             ),

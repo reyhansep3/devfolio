@@ -159,7 +159,7 @@ class MobilePage extends StatelessWidget {
     return ListView(
       children: [
         const TopSection(),
-        const ScrollReveal(fromLeft: false, child: SkillSection()),
+        const SkillSection(),
         ProjectSection(
           onViewAll: () => GoRouter.of(context).go('/project'),
         ),
