@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
+import 'package:flutter_portofolio/view/pages/blog/blog_data.dart';
 import 'package:flutter_portofolio/view/pages/blog/widget/blog_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,21 +20,7 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
-  late final Future<List<Map<String, dynamic>>> _blogs = _loadBlogs();
-
-  Future<List<Map<String, dynamic>>> _loadBlogs() async {
-    final raw = await rootBundle.loadString('assets/json/blog.json');
-    final decoded = jsonDecode(raw);
-    final items = decoded is Map<String, dynamic> ? decoded['blog'] : decoded;
-    if (items is! List) throw const FormatException('Invalid blog data');
-
-    final seen = <String>{};
-    return items.whereType<Map>().map((item) => Map<String, dynamic>.from(item)).where((blog) {
-      // The source currently repeats the same article under multiple IDs.
-      final identity = jsonEncode([blog['title'], blog['subtitle'], blog['sections']]);
-      return seen.add(identity);
-    }).toList();
-  }
+  late final Future<List<Map<String, dynamic>>> _blogs = loadBlogs();
 
   @override
   Widget build(BuildContext context) {

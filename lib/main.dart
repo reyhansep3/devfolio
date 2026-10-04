@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
+import 'package:flutter_portofolio/view/pages/blog/blog_data.dart';
+import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart';
 import 'package:flutter_portofolio/view/pages/home/home_page.dart';
 import 'package:flutter_portofolio/view/portfolio_cursor.dart';
 import 'package:go_router/go_router.dart';
+
+final Future<List<Map<String, dynamic>>> _blogArticles = loadBlogs();
 
 final GoRouter _router = GoRouter(
   initialLocation: '/',
@@ -31,7 +35,7 @@ final GoRouter _router = GoRouter(
       pageBuilder: (context, state) => const NoTransitionPage(
         child: Homepage(section: 'formalities'),
       ),
-    ),  
+    ),
     GoRoute(
       path: '/project',
       name: 'project',
@@ -45,6 +49,36 @@ final GoRouter _router = GoRouter(
       pageBuilder: (context, state) => const NoTransitionPage(
         child: Homepage(section: 'blog'),
       ),
+      routes: [
+        GoRoute(
+          path: ':id',
+          name: 'blog-detail',
+          builder: (context, state) => FutureBuilder<List<Map<String, dynamic>>>(
+            future: _blogArticles,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData && !snapshot.hasError) {
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+              }
+              final blogs = snapshot.data ?? [];
+              for (final blog in blogs) {
+                if (blog['id'].toString() == state.pathParameters['id']) {
+                  return BlogDetailPage(blog: blog);
+                }
+              }
+              return Scaffold(
+                body: Center(
+                  child: TextButton(
+                    onPressed: () => context.go('/blog'),
+                    child: const Text('Article unavailable. Back to writing'),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     ),
   ],
   errorBuilder: (context, state) => const Homepage(section: 'home'),
