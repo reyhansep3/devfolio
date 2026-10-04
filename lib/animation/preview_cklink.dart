@@ -10,7 +10,7 @@ class CKlinkPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _launchURL(urlDIDO),
+      onTap: () => _launchURL(urlCklink),
       borderRadius: BorderRadius.circular(12),
 
       child: Ink(
@@ -20,7 +20,7 @@ class CKlinkPreview extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               blurRadius: 7,
               offset: const Offset(0, 3),
             )

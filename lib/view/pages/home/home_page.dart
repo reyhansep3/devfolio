@@ -10,11 +10,17 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Responsivelayout(
-        desktop: (context) => DesktopPage(section: section),
-        mobile: (context) => MobilePage(section: section),
-        tablet: (context) => TabletPage(section: section),
+    final background = section == 'project'
+        ? const Color(0xFFF0F0EB)
+        : const Color(0xFF151715);
+    return SelectionArea(
+      child: Scaffold(
+        backgroundColor: background,
+        body: Responsivelayout(
+          desktop: (context) => DesktopPage(section: section),
+          mobile: (context) => MobilePage(section: section),
+          tablet: (context) => TabletPage(section: section),
+        ),
       ),
     );
   }

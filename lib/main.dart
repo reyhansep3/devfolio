@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/home/home_page.dart';
+import 'package:flutter_portofolio/view/portfolio_cursor.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter _router = GoRouter(
@@ -53,28 +54,28 @@ void main() {
   runApp(const MyApp());
 }
 
-const double kDesignViewportHeight = 900.0;
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    // Floor: jangan biarkan tinggi turun di bawah baseline saat di-resize vertikal.
-    final lockedHeight = mq.size.height < kDesignViewportHeight
-        ? kDesignViewportHeight
-        : mq.size.height;
-    return MediaQuery(
-      data: mq.copyWith(size: Size(mq.size.width, lockedHeight)),
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter',
-        theme: ThemeData(
-          primaryColor: AppColor.primary,
+    // Keep the real viewport dimensions. Overriding MediaQuery height makes
+    // short browser windows lay out as if they were 900px tall and causes
+    // clipped sections while resizing.
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Rey.dev',
+      theme: ThemeData(
+        primaryColor: AppColor.primary,
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: AppColor.yellowgreen.withValues(alpha: 0.4),
+          selectionHandleColor: AppColor.yellowgreen,
         ),
-        routerConfig: _router,
       ),
+      builder: (context, child) => PortfolioCursor(
+        child: child ?? const SizedBox.shrink(),
+      ),
+      routerConfig: _router,
     );
   }
 }

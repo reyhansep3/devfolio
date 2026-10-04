@@ -4,13 +4,15 @@ import 'package:flutter_portofolio/view/pages/formalities/sections/skills_expert
 import 'package:flutter_portofolio/view/pages/home/sections/about/skill_section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/about_me/about_me_section.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/about_me_stories/about_stories_section.dart';
 import 'package:flutter_portofolio/view/pages/formalities/sections/experience/experience_section.dart';
-import 'package:flutter_portofolio/view/pages/home/sections/blog/aboutme_section.dart';
+import 'package:flutter_portofolio/view/pages/formalities/sections/what_drives_me_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/view/navigation_bar.dart';
+import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 
 /// Flag module-level: di-set oleh _handleNav (dari link footer "Resources")
 /// SEBELUM go_router, lalu dikonsumsi saat halaman tujuan dibangun untuk
@@ -102,18 +104,15 @@ class _TabletPageState extends State<TabletPage> {
       });
     }
 
-      Widget _buildPage(BuildContext context) {
+      Widget buildPage(BuildContext context) {
     if (widget.section == 'home') {
       return CustomScrollView(
         key: const ValueKey('home'),
         controller: _scrollController,
         slivers: [
           const SliverToBoxAdapter(child: TopSection()),
-          const SliverToBoxAdapter(child: SkillSection()),
-          SliverToBoxAdapter(
-            child: AboutMe(
-              onViewAllArticles: () => _handleNav('/blog'),
-            ),
+          const SliverToBoxAdapter(
+            child: ScrollReveal(fromLeft: false, child: SkillSection()),
           ),
           SliverToBoxAdapter(
             child: ProjectSection(
@@ -121,7 +120,14 @@ class _TabletPageState extends State<TabletPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ScrollReveal(
+              fromLeft: false,
+              child: ContactSection(
+                onNavigate: _handleNav,
+                editorialStyle: true,
+                homeContact: true,
+              ),
+            ),
           ),
         ],
       );
@@ -133,11 +139,25 @@ class _TabletPageState extends State<TabletPage> {
         controller: _scrollController,
         slivers: [
           const SliverToBoxAdapter(child: FormalitiesSection()),
-          const SliverToBoxAdapter(child: SkillsExpertiesSection(),),
-          SliverToBoxAdapter(child: ExperienceSection()),
-          
+          const SliverToBoxAdapter(
+            child: ScrollReveal(fromLeft: false, child: AboutMeSection()),
+          ),
+          const SliverToBoxAdapter(
+            child: ScrollReveal(
+              fromLeft: false,
+              child: SkillsExpertiesSection(),
+            ),
+          ),
+          SliverToBoxAdapter(child: ScrollReveal(child: ExperienceSection())),
+          const SliverToBoxAdapter(child: WhatDrivesMeSection()),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              darkStyle: true,
+              eyebrow: '06  /  GET IN TOUCH',
+              headline: 'Let’s build\nwhat’s next.',
+            ),
           ),
         ],
       );
@@ -148,9 +168,13 @@ class _TabletPageState extends State<TabletPage> {
         key: const ValueKey('project'),
         controller: _scrollController,
         slivers: [
-          SliverToBoxAdapter(child: ProjectList()),
+          const SliverToBoxAdapter(child: ProjectList()),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              eyebrow: '07  /  GET IN TOUCH',
+            ),
           ),
         ],
       );
@@ -163,7 +187,12 @@ class _TabletPageState extends State<TabletPage> {
         slivers: [
           const SliverToBoxAdapter(child: BlogPage()),
           SliverToBoxAdapter(
-            child: ContactSection(onNavigate: _handleNav),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              darkStyle: true,
+              eyebrow: '02  /  GET IN TOUCH',
+            ),
           ),
         ],
       );
@@ -174,15 +203,21 @@ class _TabletPageState extends State<TabletPage> {
 
 
     return Scaffold(
-      backgroundColor: const Color(0xff00285d),
+      backgroundColor: widget.section == 'project'
+          ? const Color(0xFFF0F0EB)
+          : const Color(0xFF151715),
       body: Stack(
         children: [
-          _buildPage(context),
+          buildPage(context),
           // Layer penutup: menyembunyikan background biru scaffold pada frame
           // pertama sebelum posisi scroll benar-benar di bawah.
           if (_coverVisible)
-            const Positioned.fill(
-              child: ColoredBox(color: Colors.black),
+            Positioned.fill(
+              child: ColoredBox(
+                color: widget.section == 'project'
+                    ? const Color(0xFFF0F0EB)
+                    : const Color(0xFF151715),
+              ),
             ),
           Container(
             height: kNavbarHeight,

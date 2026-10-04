@@ -49,3 +49,8 @@
   for = "/flutter_service_worker.js"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/CV-Reyhan-Septri-Asta.pdf"
+  [headers.values]
+    Content-Disposition = "attachment; filename=\"CV-Reyhan Septri Asta.pdf\""
