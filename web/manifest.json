@@ -1,6 +1,6 @@
 {
-    "name": "Rey.dev",
-    "short_name": "Rey.dev",
+    "name": "s3p/devfolio",
+    "short_name": "s3p/devfolio",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#151715",

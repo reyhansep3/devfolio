@@ -1,20 +1,16 @@
-<<<<<<< HEAD
-# flutter_portofolio
+# Devfolio
 
-A new Flutter project.
+Portofolio Reyhan Septri Asta yang dibuat dengan Flutter Web.
 
-## Getting Started
+## Menjalankan secara lokal
 
-This project is a starting point for a Flutter application.
+```sh
+flutter pub get
+flutter run -d chrome
+```
 
-A few resources to get you started if this is your first Flutter project:
+## GitHub Pages
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Workflow [Deploy Flutter Web](.github/workflows/deploy-pages.yml) membangun aplikasi dari branch `main` dan menerbitkan isi `build/web` ke [GitHub Pages](https://reyhansep3.github.io/devfolio/).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
-# devfolio
->>>>>>> a6d8128 (Initial commit)
+Di pengaturan repository, buka **Settings → Pages → Build and deployment** lalu pilih **GitHub Actions** sebagai sumber. Setelah perubahan ini masuk ke `main`, workflow akan berjalan otomatis. Workflow juga dapat dijalankan lewat tab **Actions**.
