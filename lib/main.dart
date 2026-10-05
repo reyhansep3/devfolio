@@ -3,6 +3,8 @@ import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_data.dart';
 import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart';
 import 'package:flutter_portofolio/view/pages/home/home_page.dart';
+import 'package:flutter_portofolio/view/pages/projects/project_data.dart';
+import 'package:flutter_portofolio/view/pages/projects/project_detail_page.dart';
 import 'package:flutter_portofolio/view/portfolio_cursor.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,62 +23,76 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/',
       name: 'home',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: Homepage(section: 'home'),
-      ),
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: Homepage(section: 'home')),
     ),
-    GoRoute(
-      path: '/home',
-      redirect: (context, state) => '/',
-    ),
+    GoRoute(path: '/home', redirect: (context, state) => '/'),
     GoRoute(
       path: '/formalities',
       name: 'formalities',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: Homepage(section: 'formalities'),
-      ),
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: Homepage(section: 'formalities')),
     ),
     GoRoute(
       path: '/project',
       name: 'project',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: Homepage(section: 'project'),
-      ),
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: Homepage(section: 'project')),
+      routes: [
+        GoRoute(
+          path: ':slug',
+          name: 'project-detail',
+          builder: (context, state) {
+            final project = ProjectCatalog.bySlug(state.pathParameters['slug']);
+            if (project != null) return ProjectDetailPage(project: project);
+            return Scaffold(
+              body: Center(
+                child: TextButton(
+                  onPressed: () => context.go('/project'),
+                  child: const Text('Project unavailable. Back to projects'),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     ),
     GoRoute(
       path: '/blog',
       name: 'blog',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: Homepage(section: 'blog'),
-      ),
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: Homepage(section: 'blog')),
       routes: [
         GoRoute(
           path: ':id',
           name: 'blog-detail',
-          builder: (context, state) => FutureBuilder<List<Map<String, dynamic>>>(
-            future: _blogArticles,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData && !snapshot.hasError) {
-                return const Scaffold(
-                  body: Center(child: CircularProgressIndicator()),
-                );
-              }
-              final blogs = snapshot.data ?? [];
-              for (final blog in blogs) {
-                if (blog['id'].toString() == state.pathParameters['id']) {
-                  return BlogDetailPage(blog: blog);
-                }
-              }
-              return Scaffold(
-                body: Center(
-                  child: TextButton(
-                    onPressed: () => context.go('/blog'),
-                    child: const Text('Article unavailable. Back to writing'),
-                  ),
-                ),
-              );
-            },
-          ),
+          builder: (context, state) =>
+              FutureBuilder<List<Map<String, dynamic>>>(
+                future: _blogArticles,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData && !snapshot.hasError) {
+                    return const Scaffold(
+                      body: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  final blogs = snapshot.data ?? [];
+                  for (final blog in blogs) {
+                    if (blog['id'].toString() == state.pathParameters['id']) {
+                      return BlogDetailPage(blog: blog);
+                    }
+                  }
+                  return Scaffold(
+                    body: Center(
+                      child: TextButton(
+                        onPressed: () => context.go('/blog'),
+                        child: const Text(
+                          'Article unavailable. Back to writing',
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
         ),
       ],
     ),
@@ -106,9 +122,8 @@ class MyApp extends StatelessWidget {
           selectionHandleColor: AppColor.yellowgreen,
         ),
       ),
-      builder: (context, child) => PortfolioCursor(
-        child: child ?? const SizedBox.shrink(),
-      ),
+      builder: (context, child) =>
+          PortfolioCursor(child: child ?? const SizedBox.shrink()),
       routerConfig: _router,
     );
   }
