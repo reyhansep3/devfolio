@@ -1,43 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portofolio/animation/preview_cklink.dart';
-import 'package:flutter_portofolio/animation/preview_deltaspa.dart';
-import 'package:flutter_portofolio/animation/preview_dido.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
+import 'package:flutter_portofolio/view/pages/projects/project_data.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeProjectShowcase extends StatelessWidget {
   const HomeProjectShowcase({super.key, this.onViewAll});
 
   final VoidCallback? onViewAll;
 
-  static const _projects = <ProjectShowcaseData>[
-    ProjectShowcaseData(
-      title: 'DIDO',
-      description:
-          'Drive In Drop Off: exclusive cargo-delivery companion by PT CKL Indonesia Raya.',
-      tools: ['Flutter', 'Dart', 'Android Studio', 'VsCode'],
-      preview: DidoPreview(),
-    ),
-    ProjectShowcaseData(
-      title: 'CKlink',
-      description:
-          'An internal workspace for attendance, employee data, and daily operations.',
-      tools: ['Flutter', 'Dart', 'Firebase', 'Android Studio', 'VsCode'],
-      preview: CKlinkPreview(),
-    ),
-    ProjectShowcaseData(
-      title: 'Delta Spa',
-      description: 'A premium men’s wellness app for booking and services.',
-      tools: ['Flutter', 'Dart', 'Firebase', 'Xendit', 'Jira'],
-      preview: DeltaSpaPreview(),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return _HomeProjects(projects: _projects, onViewAll: onViewAll);
+    return _HomeProjects(
+      projects: ProjectCatalog.projects.take(4).toList(),
+      onViewAll: onViewAll,
+    );
   }
 }
 
@@ -63,7 +42,12 @@ class _HomeProjects extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: _homeInk,
-      padding: EdgeInsets.fromLTRB(inset, compact ? 76 : 110, inset, compact ? 82 : 110),
+      padding: EdgeInsets.fromLTRB(
+        inset,
+        compact ? 76 : 110,
+        inset,
+        compact ? 82 : 110,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,16 +55,25 @@ class _HomeProjects extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('03  /  SELECTED WORK', style: GoogleFonts.spaceMono(
-                  color: _homeAccent, fontSize: 12, letterSpacing: 1.3)),
+                Text(
+                  '03  /  SELECTED WORK',
+                  style: GoogleFonts.spaceMono(
+                    color: _homeAccent,
+                    fontSize: 12,
+                    letterSpacing: 1.3,
+                  ),
+                ),
                 const SizedBox(height: 25),
-                Text('Work made for\nthe real world.', style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontSize: compact ? 43 : 64,
-                  fontWeight: FontWeight.w700,
-                  height: 1.08,
-                  letterSpacing: -2.3,
-                )),
+                Text(
+                  'Work made for\nthe real world.',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: compact ? 43 : 64,
+                    fontWeight: FontWeight.w700,
+                    height: 1.08,
+                    letterSpacing: -2.3,
+                  ),
+                ),
                 const SizedBox(height: 25),
                 Container(width: 58, height: 3, color: _homeAccent),
                 const SizedBox(height: 25),
@@ -89,7 +82,10 @@ class _HomeProjects extends StatelessWidget {
                   child: Text(
                     'Mobile products shaped around clear interfaces, reliable workflows, and code built to last.',
                     style: GoogleFonts.poppins(
-                      color: _homeMuted, fontSize: compact ? 14 : 16, height: 1.75),
+                      color: _homeMuted,
+                      fontSize: compact ? 14 : 16,
+                      height: 1.75,
+                    ),
                   ),
                 ),
               ],
@@ -97,14 +93,11 @@ class _HomeProjects extends StatelessWidget {
           ),
           SizedBox(height: compact ? 44 : 64),
           for (var index = 0; index < projects.length; index++) ...[
-            ScrollReveal(
-              fromLeft: index.isEven,
-              child: _HomeProjectRow(
-                data: projects[index],
-                number: index + 1,
-                compact: compact,
-                imageOnLeft: index.isEven,
-              ),
+            _HomeProjectRow(
+              data: projects[index],
+              number: index + 1,
+              compact: compact,
+              imageOnLeft: index.isEven,
             ),
             if (index != projects.length - 1)
               SizedBox(height: compact ? 18 : 24),
@@ -118,8 +111,14 @@ class _HomeProjects extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.white,
                 side: const BorderSide(color: _homeAccent),
-                padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
-                textStyle: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 13),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 22,
+                  vertical: 18,
+                ),
+                textStyle: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
               ),
             ),
           ],
@@ -158,7 +157,9 @@ class _HomeProjectRowState extends State<_HomeProjectRow> {
       alignment: Alignment.center,
       child: FittedBox(
         fit: BoxFit.scaleDown,
-        child: RepaintBoundary(child: widget.data.preview),
+        child: IgnorePointer(
+          child: RepaintBoundary(child: widget.data.preview),
+        ),
       ),
     );
     final details = Padding(
@@ -167,29 +168,66 @@ class _HomeProjectRowState extends State<_HomeProjectRow> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('PROJECT  ${widget.number.toString().padLeft(2, '0')}',
-              style: GoogleFonts.spaceMono(
-                color: _homeAccent, fontSize: 12, letterSpacing: 1.2)),
+          Text(
+            'PROJECT  ${widget.number.toString().padLeft(2, '0')}',
+            style: GoogleFonts.spaceMono(
+              color: _homeAccent,
+              fontSize: 12,
+              letterSpacing: 1.2,
+            ),
+          ),
           const SizedBox(height: 18),
-          Text(widget.data.title, style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontSize: widget.compact ? 27 : 37,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -1.3,
-          )),
+          Text(
+            widget.data.title,
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: widget.compact ? 27 : 37,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -1.3,
+            ),
+          ),
           const SizedBox(height: 13),
-          Text(widget.data.description, style: GoogleFonts.poppins(
-            color: _homeMuted, fontSize: widget.compact ? 13 : 14, height: 1.7)),
+          Text(
+            widget.data.description,
+            style: GoogleFonts.poppins(
+              color: _homeMuted,
+              fontSize: widget.compact ? 13 : 14,
+              height: 1.7,
+            ),
+          ),
           const SizedBox(height: 26),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: widget.data.tools.map((tool) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-              decoration: BoxDecoration(border: Border.all(color: _homeRule)),
-              child: Text(tool, style: GoogleFonts.spaceMono(
-                color: _homeMuted, fontSize: 12)),
-            )).toList(),
+            children: widget.data.tools
+                .map(
+                  (tool) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 7,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: _homeRule),
+                    ),
+                    child: Text(
+                      tool,
+                      style: GoogleFonts.spaceMono(
+                        color: _homeMuted,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'VIEW PROJECT  ↗',
+            style: GoogleFonts.spaceMono(
+              color: _homeAccent,
+              fontSize: 12,
+              letterSpacing: .7,
+            ),
           ),
         ],
       ),
@@ -198,21 +236,32 @@ class _HomeProjectRowState extends State<_HomeProjectRow> {
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOutCubic,
-        decoration: BoxDecoration(
-          color: _homeSurface,
-          border: Border.all(color: _hovered ? _homeAccent : _homeRule),
+      child: InkWell(
+        onTap: () => context.go('/project/${widget.data.slug}'),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          decoration: BoxDecoration(
+            color: _homeSurface,
+            border: Border.all(color: _hovered ? _homeAccent : _homeRule),
+          ),
+          child: widget.compact
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [preview, details],
+                )
+              : Row(
+                  children: widget.imageOnLeft
+                      ? [
+                          Expanded(flex: 5, child: preview),
+                          Expanded(flex: 5, child: details),
+                        ]
+                      : [
+                          Expanded(flex: 5, child: details),
+                          Expanded(flex: 5, child: preview),
+                        ],
+                ),
         ),
-        child: widget.compact
-          ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              preview,
-              details,
-            ])
-          : Row(children: widget.imageOnLeft
-              ? [Expanded(flex: 5, child: preview), Expanded(flex: 5, child: details)]
-              : [Expanded(flex: 5, child: details), Expanded(flex: 5, child: preview)]),
       ),
     );
   }
@@ -244,7 +293,12 @@ class ProjectShowcase extends StatelessWidget {
 
     return Container(
       color: AppColor.primary,
-      padding: EdgeInsets.fromLTRB(horizontalPadding, 72, horizontalPadding, 88),
+      padding: EdgeInsets.fromLTRB(
+        horizontalPadding,
+        72,
+        horizontalPadding,
+        88,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -379,7 +433,9 @@ class _ProjectFeatureCardState extends State<_ProjectFeatureCard> {
       child: FittedBox(
         fit: BoxFit.scaleDown,
         alignment: Alignment.center,
-        child: RepaintBoundary(child: widget.data.preview),
+        child: IgnorePointer(
+          child: RepaintBoundary(child: widget.data.preview),
+        ),
       ),
     );
     final content = widget.compact
@@ -394,34 +450,47 @@ class _ProjectFeatureCardState extends State<_ProjectFeatureCard> {
         : Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: widget.imageOnLeft
-                ? [Expanded(child: preview), const SizedBox(width: 36), Expanded(child: details)]
-                : [Expanded(child: details), const SizedBox(width: 36), Expanded(child: preview)],
+                ? [
+                    Expanded(child: preview),
+                    const SizedBox(width: 36),
+                    Expanded(child: details),
+                  ]
+                : [
+                    Expanded(child: details),
+                    const SizedBox(width: 36),
+                    Expanded(child: preview),
+                  ],
           );
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        curve: Curves.easeOutCubic,
-        transform: Matrix4.translationValues(0, _hovered ? -4 : 0, 0),
-        padding: EdgeInsets.all(widget.compact ? 22 : 32),
-        decoration: BoxDecoration(
-          color: AppColor.pureWhite,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: _hovered ? AppColor.yellowgreen : const Color(0x18313948),
-            width: _hovered ? 2 : 1,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFF313948).withValues(alpha: _hovered ? 0.18 : 0.10),
-              blurRadius: _hovered ? 30 : 18,
-              offset: Offset(0, _hovered ? 16 : 9),
+      child: InkWell(
+        onTap: () => context.go('/project/${widget.data.slug}'),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOutCubic,
+          transform: Matrix4.translationValues(0, _hovered ? -4 : 0, 0),
+          padding: EdgeInsets.all(widget.compact ? 22 : 32),
+          decoration: BoxDecoration(
+            color: AppColor.pureWhite,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: _hovered ? AppColor.yellowgreen : const Color(0x18313948),
+              width: _hovered ? 2 : 1,
             ),
-          ],
+            boxShadow: [
+              BoxShadow(
+                color: const Color(
+                  0xFF313948,
+                ).withValues(alpha: _hovered ? 0.18 : 0.10),
+                blurRadius: _hovered ? 30 : 18,
+                offset: Offset(0, _hovered ? 16 : 9),
+              ),
+            ],
+          ),
+          child: content,
         ),
-        child: content,
       ),
     );
   }
@@ -468,7 +537,10 @@ class _ProjectDetails extends StatelessWidget {
           children: data.tools
               .map(
                 (tool) => Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0x10313948),
                     borderRadius: BorderRadius.circular(8),
@@ -539,18 +611,4 @@ class _ViewAllButtonState extends State<_ViewAllButton> {
       ),
     );
   }
-}
-
-class ProjectShowcaseData {
-  const ProjectShowcaseData({
-    required this.title,
-    required this.description,
-    required this.tools,
-    required this.preview,
-  });
-
-  final String title;
-  final String description;
-  final List<String> tools;
-  final Widget preview;
 }
