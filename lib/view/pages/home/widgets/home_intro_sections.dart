@@ -3,7 +3,6 @@ import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
-import 'package:flutter_portofolio/view/navigation_bar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,11 +14,15 @@ const _accent = AppColor.yellowgreen;
 
 Widget homeHero(BuildContext context, double width, double height) {
   final compact = width < 800;
+  final heroHeight = compact
+      ? (height - kToolbarHeight - MediaQuery.paddingOf(context).top)
+          .clamp(0.0, height)
+      : height;
   final portrait = _portrait(width, compact);
   final intro = _heroCopy(width, compact);
   return Container(
     width: double.infinity,
-    constraints: BoxConstraints(minHeight: height - kNavbarHeight),
+    constraints: BoxConstraints(minHeight: heroHeight),
     color: _ink,
     child: Padding(
       padding: EdgeInsets.fromLTRB(

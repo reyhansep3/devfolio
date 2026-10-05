@@ -53,4 +53,5 @@
 [[headers]]
   for = "/CV-Reyhan-Septri-Asta.pdf"
   [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
     Content-Disposition = "attachment; filename=\"CV-Reyhan Septri Asta.pdf\""
