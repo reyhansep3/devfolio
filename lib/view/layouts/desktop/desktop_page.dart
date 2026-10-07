@@ -152,13 +152,10 @@ class _DesktopPageState extends State<DesktopPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: ScrollReveal(
-              fromLeft: false,
-              child: ContactSection(
-                onNavigate: _handleNav,
-                editorialStyle: true,
-                homeContact: true,
-              ),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              homeContact: true,
             ),
           ),
         ],

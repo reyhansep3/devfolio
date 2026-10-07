@@ -118,13 +118,10 @@ class _TabletPageState extends State<TabletPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: ScrollReveal(
-              fromLeft: false,
-              child: ContactSection(
-                onNavigate: _handleNav,
-                editorialStyle: true,
-                homeContact: true,
-              ),
+            child: ContactSection(
+              onNavigate: _handleNav,
+              editorialStyle: true,
+              homeContact: true,
             ),
           ),
         ],

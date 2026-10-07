@@ -141,7 +141,7 @@ Widget formalitiesStory(BuildContext context, double width, double height) {
         color: _ink, fontSize: compact ? 39 : 56,
         fontWeight: FontWeight.w700, height: 1.08, letterSpacing: -2.1)),
       const SizedBox(height: 24),
-      Text('I’m Reyhan Septri Asta, a mobile developer and product enthusiast who enjoys turning ideas into seamless digital experiences. I focus on building products that are functional, intuitive, and enjoyable to use.',
+      Text('I’m a mobile developer and product enthusiast who enjoys turning ideas into seamless digital experiences. I focus on building products that are functional, intuitive, and enjoyable to use.',
         style: GoogleFonts.poppins(color: _body, fontSize: compact ? 14 : 15, height: 1.8)),
       const SizedBox(height: 18),
       Text('I work across the product lifecycle, from understanding requirements and shaping user flows to building polished, production-ready experiences. I enjoy bringing design and engineering together.',

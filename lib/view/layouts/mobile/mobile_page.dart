@@ -116,14 +116,11 @@ class MobilePage extends StatelessWidget {
           ),
           ScrollReveal(child: ExperienceSection()),
           const WhatDrivesMeSection(),
-          const ScrollReveal(
-            fromLeft: false,
-            child: ContactSection(
-              editorialStyle: true,
-              darkStyle: true,
-              eyebrow: '06  /  GET IN TOUCH',
-              headline: 'Let’s build\nwhat’s next.',
-            ),
+          const ContactSection(
+            editorialStyle: true,
+            darkStyle: true,
+            eyebrow: '06  /  GET IN TOUCH',
+            headline: 'Let’s build\nwhat’s next.',
           ),
         ],
       );
@@ -132,12 +129,9 @@ class MobilePage extends StatelessWidget {
     if (section == 'project') {
       return ListView(children: const [
         ProjectList(),
-        ScrollReveal(
-          fromLeft: false,
-          child: ContactSection(
-            editorialStyle: true,
-            eyebrow: '07  /  GET IN TOUCH',
-          ),
+        ContactSection(
+          editorialStyle: true,
+          eyebrow: '07  /  GET IN TOUCH',
         ),
       ]);
     }
@@ -145,13 +139,10 @@ class MobilePage extends StatelessWidget {
     if (section == 'blog') {
       return ListView(children: const [
         BlogPage(),
-        ScrollReveal(
-          fromLeft: false,
-          child: ContactSection(
-            editorialStyle: true,
-            darkStyle: true,
-            eyebrow: '02  /  GET IN TOUCH',
-          ),
+        ContactSection(
+          editorialStyle: true,
+          darkStyle: true,
+          eyebrow: '02  /  GET IN TOUCH',
         ),
       ]);
     }
@@ -163,10 +154,7 @@ class MobilePage extends StatelessWidget {
         ProjectSection(
           onViewAll: () => GoRouter.of(context).go('/project'),
         ),
-        const ScrollReveal(
-          fromLeft: false,
-          child: ContactSection(editorialStyle: true, homeContact: true),
-        ),
+        const ContactSection(editorialStyle: true, homeContact: true),
       ],
     );
   }

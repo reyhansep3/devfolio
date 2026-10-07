@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
@@ -35,21 +34,21 @@ Widget homeHero(BuildContext context, double width, double height) {
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FadeInRight(config: BaseAnimationConfig(delay: 180.ms, duration: 750.ms, child: portrait)),
+                ScrollReveal(fromLeft: false, delay: const Duration(milliseconds: 180), child: portrait),
                 const SizedBox(height: 32),
-                FadeInLeft(config: BaseAnimationConfig(delay: 320.ms, duration: 750.ms, child: intro)),
+                ScrollReveal(delay: const Duration(milliseconds: 320), child: intro),
               ],
             )
           : Row(
               children: [
                 Expanded(
                   flex: 6,
-                  child: FadeInLeft(config: BaseAnimationConfig(delay: 150.ms, duration: 750.ms, child: intro)),
+                  child: ScrollReveal(delay: const Duration(milliseconds: 150), child: intro),
                 ),
                 SizedBox(width: width * .055),
                 Expanded(
                   flex: 5,
-                  child: FadeInRight(config: BaseAnimationConfig(delay: 260.ms, duration: 750.ms, child: portrait)),
+                  child: ScrollReveal(fromLeft: false, delay: const Duration(milliseconds: 260), child: portrait),
                 ),
               ],
             ),

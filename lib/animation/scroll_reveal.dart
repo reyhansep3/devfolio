@@ -59,7 +59,6 @@ class _ScrollRevealState extends State<ScrollReveal>
     final renderObject = context.findRenderObject();
     if (renderObject is! RenderBox || !renderObject.hasSize) return;
     final viewport = RenderAbstractViewport.of(renderObject);
-    if (viewport == null) return;
 
     final revealOffset = viewport.getOffsetToReveal(renderObject, 0).offset;
     final triggerOffset =
@@ -73,6 +72,10 @@ class _ScrollRevealState extends State<ScrollReveal>
     _scrollPosition?.removeListener(_checkVisibility);
     if (MediaQuery.disableAnimationsOf(context)) {
       _controller.value = 1;
+      return;
+    }
+    if (widget.delay == Duration.zero) {
+      _controller.forward();
       return;
     }
     Future<void>.delayed(widget.delay, () {
@@ -92,10 +95,7 @@ class _ScrollRevealState extends State<ScrollReveal>
     return RepaintBoundary(
       child: FadeTransition(
         opacity: _controller,
-        child: SlideTransition(
-          position: _slide,
-          child: widget.child,
-        ),
+        child: SlideTransition(position: _slide, child: widget.child),
       ),
     );
   }

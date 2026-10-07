@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
-import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
+import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -256,14 +256,14 @@ class _EditorialContact extends StatelessWidget {
         children: [
           compact
             ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                FadeInLeft(config: BaseAnimationConfig(duration: 750.ms, child: intro)),
+                ScrollReveal(child: intro),
                 const SizedBox(height: 72),
-                FadeInRight(config: BaseAnimationConfig(delay: 150.ms, duration: 750.ms, child: links)),
+                ScrollReveal(fromLeft: false, delay: const Duration(milliseconds: 150), child: links),
               ])
             : Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Expanded(flex: 6, child: FadeInLeft(config: BaseAnimationConfig(duration: 750.ms, child: intro))),
+                Expanded(flex: 6, child: ScrollReveal(child: intro)),
                 SizedBox(width: width * .09),
-                Expanded(flex: 3, child: FadeInRight(config: BaseAnimationConfig(delay: 150.ms, duration: 750.ms, child: links))),
+                Expanded(flex: 3, child: ScrollReveal(fromLeft: false, delay: const Duration(milliseconds: 150), child: links)),
               ]),
           SizedBox(height: compact ? 80 : 110),
           Divider(height: 1, color: rule),
