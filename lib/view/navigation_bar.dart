@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
 import 'package:flutter_portofolio/view/responsive_layout.dart';
-import 'package:flutter_portofolio/view/cv_download.dart';
+import 'package:flutter_portofolio/view/resume_actions.dart';
 
 
 /// Tinggi navbar (desktop & tablet). Single source of truth — dipakai baik
@@ -72,24 +72,7 @@ class Navbar extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: downloadCv,
-            child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.20),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              "Download CV",
-              style: AppFontStyle.vcrMonoBodyLarge.copyWith(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            ),
-          )
+          const ResumeActions(compact: true),
         ],
       ),
     );
@@ -158,25 +141,8 @@ class Navbar extends StatelessWidget {
                     ],
                   ),
                 ),
-                navRow,
-                GestureDetector(
-                  onTap: downloadCv,
-                  child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.20),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    "DOWNLOAD CV",
-                    style: AppFontStyle.vcrMonoBodyLarge.copyWith(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  ),
-                )
+                Flexible(child: FittedBox(fit: BoxFit.scaleDown, child: navRow)),
+                const ResumeActions(compact: true),
               ],
             ),
           );
@@ -207,24 +173,7 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               navRow,
-              GestureDetector(
-                onTap: downloadCv,
-                child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.20),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  "DOWNLOAD CV",
-                  style: AppFontStyle.vcrMonoBodyLarge.copyWith(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                ),
-              )
+              const ResumeActions(),
             ],
           ),
         );

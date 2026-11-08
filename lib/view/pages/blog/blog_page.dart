@@ -49,7 +49,7 @@ class _BlogPageState extends State<BlogPage> {
               FadeInLeft(config: BaseAnimationConfig(duration: 750.ms, child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('WRITING  /  FIELD NOTES', style: GoogleFonts.spaceMono(
+                  Text('WRITING  /  FIELD NOTES', style: GoogleFonts.poppins(
                     color: _accent, fontSize: 12, letterSpacing: 1.3)),
                   const SizedBox(height: 26),
                   Text('Ideas, lessons,\nand things worth\nsharing.', style: GoogleFonts.poppins(
@@ -77,7 +77,7 @@ class _BlogPageState extends State<BlogPage> {
             color: _paper,
             padding: EdgeInsets.fromLTRB(inset, compact ? 76 : 105, inset, compact ? 88 : 110),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('01  /  THE JOURNAL', style: GoogleFonts.spaceMono(
+              Text('01  /  THE JOURNAL', style: GoogleFonts.poppins(
                 color: _body, fontSize: 12, letterSpacing: 1.3)),
               const SizedBox(height: 24),
               Text('Latest writing.', style: GoogleFonts.poppins(

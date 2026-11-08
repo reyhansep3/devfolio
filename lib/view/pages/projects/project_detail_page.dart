@@ -31,7 +31,7 @@ class ProjectDetailPage extends StatelessWidget {
           ),
           title: Text(
             'DEV / PROJECTS',
-            style: GoogleFonts.spaceMono(
+            style: GoogleFonts.poppins(
               color: _accent,
               fontSize: 13,
               fontWeight: FontWeight.w700,
@@ -66,7 +66,7 @@ class ProjectDetailPage extends StatelessWidget {
                           children: [
                             Text(
                               'PROJECT DETAIL  /  REYHAN SEPTRI ASTA',
-                              style: GoogleFonts.spaceMono(
+                              style: GoogleFonts.poppins(
                                 color: _accent,
                                 fontSize: 12,
                                 letterSpacing: 1.2,
@@ -227,7 +227,7 @@ class ProjectDetailPage extends StatelessWidget {
                 ),
                 child: Text(
                   tool,
-                  style: GoogleFonts.spaceMono(color: _ink, fontSize: 12),
+                  style: GoogleFonts.poppins(color: _ink, fontSize: 12),
                 ),
               ),
           ],
@@ -289,7 +289,7 @@ class ProjectDetailPage extends StatelessWidget {
 
   Widget _eyebrow(String label) => Text(
     label,
-    style: GoogleFonts.spaceMono(
+    style: GoogleFonts.poppins(
       color: _body,
       fontSize: 12,
       letterSpacing: 1.2,

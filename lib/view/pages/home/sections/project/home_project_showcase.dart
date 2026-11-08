@@ -57,7 +57,7 @@ class _HomeProjects extends StatelessWidget {
               children: [
                 Text(
                   '03  /  SELECTED WORK',
-                  style: GoogleFonts.spaceMono(
+                  style: GoogleFonts.poppins(
                     color: _homeAccent,
                     fontSize: 12,
                     letterSpacing: 1.3,
@@ -170,7 +170,7 @@ class _HomeProjectRowState extends State<_HomeProjectRow> {
         children: [
           Text(
             'PROJECT  ${widget.number.toString().padLeft(2, '0')}',
-            style: GoogleFonts.spaceMono(
+            style: GoogleFonts.poppins(
               color: _homeAccent,
               fontSize: 12,
               letterSpacing: 1.2,
@@ -211,7 +211,7 @@ class _HomeProjectRowState extends State<_HomeProjectRow> {
                     ),
                     child: Text(
                       tool,
-                      style: GoogleFonts.spaceMono(
+                      style: GoogleFonts.poppins(
                         color: _homeMuted,
                         fontSize: 12,
                       ),
@@ -223,7 +223,7 @@ class _HomeProjectRowState extends State<_HomeProjectRow> {
           const SizedBox(height: 24),
           Text(
             'VIEW PROJECT  ↗',
-            style: GoogleFonts.spaceMono(
+            style: GoogleFonts.poppins(
               color: _homeAccent,
               fontSize: 12,
               letterSpacing: .7,

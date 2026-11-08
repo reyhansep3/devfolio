@@ -98,7 +98,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => context.pop(),
         ),
-        title: Text('DEV / NOTES', style: GoogleFonts.spaceMono(
+        title: Text('DEV / NOTES', style: GoogleFonts.poppins(
           color: _accent, fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 1.2)),
       ),
       body: LayoutBuilder(builder: (context, constraints) {
@@ -144,7 +144,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
     ),
     padding: EdgeInsets.symmetric(horizontal: compact ? 24 : 64, vertical: compact ? 55 : 80),
     child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('FIELD NOTE  /  REYHAN SEPTRI ASTA', style: GoogleFonts.spaceMono(
+      Text('FIELD NOTE  /  REYHAN SEPTRI ASTA', style: GoogleFonts.poppins(
         color: _accent, fontSize: 12, letterSpacing: 1.2)),
       const SizedBox(height: 24),
       ConstrainedBox(
@@ -180,7 +180,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
           Theme(data: Theme.of(context).copyWith(dividerColor: Colors.transparent), child:
             ExpansionTile(
               tilePadding: EdgeInsets.zero,
-              title: Text('IN THIS ARTICLE', style: GoogleFonts.spaceMono(
+              title: Text('IN THIS ARTICLE', style: GoogleFonts.poppins(
                 color: _ink, fontSize: 12, letterSpacing: 1.1)),
               children: [for (final entry in _entries) _tocItem(entry, dark: false)],
             )),
@@ -220,7 +220,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         if (main) ...[
           Text('SECTION  ${entry.displayNumber.toString().padLeft(2, '0')}',
-            style: GoogleFonts.spaceMono(color: _body, fontSize: 12, letterSpacing: 1.2)),
+            style: GoogleFonts.poppins(color: _body, fontSize: 12, letterSpacing: 1.2)),
           const SizedBox(height: 15),
         ],
         Text(section.title, style: GoogleFonts.poppins(
@@ -234,6 +234,9 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
         if (section.question != null && section.question!.trim().isNotEmpty)
           _question(section.question!),
         if (section.content.trim().isNotEmpty) _paragraph(section.content),
+        if (section.illustration != null) _illustration(section.illustration!),
+        if (section.code != null && section.code!.trim().isNotEmpty)
+          _codeBlock(section.code!),
         if (section.comparison != null) _comparison(section.comparison!),
         if (section.result != null) _result(section.result!),
         if (section.resultsText != null && section.resultsText!.trim().isNotEmpty)
@@ -248,6 +251,111 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
 
   Widget _paragraph(String text) => Text(text, style: GoogleFonts.poppins(
     color: _body, fontSize: 15, height: 1.85));
+
+  Widget _illustration(Map<String, dynamic> data) => Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(top: 28),
+    padding: const EdgeInsets.all(22),
+    decoration: const BoxDecoration(color: _surface),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          data['caption']?.toString() ?? 'Release flow',
+          style: GoogleFonts.poppins(
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: 20),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final manual = _flowLane('MANUAL', data['manual'], false);
+            final automated = _flowLane('AUTOMATED', data['automated'], true);
+            return constraints.maxWidth < 560
+                ? Column(
+                    children: [manual, const SizedBox(height: 12), automated],
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: manual),
+                      const SizedBox(width: 12),
+                      Expanded(child: automated),
+                    ],
+                  );
+          },
+        ),
+      ],
+    ),
+  );
+
+  Widget _flowLane(String label, Object? rawSteps, bool highlighted) {
+    final steps = rawSteps is List
+        ? rawSteps.map((e) => e.toString()).toList()
+        : <String>[];
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(17),
+      decoration: BoxDecoration(
+        color: highlighted ? const Color(0xFF303B2B) : const Color(0xFF2B302B),
+        border: Border.all(color: highlighted ? _accent : _rule),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              color: highlighted ? _accent : _muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.1,
+            ),
+          ),
+          const SizedBox(height: 13),
+          for (var i = 0; i < steps.length; i++) ...[
+            if (i > 0)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Icon(
+                  Icons.arrow_downward_rounded,
+                  size: 15,
+                  color: _muted,
+                ),
+              ),
+            Text(
+              steps[i],
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 12,
+                height: 1.45,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _codeBlock(String code) => Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(top: 24),
+    padding: const EdgeInsets.all(20),
+    decoration: const BoxDecoration(color: _ink),
+    child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: SelectableText(
+        code,
+        style: GoogleFonts.spaceMono(
+          color: Colors.white,
+          fontSize: 12,
+          height: 1.65,
+        ),
+      ),
+    ),
+  );
 
   Widget _question(String text) => Container(
     width: double.infinity,
@@ -279,7 +387,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(color: Colors.white, border: Border.all(color: _rule)),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(label, style: GoogleFonts.spaceMono(color: _body, fontSize: 12, letterSpacing: 1.1)),
+      Text(label, style: GoogleFonts.poppins(color: _body, fontSize: 12, letterSpacing: 1.1)),
       const SizedBox(height: 13),
       Text(text, style: GoogleFonts.poppins(color: _body, fontSize: 13, height: 1.7)),
     ]),
@@ -309,7 +417,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
   Widget _resultValue(String label, String value) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label, style: GoogleFonts.spaceMono(color: _accent, fontSize: 12, letterSpacing: 1.1)),
+      Text(label, style: GoogleFonts.poppins(color: _accent, fontSize: 12, letterSpacing: 1.1)),
       const SizedBox(height: 8),
       Text(value, style: GoogleFonts.poppins(color: Colors.white,
         fontSize: 22, fontWeight: FontWeight.w700)),
@@ -331,7 +439,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
   Widget _tableOfContents({required bool dark}) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('ON THIS PAGE', style: GoogleFonts.spaceMono(
+      Text('ON THIS PAGE', style: GoogleFonts.poppins(
         color: dark ? _accent : _ink, fontSize: 12, letterSpacing: 1.2)),
       const SizedBox(height: 19),
       for (final entry in _entries) _tocItem(entry, dark: dark),
@@ -379,6 +487,8 @@ class BlogSection {
   final String type;
   final String title;
   final String content;
+  final String? code;
+  final Map<String, dynamic>? illustration;
 
   final String? question;
 
@@ -398,6 +508,8 @@ class BlogSection {
     required this.type,
     required this.title,
     required this.content,
+    this.code,
+    this.illustration,
     this.question,
     this.comparison,
     this.result,
@@ -442,10 +554,17 @@ class BlogSection {
       );
     }
 
+    Map<String, dynamic>? illustration;
+    if (json['illustration'] is Map) {
+      illustration = Map<String, dynamic>.from(json['illustration'] as Map);
+    }
+
     return BlogSection(
       type: json['type']?.toString() ?? '',
       title: json['title']?.toString() ?? '',
       content: json['content']?.toString() ?? '',
+      code: json['code']?.toString(),
+      illustration: illustration,
       question: json['question']?.toString(),
       comparison: comparison,
       result: result,

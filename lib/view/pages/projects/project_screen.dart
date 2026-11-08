@@ -43,7 +43,7 @@ class _ProjectArchive extends StatelessWidget {
       children: [
         Text(
           'PROJECT ARCHIVE  /  REYHAN SEPTRI ASTA',
-          style: GoogleFonts.spaceMono(
+          style: GoogleFonts.poppins(
             color: _body,
             fontSize: 12,
             letterSpacing: 1.2,
@@ -80,7 +80,7 @@ class _ProjectArchive extends StatelessWidget {
         ),
         Text(
           'PROJECTS IN THE ARCHIVE',
-          style: GoogleFonts.spaceMono(
+          style: GoogleFonts.poppins(
             color: _body,
             fontSize: 12,
             letterSpacing: 1.2,
@@ -147,7 +147,7 @@ class _ProjectArchive extends StatelessWidget {
             children: [
               Text(
                 'THE INDEX  /  01—$count',
-                style: GoogleFonts.spaceMono(
+                style: GoogleFonts.poppins(
                   color: _accent,
                   fontSize: 12,
                   letterSpacing: 1.3,
@@ -214,7 +214,7 @@ class _ArchiveProjectCardState extends State<_ArchiveProjectCard> {
         children: [
           Text(
             'PROJECT  ${widget.number.toString().padLeft(2, '0')}',
-            style: GoogleFonts.spaceMono(
+            style: GoogleFonts.poppins(
               color: _accent,
               fontSize: 12,
               letterSpacing: 1.2,
@@ -253,7 +253,7 @@ class _ArchiveProjectCardState extends State<_ArchiveProjectCard> {
                   decoration: BoxDecoration(border: Border.all(color: _rule)),
                   child: Text(
                     tool,
-                    style: GoogleFonts.spaceMono(color: _muted, fontSize: 12),
+                    style: GoogleFonts.poppins(color: _muted, fontSize: 12),
                   ),
                 ),
             ],
@@ -264,7 +264,7 @@ class _ArchiveProjectCardState extends State<_ArchiveProjectCard> {
             children: [
               Text(
                 'VIEW PROJECT',
-                style: GoogleFonts.spaceMono(
+                style: GoogleFonts.poppins(
                   color: _accent,
                   fontSize: 12,
                   letterSpacing: .6,

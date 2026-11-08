@@ -9,7 +9,7 @@ Future<List<Map<String, dynamic>>> loadBlogs() async {
   if (items is! List) throw const FormatException('Invalid blog data');
 
   final seen = <String>{};
-  return items
+  final blogs = items
       .whereType<Map>()
       .map((item) => Map<String, dynamic>.from(item))
       .where((blog) {
@@ -21,4 +21,10 @@ Future<List<Map<String, dynamic>>> loadBlogs() async {
         return seen.add(identity);
       })
       .toList();
+  blogs.sort((a, b) {
+    final aId = int.tryParse(a['id']?.toString() ?? '') ?? 0;
+    final bId = int.tryParse(b['id']?.toString() ?? '') ?? 0;
+    return bId.compareTo(aId);
+  });
+  return blogs;
 }

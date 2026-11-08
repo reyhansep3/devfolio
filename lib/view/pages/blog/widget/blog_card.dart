@@ -41,14 +41,14 @@ class _JournalCardState extends State<_JournalCard> {
       ),
       padding: const EdgeInsets.all(25),
       alignment: Alignment.bottomLeft,
-      child: Text('DEV / NOTES', style: GoogleFonts.spaceMono(
+      child: Text('DEV / NOTES', style: GoogleFonts.poppins(
         color: _accent, fontSize: 12, letterSpacing: 1.4)),
     );
     final details = Padding(
       padding: EdgeInsets.all(compact ? 24 : 42),
       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text('FIELD NOTE  ${widget.index.toString().padLeft(2, '0')}',
-          style: GoogleFonts.spaceMono(color: _accent, fontSize: 12, letterSpacing: 1.2)),
+          style: GoogleFonts.poppins(color: _accent, fontSize: 12, letterSpacing: 1.2)),
         const SizedBox(height: 18),
         Text(widget.blog['title']?.toString() ?? 'Untitled', style: GoogleFonts.poppins(
           color: Colors.white, fontSize: compact ? 27 : 36,
@@ -58,7 +58,7 @@ class _JournalCardState extends State<_JournalCard> {
           color: _muted, fontSize: compact ? 13 : 15, height: 1.7)),
         const SizedBox(height: 28),
         Row(mainAxisSize: MainAxisSize.min, children: [
-          Text('READ ARTICLE', style: GoogleFonts.spaceMono(
+          Text('READ ARTICLE', style: GoogleFonts.poppins(
             color: _accent, fontSize: 12, letterSpacing: 1.1)),
           const SizedBox(width: 10),
           const Icon(Icons.arrow_outward_rounded, size: 16, color: _accent),

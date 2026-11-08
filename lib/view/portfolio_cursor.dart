@@ -144,7 +144,7 @@ class _PortfolioCursorState extends State<PortfolioCursor>
                                 border: Border.all(color: const Color(0xFFC8F55A)),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: Text('You', style: GoogleFonts.spaceMono(
+                              child: Text('You', style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,

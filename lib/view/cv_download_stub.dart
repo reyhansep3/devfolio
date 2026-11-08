@@ -1,3 +1,7 @@
-void downloadCv() {
-  throw UnsupportedError('CV download is only available on the web.');
+void seeCv() {
+  throw UnsupportedError('CV preview is only available on the web.');
+}
+
+void seeResume() {
+  throw UnsupportedError('Resume preview is only available on the web.');
 }

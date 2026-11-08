@@ -64,14 +64,14 @@ Widget formalitiesHero(BuildContext context, double width, double height) {
         colors: [_ink.withValues(alpha: .08), _ink.withValues(alpha: .48)],
       ))),
       Positioned(right: 18, bottom: 18, child: Text('REYHAN  /  JAKARTA',
-        style: GoogleFonts.spaceMono(color: Colors.white, fontSize: 12, letterSpacing: 1.2))),
+        style: GoogleFonts.poppins(color: Colors.white, fontSize: 12, letterSpacing: 1.2))),
     ]),
   );
   final copy = Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text('01  /  ABOUT', style: GoogleFonts.spaceMono(
+      Text('01  /  ABOUT', style: GoogleFonts.poppins(
         color: _accent, fontSize: 12, letterSpacing: 1.3)),
       const SizedBox(height: 26),
       Text('Curiosity drives\nmy work.', style: GoogleFonts.poppins(
@@ -201,7 +201,7 @@ Widget formalitiesExpertise(BuildContext context, double width, int selectedCate
           padding: EdgeInsets.all(compact ? 24 : 32),
           decoration: BoxDecoration(color: _surface, border: Border.all(color: _rule)),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('TECHNOLOGY STACK', style: GoogleFonts.spaceMono(
+            Text('TECHNOLOGY STACK', style: GoogleFonts.poppins(
               color: _accent, fontSize: 12, letterSpacing: 1.2)),
             const SizedBox(height: 18),
             Wrap(spacing: 8, runSpacing: 8, children: [
@@ -216,7 +216,7 @@ Widget formalitiesExpertise(BuildContext context, double width, int selectedCate
         padding: EdgeInsets.all(compact ? 24 : 32),
         decoration: BoxDecoration(border: Border.all(color: _rule)),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('INFRASTRUCTURE & TOOLS', style: GoogleFonts.spaceMono(
+          Text('INFRASTRUCTURE & TOOLS', style: GoogleFonts.poppins(
             color: _accent, fontSize: 12, letterSpacing: 1.2)),
           const SizedBox(height: 18),
           Wrap(spacing: 8, runSpacing: 8, children: [
@@ -231,7 +231,7 @@ Widget formalitiesExpertise(BuildContext context, double width, int selectedCate
 Widget _toolChip(String tool) => Container(
   padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
   decoration: BoxDecoration(border: Border.all(color: _rule)),
-  child: Text(tool, style: GoogleFonts.spaceMono(color: _muted, fontSize: 12)),
+  child: Text(tool, style: GoogleFonts.poppins(color: _muted, fontSize: 12)),
 );
 
 class _ExpertiseChoice extends StatefulWidget {
@@ -336,7 +336,7 @@ class _ExperienceEntry extends StatelessWidget {
   );
 
   Widget _entryNumber() => Text(index.toString().padLeft(2, '0'),
-    style: GoogleFonts.spaceMono(color: _body, fontSize: 12, letterSpacing: 1.2));
+    style: GoogleFonts.poppins(color: _body, fontSize: 12, letterSpacing: 1.2));
 
   Widget _entryContent() => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     Text(experience.jobTitle, style: GoogleFonts.poppins(
@@ -347,8 +347,8 @@ class _ExperienceEntry extends StatelessWidget {
       color: _body, fontSize: compact ? 15 : 17, fontWeight: FontWeight.w600)),
     const SizedBox(height: 14),
     Wrap(spacing: 13, runSpacing: 6, children: [
-      Text(experience.date.trim(), style: GoogleFonts.spaceMono(color: _body, fontSize: 12)),
-      Text(experience.status.toUpperCase(), style: GoogleFonts.spaceMono(color: _body, fontSize: 12)),
+      Text(experience.date.trim(), style: GoogleFonts.poppins(color: _body, fontSize: 12)),
+      Text(experience.status.toUpperCase(), style: GoogleFonts.poppins(color: _body, fontSize: 12)),
     ]),
     const SizedBox(height: 22),
     for (final item in experience.jobExperience)
@@ -367,7 +367,7 @@ class _ExperienceEntry extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
           decoration: BoxDecoration(border: Border.all(color: _lightRule)),
-          child: Text(tool, style: GoogleFonts.spaceMono(color: _body, fontSize: 11)),
+          child: Text(tool, style: GoogleFonts.poppins(color: _body, fontSize: 11)),
         ),
     ]),
   ]);
@@ -376,7 +376,7 @@ class _ExperienceEntry extends StatelessWidget {
 Widget _sectionHead(String eyebrow, String title, bool compact, {required bool dark}) => Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
-    Text(eyebrow, style: GoogleFonts.spaceMono(
+    Text(eyebrow, style: GoogleFonts.poppins(
       color: dark ? _accent : _body, fontSize: 12, letterSpacing: 1.3)),
     const SizedBox(height: 25),
     Text(title, style: GoogleFonts.poppins(

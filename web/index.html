@@ -28,6 +28,10 @@
 
   <title>s3p/devfolio</title>
   <link rel="manifest" href="manifest.json?v=r3y">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="assets/assets/fonts/Poppins-Bold.ttf" as="fetch" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/assets/fonts/Poppins-Regular.ttf" as="fetch" type="font/ttf" crossorigin>
 
   <style>
     /* ── Hindari flash putih saat engine boot / hot restart ── */
@@ -58,7 +62,7 @@
       background: #0b0b0f;
       color: #c8f55a;
       font-family: Arial, Helvetica, sans-serif;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.12s ease;
     }
     #loading-screen.done {
       opacity: 0;
@@ -122,7 +126,6 @@
       var value = document.getElementById('loading-value');
       var fill = document.getElementById('loading-fill');
       var current = 1;
-      var homeReady = false;
 
       function show(percent) {
         if (percent === current) return;
@@ -133,22 +136,17 @@
       }
 
       function advance() {
-        // Naik satu angka tiap 30 ms; tunggu frame Flutter sebelum lewat 95%.
-        if (current < (homeReady ? 100 : 95)) show(current + 1);
-        if (current === 100) {
-          clearInterval(timer);
-          setTimeout(function () {
-            screen.classList.add('done');
-            setTimeout(function () {
-              screen.remove();
-            }, 350);
-          }, 180);
-        }
+        // Decorative progress only; readiness never waits for this timer.
+        if (current < 95) show(current + 1);
       }
 
       // Bootstrap memanggil .load() sendiri.
       window.addEventListener('flutter-first-frame', function () {
-        homeReady = true;
+        performance.mark('portfolio-first-frame');
+        clearInterval(timer);
+        show(100);
+        screen.classList.add('done');
+        setTimeout(function () { screen.remove(); }, 120);
         document.body.classList.add('custom-cursor-ready');
       }, { once: true });
       var timer = setInterval(advance, 30);

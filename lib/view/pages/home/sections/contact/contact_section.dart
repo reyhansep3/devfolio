@@ -93,6 +93,16 @@ class _ContactSectionState extends State<ContactSection> {
               ),
             ),
           ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Made using Flutter',
+              style: AppFontStyle.poppinsBodySmall.copyWith(
+                color: AppColor.darkGray,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -136,7 +146,7 @@ class _EditorialContact extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(homeContact ? '04  /  CONTACT ME' : eyebrow, style: GoogleFonts.spaceMono(
+        Text(homeContact ? '04  /  CONTACT ME' : eyebrow, style: GoogleFonts.poppins(
           color: darkStyle ? _contactAccent : muted, fontSize: 12, letterSpacing: 1.3)),
         const SizedBox(height: 26),
         Text(homeContact ? 'Let’s stay\nin touch.' : headline, style: GoogleFonts.poppins(
@@ -179,7 +189,7 @@ class _EditorialContact extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 31),
-          Text('OR FIND ME HERE', style: GoogleFonts.spaceMono(
+          Text('OR FIND ME HERE', style: GoogleFonts.poppins(
             color: muted, fontSize: 12, letterSpacing: 1.3)),
           const SizedBox(height: 15),
         ],
@@ -234,7 +244,7 @@ class _EditorialContact extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('KEEP EXPLORING', style: GoogleFonts.spaceMono(
+        Text('KEEP EXPLORING', style: GoogleFonts.poppins(
           color: muted, fontSize: 12, letterSpacing: 1.3)),
         const SizedBox(height: 20),
         for (final item in _ContactSectionState._resources)
@@ -269,6 +279,9 @@ class _EditorialContact extends StatelessWidget {
           Divider(height: 1, color: rule),
           const SizedBox(height: 21),
           Text('© 2026 Reyhan Septri Asta. Built with care.',
+            style: GoogleFonts.poppins(color: muted, fontSize: 12)),
+          const SizedBox(height: 8),
+          Text('Made using Flutter',
             style: GoogleFonts.poppins(color: muted, fontSize: 12)),
         ],
       ),

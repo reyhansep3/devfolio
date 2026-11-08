@@ -233,6 +233,83 @@
                 "final_takeaway": "If there's one thing I'd want other developers to take away from this, it's this: don't assume your app size is \"just how it is.\" Take the time to dig into what's actually being shipped inside your build, more often than not, you'll find room to optimize that you didn't even know was there, and your users (and their phone storage) will thank you for it."
                 }
             ]
+        },
+        {
+            "id": 4,
+            "title": "CI/CD: How to Automate Flutter Releases with Firebase and GitHub",
+            "subtitle": "From a code push to a tester build with GitHub Actions, Fastlane, and Firebase App Distribution.",
+            "sections": [
+                {
+                    "type": "introduction",
+                    "title": "The release bottleneck",
+                    "content": "Finishing the Flutter code is only part of a release. A manual handoff still means building an Android APK or App Bundle (AAB), archiving and signing an iOS app, uploading each file, and telling testers where to find it. Repeating those steps after every fix costs time and makes it easy to forget a version change or use a different setting on another laptop. I wanted a repeatable way to hand a build to testers after pushing a designated branch."
+                },
+                {
+                    "type": "section",
+                    "title": "What CI and CD actually do",
+                    "content": "Continuous Integration (CI) runs checks whenever code is merged or pushed: fetch dependencies, analyze the project, run tests, and stop if something fails. Continuous Delivery (CD) then builds a release candidate and distributes it to testers. A commit by itself does not guarantee bug-free code; the checks only catch what they cover. Store publication is a separate step and can still require review by Apple or Google.",
+                    "illustration": {
+                        "caption": "A release path for internal testing",
+                        "manual": [
+                            "Finish code",
+                            "Build and sign on a laptop",
+                            "Upload each binary",
+                            "Notify testers"
+                        ],
+                        "automated": [
+                            "Push to release branch",
+                            "GitHub Actions checks",
+                            "Fastlane uploads the build",
+                            "Firebase notifies testers"
+                        ]
+                    }
+                },
+                {
+                    "type": "section",
+                    "title": "Why automate the handoff?",
+                    "content": "With a manual release, I may open Xcode to archive an IPA, wait for processing in TestFlight, then repeat a similar build and upload process for Android. If testers find an issue, I start over. Automation moves these repeated commands into a versioned workflow. Developers still review failures and tester feedback, but the same steps run on every release and the upload starts without someone watching a build window."
+                },
+                {
+                    "type": "section",
+                    "title": "1. Prepare the Flutter project",
+                    "content": "Start with a working release build on your own machine. Set the application ID and iOS bundle ID, configure Android release signing and Apple certificates/profiles, and check the version in pubspec.yaml (for example, 1.2.0+42). Increase the build number for each store upload. Keep keystores, passwords, service-account JSON, and Apple signing material out of Git. Run flutter analyze, flutter test, flutter build apk --release, and, on a Mac with signing configured, flutter build ipa. Fix local build problems before moving the commands into CI.",
+                    "code": "flutter pub get\nflutter analyze\nflutter test\nflutter build apk --release"
+                },
+                {
+                    "type": "section",
+                    "title": "2. Set up Firebase App Distribution",
+                    "content": "Create a Firebase project and register your Android app with exactly the same package name as your release build. In App Distribution, get started and create a tester group such as qa-team. Copy the Firebase App ID from Project settings; it is different from the Android package name. For CI, create a Google Cloud service account with the Firebase App Distribution Admin role and store its JSON key as an encrypted GitHub Actions secret. Use a separate Firebase iOS app ID if you also distribute an IPA. Firebase App Distribution is for pre-release testers; it does not publish to the Play Store or App Store."
+                },
+                {
+                    "type": "section",
+                    "title": "3. Add a Fastlane lane",
+                    "content": "Install Fastlane in the project and add the firebase_app_distribution plugin. A small Android lane can upload the release APK built by Flutter. Replace the sample Firebase App ID and group alias with your own values. The lane reads the service-account file path from GOOGLE_APPLICATION_CREDENTIALS, so the credential itself never appears in the Fastfile. Commit your Fastfile, Gemfile, Gemfile.lock, and Pluginfile so the team uses the same tooling.",
+                    "code": "# Run once in the project root\nfastlane init\nfastlane add_plugin firebase_app_distribution\n\n# fastlane/Fastfile\ndefault_platform(:android)\nplatform :android do\n  lane :beta do\n    firebase_app_distribution(\n      app: \"1:1234567890:android:replace-with-your-app-id\",\n      android_artifact_type: \"APK\",\n      android_artifact_path: \"build/app/outputs/flutter-apk/app-release.apk\",\n      groups: \"qa-team\",\n      release_notes: \"Internal test build\"\n    )\n  end\nend"
+                },
+                {
+                    "type": "section",
+                    "title": "4. Trigger it from GitHub Actions",
+                    "content": "Create .github/workflows/android-beta.yml and trigger it on pushes to a dedicated beta branch. The job checks out the code, installs Flutter and Ruby dependencies, runs analysis and tests, builds a signed release APK, writes the Firebase service-account secret to a temporary file, then runs the Fastlane lane. The example assumes Android release signing is already configured for CI: restore the keystore and pass its passwords through GitHub Actions secrets before flutter build apk. Otherwise the build may succeed with the wrong key and be unusable for an update. Protect the beta branch and restrict who can edit workflows because a release job handles signing and distribution credentials.",
+                    "code": "name: Android beta\non:\n  push:\n    branches: [beta]\njobs:\n  distribute:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: subosito/flutter-action@v2\n        with:\n          channel: stable\n      - uses: ruby/setup-ruby@v1\n        with:\n          bundler-cache: true\n      - run: flutter pub get\n      - run: flutter analyze && flutter test\n      # Restore your Android signing files and secrets here.\n      - run: flutter build apk --release\n      - name: Upload to Firebase testers\n        env:\n          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}\n        run: |\n          printf \"%s\" \"$FIREBASE_SERVICE_ACCOUNT_JSON\" > \"$RUNNER_TEMP/firebase.json\"\n          export GOOGLE_APPLICATION_CREDENTIALS=\"$RUNNER_TEMP/firebase.json\"\n          bundle exec fastlane android beta"
+                },
+                {
+                    "type": "section",
+                    "title": "5. Add iOS after Android works",
+                    "content": "iOS release builds need a macOS runner, an Apple Developer account, distribution signing, provisioning profiles, and App Store Connect authentication. Build the IPA with flutter build ipa or a Fastlane lane, then upload it either to Firebase App Distribution for registered test devices or to TestFlight for Apple-managed beta testing. For Firebase, register an iOS app in the project and use its iOS Firebase App ID and ipa_path in firebase_app_distribution. For TestFlight, use Fastlane upload_to_testflight after a signed archive. iOS signing and App Store Connect setup are separate from the Android example and should be tested locally before adding the macOS job."
+                },
+                {
+                    "type": "section",
+                    "title": "What happens after a push?",
+                    "content": "Push a small change to beta and open the Actions run. If the checks fail, no build should reach testers. If they pass, confirm that the new APK appears in Firebase App Distribution and that the qa-team members can install it. Check the app version, release notes, and basic launch behavior on a device. Keep a manual approval gate for public store releases: passing CI and uploading a tester build are evidence for a release decision, not a substitute for one.",
+                    "code": "git push origin beta"
+                },
+                {
+                    "type": "conclusion",
+                    "title": "Conclusion",
+                    "content": "The first setup takes some care, especially signing and secret storage. After that, the routine becomes predictable: push to the release branch, let CI check the code, let Fastlane distribute the build, and get feedback from testers. That gives me more time to fix the app instead of repeating the same archive and upload steps.",
+                    "key_takeaway": "Start with one Android tester lane. Once it is reliable, add iOS and then a separately approved store release."
+                }
+            ]
         }
     ]
 }

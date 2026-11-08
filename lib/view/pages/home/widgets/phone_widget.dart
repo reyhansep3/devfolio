@@ -1,11 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/item/app_fonts.dart';
+import 'package:go_router/go_router.dart';
+
+const phonePreviewHeroTag = 'phone-preview-widget';
 
 class PhoneWidget extends StatefulWidget {
   final int height;
   final int width;
-  const PhoneWidget({super.key, required this.height, required this.width});
+  final bool fullscreen;
+  final bool expanded;
+  const PhoneWidget({
+    super.key,
+    required this.height,
+    required this.width,
+    this.fullscreen = false,
+    this.expanded = false,
+  });
 
   @override
   State<PhoneWidget> createState() => _PhoneWidgetState();
@@ -24,11 +37,11 @@ class _PhoneWidgetState extends State<PhoneWidget>
   // Untuk blinking cursor di kode
   late AnimationController _blinkController;
   late Animation<double> _blink;
-  
 
   late AnimationController _notificationController;
   late Animation<Offset> _notificationSlide;
   late Animation<double> _notificationFade;
+  late Timer _notificationTimer;
 
   @override
   void initState() {
@@ -39,21 +52,15 @@ class _PhoneWidgetState extends State<PhoneWidget>
       vsync: this,
     );
 
-    _slideOut = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0, -0.3),
-    ).animate(CurvedAnimation(
-      parent: _slideController,
-      curve: Curves.easeInOut,
-    ));
+    _slideOut = Tween<Offset>(begin: Offset.zero, end: const Offset(0, -0.3))
+        .animate(
+          CurvedAnimation(parent: _slideController, curve: Curves.easeInOut),
+        );
 
-    _slideIn = Tween<Offset>(
-      begin: const Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _slideController,
-      curve: Curves.easeInOut,
-    ));
+    _slideIn = Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero)
+        .animate(
+          CurvedAnimation(parent: _slideController, curve: Curves.easeInOut),
+        );
 
     _fadeOut = Tween<double>(begin: 1, end: 0).animate(
       CurvedAnimation(
@@ -80,22 +87,20 @@ class _PhoneWidgetState extends State<PhoneWidget>
       duration: const Duration(milliseconds: 700),
     );
 
-    _notificationSlide = Tween<Offset>(
-      begin: const Offset(0, -0.35),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _notificationController,
-        curve: Curves.easeOutCubic,
-      ),
-    );
+    _notificationSlide =
+        Tween<Offset>(begin: const Offset(0, -0.35), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _notificationController,
+            curve: Curves.easeOutCubic,
+          ),
+        );
 
     _notificationFade = CurvedAnimation(
       parent: _notificationController,
       curve: Curves.easeOut,
     );
 
-    Future.delayed(const Duration(milliseconds: 1200), () {
+    _notificationTimer = Timer(const Duration(milliseconds: 1200), () {
       if (mounted) {
         _notificationController.forward();
       }
@@ -106,6 +111,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
 
   @override
   void dispose() {
+    _notificationTimer.cancel();
     _slideController.dispose();
     _blinkController.dispose();
     _notificationController.dispose();
@@ -125,35 +131,42 @@ class _PhoneWidgetState extends State<PhoneWidget>
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-
-    // The parent supplies a breakpoint-aware size, keeping the widget within
-    // the hero column on compact screens.
-    const double scale = 1.0;
-
-    return MouseRegion(
-          onEnter: (_) => _onHover(true),
-          onExit: (_) => _onHover(false),
-          child: _buildPhone(context, scale, widget.height, widget.width),
-        );
+  void _openFullscreen() {
+    GoRouter.of(context).push('/phone-preview');
   }
 
-  Widget _buildPhone(BuildContext context, double scale, int height, int width) {
-    final basePhoneHeight = height;
-    final basePhoneWidth = width;
-    final double phoneHeight = basePhoneHeight * scale;
-    final double phoneWidth = basePhoneWidth * scale;
+  void _toggleFullscreen() {
+    if (widget.expanded) {
+      final router = GoRouter.of(context);
+      if (router.canPop()) {
+        router.pop();
+      } else {
+        router.go('/');
+      }
+    } else {
+      _openFullscreen();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => MouseRegion(
+    onEnter: (_) => _onHover(true),
+    onExit: (_) => _onHover(false),
+    child: _buildPhone(),
+  );
+
+  Widget _buildPhone() {
+    final frameless = widget.fullscreen;
     return Container(
-      width: phoneWidth,
-      height: phoneHeight,
+      width: widget.width.toDouble(),
+      height: widget.height.toDouble(),
       decoration: BoxDecoration(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(36),
-        border: Border.all(color: Colors.white24, width: 6),
+        borderRadius: frameless ? null : BorderRadius.circular(36),
+        border: frameless ? null : Border.all(color: Colors.white24, width: 6),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: frameless ? BorderRadius.zero : BorderRadius.circular(30),
         child: Stack(
           children: [
             // ── Screen background ──
@@ -209,38 +222,61 @@ class _PhoneWidgetState extends State<PhoneWidget>
             ),
 
             // ── Notch ──
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  width: 60,
-                  height: 16,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
+            if (!frameless)
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(
+                    width: 60,
+                    height: 16,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
 
             // ── Home bar ──
-            Positioned(
-              bottom: 6,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  width: 48,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
+            if (!frameless)
+              Positioned(
+                bottom: 6,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(
+                    width: 48,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
+                ),
+              ),
+            Positioned(
+              top: frameless ? MediaQuery.paddingOf(context).top + 16 : 24,
+              right: frameless ? MediaQuery.paddingOf(context).right + 16 : 10,
+              child: IconButton(
+                onPressed: _toggleFullscreen,
+                tooltip: widget.expanded
+                    ? 'Back to normal size'
+                    : 'Open phone fullscreen',
+                icon: Icon(
+                  widget.expanded
+                      ? Icons.fullscreen_exit_rounded
+                      : Icons.fullscreen_rounded,
+                ),
+                color: Colors.white,
+                iconSize: 24,
+                constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.black.withValues(alpha: .7),
                 ),
               ),
             ),
@@ -263,9 +299,7 @@ class _PhoneWidgetState extends State<PhoneWidget>
 
         // Overlay
         Positioned.fill(
-          child: Container(
-            color: Colors.black.withValues(alpha: 0.35),
-          ),
+          child: Container(color: Colors.black.withValues(alpha: 0.35)),
         ),
 
         // Jam & lock
@@ -293,11 +327,9 @@ class _PhoneWidgetState extends State<PhoneWidget>
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: FadeTransition(
                   opacity: _notificationFade,
                   child: SlideTransition(
@@ -371,16 +403,11 @@ class _PhoneWidgetState extends State<PhoneWidget>
           bottom: 45,
           left: 12,
           right: 12,
-          child: Icon(
-              Icons.lock_outline,
-              color: Colors.white54,
-              size: 22,
-            ),
+          child: Icon(Icons.lock_outline, color: Colors.white54, size: 22),
         ),
       ],
     );
   }
- 
 
   Widget _buildHoverScreen() {
     return Padding(
@@ -423,12 +450,24 @@ class _PhoneWidgetState extends State<PhoneWidget>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _codeText("// Reyhan Septri Asta", AppColor.grey2),
-                _codeText("// Flutter Mobile Developer · 3 Years", AppColor.grey2),
+                _codeText(
+                  "// Flutter Mobile Developer · 3 Years",
+                  AppColor.grey2,
+                ),
                 _codeText("// Currently @ CKL Cargo", AppColor.grey2),
                 _codeText("// ══════════════", AppColor.grey2),
-                _codeText("// I build intuitive mobile experiences", AppColor.grey2),
-                _codeText("// using Flutter. Passionate about clean", AppColor.grey2),
-                _codeText("// architecture, smooth UX, and code", AppColor.grey2),
+                _codeText(
+                  "// I build intuitive mobile experiences",
+                  AppColor.grey2,
+                ),
+                _codeText(
+                  "// using Flutter. Passionate about clean",
+                  AppColor.grey2,
+                ),
+                _codeText(
+                  "// architecture, smooth UX, and code",
+                  AppColor.grey2,
+                ),
                 _codeText("// that scales.", AppColor.grey2),
                 _codeText("// ══════════════", AppColor.grey2),
                 _codeLine('void', ' main() {', null),
@@ -467,23 +506,32 @@ class _PhoneWidgetState extends State<PhoneWidget>
       child: Row(
         children: [
           if (keyword != null)
-            Text(keyword,
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10,
-                    color: Color(0xFFc792ea))),
+            Text(
+              keyword,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: Color(0xFFc792ea),
+              ),
+            ),
           if (normal != null)
-            Text(normal,
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10,
-                    color: Colors.white54)),
+            Text(
+              normal,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: Colors.white54,
+              ),
+            ),
           if (highlight != null)
-            Text(highlight,
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10,
-                    color: AppColor.yellowgreen)),
+            Text(
+              highlight,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: AppColor.yellowgreen,
+              ),
+            ),
         ],
       ),
     );
@@ -507,8 +555,51 @@ class _PhoneWidgetState extends State<PhoneWidget>
 
   String _currentDate() {
     const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-    const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const months = [
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AUG',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DEC',
+    ];
     final now = DateTime.now();
     return '${days[now.weekday - 1]}, ${months[now.month - 1]} ${now.day}';
+  }
+}
+
+class PhonePreviewPage extends StatelessWidget {
+  const PhonePreviewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewport = MediaQuery.sizeOf(context);
+    final isPhone = viewport.width < 600;
+    final phoneWidth = (viewport.width * 0.31).clamp(290.0, 390.0);
+    final availableHeight = viewport.height - 96;
+    final fittedWidth = phoneWidth.clamp(0.0, availableHeight / 1.96);
+
+    return Material(
+      color: isPhone ? const Color(0xFF0c0c0c) : const Color(0xFFF0F0EB),
+      child: Center(
+        child: Hero(
+          tag: phonePreviewHeroTag,
+          child: PhoneWidget(
+            width: isPhone ? viewport.width.round() : fittedWidth.round(),
+            height: isPhone
+                ? viewport.height.round()
+                : (fittedWidth * 1.96).round(),
+            fullscreen: isPhone,
+            expanded: true,
+          ),
+        ),
+      ),
+    );
   }
 }

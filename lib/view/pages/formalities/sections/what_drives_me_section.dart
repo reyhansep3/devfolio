@@ -121,7 +121,7 @@ class _WhatDrivesMeSectionState extends State<WhatDrivesMeSection>
         children: [
           Text(
             '05  /  WHAT DRIVES ME',
-            style: GoogleFonts.spaceMono(
+            style: GoogleFonts.poppins(
               color: ink,
               fontSize: 12,
               letterSpacing: 1.3,
@@ -179,7 +179,7 @@ class _WhatDrivesMeSectionState extends State<WhatDrivesMeSection>
           const SizedBox(height: 20),
           Text(
             'A REMINDER TO KEEP MOVING FORWARD',
-            style: GoogleFonts.spaceMono(
+            style: GoogleFonts.poppins(
               color: ink,
               fontSize: 12,
               letterSpacing: 1.1,

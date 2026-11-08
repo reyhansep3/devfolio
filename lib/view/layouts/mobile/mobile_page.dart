@@ -14,7 +14,7 @@ import 'package:flutter_portofolio/view/pages/home/sections/project/project_list
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
-import 'package:flutter_portofolio/view/cv_download.dart';
+import 'package:flutter_portofolio/view/resume_actions.dart';
 
 class MobilePage extends StatelessWidget {
   final String section;
@@ -24,6 +24,7 @@ class MobilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final body = _buildBody(context);
     final isDarkPage = section != 'project';
+    final narrow = MediaQuery.sizeOf(context).width < 560;
 
     return Scaffold(
       backgroundColor: isDarkPage ? const Color(0xFF151715) : const Color(0xFFF0F0EB),
@@ -48,30 +49,23 @@ class MobilePage extends StatelessWidget {
             ],
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Center(
-              child: GestureDetector(
-                onTap: downloadCv,
-                child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: isDarkPage ? AppColor.yellowgreen : Colors.teal,
-                  borderRadius: BorderRadius.circular(8),
+        actions: narrow
+            ? null
+            : [
+                Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: Center(child: ResumeActions(lightBackground: !isDarkPage)),
                 ),
-                child: Text(
-                  'Download CV',
-                  style: TextStyle(
-                    color: isDarkPage ? const Color(0xFF151715) : Colors.white,
-                    fontSize: 12,
-                  ),
+              ],
+        bottom: narrow
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(52),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: ResumeActions(compact: true, lightBackground: !isDarkPage),
                 ),
-                ),
-              ),
-            ),
-          ),
-        ],
+              )
+            : null,
       ),
       drawer: Drawer(
         backgroundColor: Colors.black,

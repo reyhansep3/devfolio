@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
 import 'package:flutter_portofolio/view/pages/blog/blog_data.dart';
-import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart';
+import 'package:flutter_portofolio/view/pages/blog/detail_blog.dart'
+    deferred as blog_detail;
+import 'package:flutter_portofolio/view/deferred_page.dart';
 import 'package:flutter_portofolio/view/pages/home/home_page.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_data.dart';
-import 'package:flutter_portofolio/view/pages/projects/project_detail_page.dart';
+import 'package:flutter_portofolio/view/pages/projects/project_detail_page.dart'
+    deferred as project_detail;
 import 'package:flutter_portofolio/view/portfolio_cursor.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,6 +32,24 @@ final GoRouter _router = GoRouter(
     ),
     GoRoute(path: '/home', redirect: (context, state) => '/'),
     GoRoute(
+      path: '/phone-preview',
+      name: 'phone-preview',
+      pageBuilder: (context, state) => CustomTransitionPage<void>(
+        key: state.pageKey,
+        child: const PhonePreviewPage(),
+        transitionDuration: const Duration(milliseconds: 550),
+        reverseTransitionDuration: const Duration(milliseconds: 550),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+              opacity: CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeInOutCubic,
+              ),
+              child: child,
+            ),
+      ),
+    ),
+    GoRoute(
       path: '/formalities',
       name: 'formalities',
       pageBuilder: (context, state) =>
@@ -44,7 +66,13 @@ final GoRouter _router = GoRouter(
           name: 'project-detail',
           builder: (context, state) {
             final project = ProjectCatalog.bySlug(state.pathParameters['slug']);
-            if (project != null) return ProjectDetailPage(project: project);
+            if (project != null) {
+              return DeferredPage(
+                loadLibrary: project_detail.loadLibrary,
+                builder: (_) =>
+                    project_detail.ProjectDetailPage(project: project),
+              );
+            }
             return Scaffold(
               body: Center(
                 child: TextButton(
@@ -78,7 +106,10 @@ final GoRouter _router = GoRouter(
                   final blogs = snapshot.data ?? [];
                   for (final blog in blogs) {
                     if (blog['id'].toString() == state.pathParameters['id']) {
-                      return BlogDetailPage(blog: blog);
+                      return DeferredPage(
+                        loadLibrary: blog_detail.loadLibrary,
+                        builder: (_) => blog_detail.BlogDetailPage(blog: blog),
+                      );
                     }
                   }
                   return Scaffold(
@@ -101,6 +132,9 @@ final GoRouter _router = GoRouter(
 );
 
 void main() {
+  // The fullscreen preview must appear in browser history so Chrome Back
+  // restores the portfolio with its smaller phone widget.
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(const MyApp());
 }
 
