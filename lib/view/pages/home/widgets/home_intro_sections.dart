@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
 import 'package:flutter_portofolio/item/app_colors.dart';
-import 'package:flutter_portofolio/item/app_fonts.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/about_palette.dart';
+import 'package:flutter_portofolio/view/pages/home/widgets/animated_messy_line.dart';
 import 'package:flutter_portofolio/view/pages/home/widgets/phone_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 // Hallmark · editorial section · existing Poppins and paper/ink palette.
 // Pre-emit critique: P5 H4 E4 S5 R5 V4.
 const _ink = Color(0xFF151715);
-const _paper = Color(0xFFF0F0EB);
 const _muted = Color(0xFFB9BDB6);
 const _accent = AppColor.yellowgreen;
 
@@ -21,7 +21,7 @@ Widget homeHero(BuildContext context, double width, double height) {
           height,
         )
       : height;
-  final portrait = _portrait(width, compact);
+  final portrait = _portrait(context, width, compact);
   final intro = _heroCopy(width, compact);
   return Container(
     width: double.infinity,
@@ -37,18 +37,7 @@ Widget homeHero(BuildContext context, double width, double height) {
       child: compact
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ScrollReveal(
-                  fromLeft: false,
-                  delay: const Duration(milliseconds: 180),
-                  child: portrait,
-                ),
-                const SizedBox(height: 32),
-                ScrollReveal(
-                  delay: const Duration(milliseconds: 320),
-                  child: intro,
-                ),
-              ],
+              children: [portrait, const SizedBox(height: 32), intro],
             )
           : Row(
               children: [
@@ -133,7 +122,7 @@ Widget _heroCopy(double width, bool compact) => Column(
   ],
 );
 
-Widget _portrait(double width, bool compact) {
+Widget _portrait(BuildContext context, double width, bool compact) {
   final imageWidth = compact
       ? (width - 48).clamp(220.0, 320.0)
       : (width * .29).clamp(300.0, 420.0);
@@ -158,6 +147,10 @@ Widget _portrait(double width, bool compact) {
                   child: Image.asset(
                     'assets/image/profile2.png',
                     fit: BoxFit.cover,
+                    cacheWidth:
+                        (imageWidth * MediaQuery.devicePixelRatioOf(context))
+                            .round()
+                            .clamp(1, 900),
                     alignment: Alignment.topCenter,
                     semanticLabel: 'Portrait of Reyhan Septri Asta',
                   ),
@@ -197,155 +190,225 @@ Widget _portrait(double width, bool compact) {
   );
 }
 
+// Hallmark · About section · warm editorial composition, phone and process.
+// Pre-emit critique: P5 H5 E4 S5 R5 V5.
 Widget homeAbout(BuildContext context, double width, double height) {
-  final compact = width < 800;
-  final phoneWidth = width < 600
-      ? (width * .69).clamp(205.0, 290.0).round()
-      : compact
-      ? (width * .72).clamp(210.0, 300.0).round()
-      : (width * .245).clamp(255.0, 330.0).round();
+  final stacked = width < 1050;
+  final inset = stacked ? 24.0 : width * .075;
+  final phoneWidth = stacked ? (width - inset * 2).clamp(0.0, 300.0) : 300.0;
   final phone = Center(
     child: RepaintBoundary(
       child: Hero(
         tag: phonePreviewHeroTag,
         child: PhoneWidget(
           height: (phoneWidth * 1.96).round(),
-          width: phoneWidth,
+          width: phoneWidth.round(),
         ),
       ),
     ),
   );
-  final copy = _aboutCopy(context, compact);
+
   return Container(
     width: double.infinity,
-    constraints: BoxConstraints(
-      minHeight: compact ? 0.0 : height.clamp(650.0, 980.0),
+    color: AboutPalette.paper,
+    padding: EdgeInsets.fromLTRB(
+      inset,
+      stacked ? 72 : 104,
+      inset,
+      stacked ? 86 : 112,
     ),
-    color: _paper,
-    child: Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: compact ? 24 : width * .09,
-        vertical: compact ? 76 : 90,
-      ),
-      child: compact
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ScrollReveal(child: copy),
-                const SizedBox(height: 48),
-                ScrollReveal(
+    child: stacked
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [phone, const SizedBox(height: 56), _aboutCopy(context)],
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: 300, child: ScrollReveal(child: phone)),
+              const SizedBox(width: 76),
+              Expanded(
+                child: ScrollReveal(
                   fromLeft: false,
-                  delay: const Duration(milliseconds: 120),
-                  child: phone,
+                  child: _aboutCopy(context),
                 ),
-              ],
-            )
-          : Row(
-              children: [
-                Expanded(flex: 4, child: ScrollReveal(child: phone)),
-                SizedBox(width: width * .07),
-                Expanded(
-                  flex: 5,
-                  child: ScrollReveal(fromLeft: false, child: copy),
-                ),
-              ],
-            ),
-    ),
+              ),
+            ],
+          ),
   );
 }
 
-Widget _aboutCopy(BuildContext context, bool compact) => Column(
-  mainAxisSize: MainAxisSize.min,
+Widget _aboutCopy(BuildContext context) => LayoutBuilder(
+  builder: (context, constraints) {
+    final narrow = constraints.maxWidth < 600;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+          decoration: BoxDecoration(
+            color: AboutPalette.accent,
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: Text(
+            'Who I am',
+            style: GoogleFonts.poppins(
+              color: AboutPalette.ink,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
+        Text(
+          'Messy problems in. Working software out.',
+          style: GoogleFonts.poppins(
+            color: AboutPalette.ink,
+            fontSize: narrow ? 43 : 64,
+            fontWeight: FontWeight.w700,
+            height: 1.02,
+            letterSpacing: narrow ? -1.8 : -3,
+          ),
+        ),
+        const SizedBox(height: 24),
+        const AnimatedMessyLine(),
+        const SizedBox(height: 22),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 680),
+          child: Text(
+            "From 'it's complicated' to 'it just works.' I get close to the problem, give it shape, then ship something people can rely on.",
+            style: GoogleFonts.poppins(
+              color: AboutPalette.body,
+              fontSize: 16,
+              height: 1.55,
+            ),
+          ),
+        ),
+        const SizedBox(height: 32),
+        _aboutSteps(),
+        const SizedBox(height: 30),
+        OutlinedButton(
+          onPressed: () => GoRouter.of(context).go('/formalities'),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: AboutPalette.ink,
+            side: const BorderSide(color: AboutPalette.ink, width: 1.5),
+            shape: const StadiumBorder(),
+            minimumSize: const Size(0, 48),
+            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'More about me',
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(width: 18),
+              Text(
+                '↗',
+                style: GoogleFonts.poppins(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  },
+);
+
+Widget _aboutSteps() => LayoutBuilder(
+  builder: (context, constraints) {
+    final stacked = constraints.maxWidth < 720;
+    final steps = [
+      _aboutStep(
+        '01',
+        'Get curious',
+        'Dig into the real problem, not just the request. Trace how things work today and where they break.',
+      ),
+      _aboutStep(
+        '02',
+        'Shape it',
+        'Turn the chaos into a clear plan: the right features, the right behavior, a build that stays manageable.',
+      ),
+      _aboutStep(
+        '03',
+        'Ship and sharpen',
+        'Build backend and frontend, test, deliver, then keep polishing long after launch.',
+      ),
+    ];
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(stacked ? 26 : 30),
+      decoration: BoxDecoration(
+        color: AboutPalette.charcoal,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: stacked
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var i = 0; i < steps.length; i++) ...[
+                  steps[i],
+                  if (i < steps.length - 1) ...[
+                    const SizedBox(height: 26),
+                    Container(
+                      height: 1,
+                      color: AboutPalette.mutedOnDark.withValues(alpha: .35),
+                    ),
+                    const SizedBox(height: 26),
+                  ],
+                ],
+              ],
+            )
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var i = 0; i < steps.length; i++) ...[
+                  Expanded(child: steps[i]),
+                  if (i < steps.length - 1) const SizedBox(width: 24),
+                ],
+              ],
+            ),
+    );
+  },
+);
+
+Widget _aboutStep(String number, String title, String description) => Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
     Text(
-      '02  /  THE PERSON BEHIND THE CODE',
+      number,
       style: GoogleFonts.poppins(
-        fontSize: 12,
-        letterSpacing: 1.2,
-        color: AppColor.darkUI,
-      ),
-    ),
-    const SizedBox(height: 26),
-    Text(
-      'I build things that make life easier.',
-      style: GoogleFonts.poppins(
-        fontSize: compact ? 36 : 48,
+        color: AboutPalette.accent,
+        fontSize: 40,
+        height: 1,
         fontWeight: FontWeight.w700,
-        height: 1.08,
-        letterSpacing: compact ? -1.3 : -1.8,
-        color: _ink,
       ),
     ),
-    const SizedBox(height: 32),
-    _aboutPrinciple('01', 'UNDERSTAND', 'Find the real problem.'),
-    _aboutPrinciple('02', 'CREATE', 'Build simple, useful solutions.'),
-    _aboutPrinciple('03', 'EVOLVE', 'Keep learning. Keep improving.'),
-    const SizedBox(height: 28),
-    OutlinedButton.icon(
-      onPressed: () => GoRouter.of(context).go('/formalities'),
-      icon: const Icon(Icons.arrow_outward_rounded, size: 18),
-      label: const Text('More about me'),
-      style: OutlinedButton.styleFrom(
-        foregroundColor: _ink,
-        side: const BorderSide(color: _ink),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-        textStyle: GoogleFonts.poppins(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-        ),
+    const SizedBox(height: 18),
+    Text(
+      title,
+      style: GoogleFonts.poppins(
+        color: AboutPalette.paper,
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        height: 1.15,
+      ),
+    ),
+    const SizedBox(height: 10),
+    Text(
+      description,
+      style: GoogleFonts.poppins(
+        color: AboutPalette.mutedOnDark,
+        fontSize: 13,
+        height: 1.55,
       ),
     ),
   ],
 );
-
-Widget _aboutPrinciple(String number, String title, String description) =>
-    Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 19),
-      decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: _ink.withValues(alpha: .18))),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            number,
-            style: AppFontStyle.poppinsBodySmall.copyWith(
-              height: 1.7,
-              color: AppColor.darkUI,
-            ),
-          ),
-          const SizedBox(width: 14),
-          const Text(
-            '—',
-            style: TextStyle(color: AppColor.darkUI, height: 1.5),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppFontStyle.poppinsBodyMedium.copyWith(
-                    fontWeight: FontWeight.w600,
-                    height: 1.4,
-                    color: _ink,
-                  ),
-                ),
-                const SizedBox(height: 7),
-                Text(
-                  description,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    height: 1.6,
-                    color: AppColor.darkUI,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );

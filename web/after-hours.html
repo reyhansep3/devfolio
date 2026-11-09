@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151715">
+  <title>After Hours · Reyhan Septri Asta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 */
+    :root {
+      --background: #151715;
+      --paper: #F1EFE8;
+      --body: #D1D1C9;
+      --muted: #B9BDB6;
+      --rule: #424A42;
+      --outline: #687168;
+      --accent: #C8F55A;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-button: 'Poppins', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; overflow-x: clip; }
+    body { background: var(--background); color: var(--paper); font-family: var(--font-body); }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+    .page { min-height: 900px; padding: 48px 9vw 56px; display: flex; flex-direction: column; gap: 56px; }
+    main { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 56px; }
+    .intro { flex: 1 1 520px; max-width: 680px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
+    .eyebrow { margin: 0; color: var(--accent); font: 400 13px/1.5 var(--font-mono); letter-spacing: .1em; }
+    h1 { margin: 0; font: 600 clamp(58px, 6.1vw, 88px)/1.02 var(--font-display); letter-spacing: -.045em; overflow-wrap: anywhere; }
+    h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
+    .lead { margin: 0; max-width: 520px; color: var(--body); font: 400 18px/1.6 var(--font-body); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button { min-height: 48px; padding: 14px 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid var(--outline); color: var(--paper); font: 600 13px/1.2 var(--font-button); gap: 10px; text-decoration: none; white-space: nowrap; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+    .button svg { width: 18px; height: 18px; flex: none; }
+    .button.primary { background: var(--accent); color: var(--background); border-color: var(--accent); }
+    .button:hover { border-color: var(--paper); color: var(--paper); }
+    .button.primary:hover { background: var(--paper); border-color: var(--paper); color: var(--background); }
+    .notes { flex: 1 1 420px; max-width: 520px; min-width: 0; }
+    .orbit { display: block; width: 100%; height: auto; margin-bottom: 28px; }
+    .entry { display: flex; gap: 20px; padding: 16px 0; border-top: 1px solid var(--rule); }
+    .entry:last-child { border-bottom: 1px solid var(--rule); }
+    .time { flex: 0 0 48px; color: var(--accent); font: 400 12px/1.5 var(--font-mono); }
+    .entry h2 { margin: 0; font: 500 20px/1.25 var(--font-display); color: var(--paper); }
+    .entry p { margin: 4px 0 0; color: var(--muted); font: 400 14px/1.5 var(--font-body); }
+    footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--muted); font: 400 12px/1.5 var(--font-mono); }
+    @media (max-width: 900px) { main { flex-direction: column; align-items: flex-start; gap: 64px; } .intro, .notes { flex: none; width: 100%; max-width: 680px; } }
+    @media (max-width: 799px) { .page { padding-inline: 24px; } }
+    @media (max-width: 600px) { .page { padding: 32px 24px 48px; gap: 64px; } h1 { font-size: clamp(44px, 12vw, 54px); letter-spacing: -.04em; } .lead { font-size: 16px; } .eyebrow { font-size: 11px; } .entry { gap: 16px; } .entry h2 { font-size: 18px; } footer { font-size: 11px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main>
+      <section class="intro" aria-labelledby="after-hours-title">
+        <p class="eyebrow">04 — NIGHT SHIFT</p>
+        <h1 id="after-hours-title">After the commit, the <em>curiosity</em> clocks in.</h1>
+        <p class="lead">Side quests, half-built tools and odd little experiments. They start as a question nobody asked, and the good ones grow up to solve a real problem.</p>
+        <div class="actions">
+          <a class="button primary" href="/blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v13h-5a4 4 0 0 0-4 3 4 4 0 0 0-4-3H3Z"/></svg>Open the logbook</a>
+          <a class="button" href="/project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11"/></svg>See what is brewing</a>
+        </div>
+      </section>
+      <section class="notes" aria-label="Night notebook entries">
+        <svg class="orbit" viewBox="0 0 420 220" role="img" aria-label="Orbit sketch with small planets around a crescent moon">
+          <circle cx="210" cy="110" r="46" fill="none" stroke="var(--rule)"/>
+          <circle cx="210" cy="110" r="80" fill="none" stroke="var(--rule)" stroke-dasharray="3 6"/>
+          <circle cx="210" cy="110" r="108" fill="none" stroke="var(--rule)"/>
+          <circle cx="210" cy="110" r="22" fill="var(--paper)"/>
+          <circle cx="220" cy="104" r="20" fill="var(--background)"/>
+          <circle cx="130" cy="110" r="5" fill="var(--accent)"/>
+          <circle cx="266" cy="52" r="4" fill="var(--paper)"/>
+          <circle cx="318" cy="142" r="6" fill="var(--accent)"/>
+          <circle cx="150" cy="190" r="3" fill="var(--paper)"/>
+        </svg>
+        <div class="entry"><span class="time">01</span><div><h2>Open a repo that is not mine</h2><p>Read code the way others read novels.</p></div></div>
+        <div class="entry"><span class="time">02</span><div><h2>Break something small, on purpose</h2><p>A prototype with no deadline and no users.</p></div></div>
+        <div class="entry"><span class="time">03</span><div><h2>Ask a smaller model a real question</h2><p>Local, quiet, surprisingly useful.</p></div></div>
+        <div class="entry"><span class="time">04</span><div><h2>Write it down before sleeping</h2><p>Notes today, a post or a tool tomorrow.</p></div></div>
+      </section>
+    </main>
+    <footer><span>lights low · terminal on</span><span>keep scrolling ↓</span></footer>
+  </div>
+</body>
+</html>

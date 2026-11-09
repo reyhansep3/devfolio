@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151715">
+  <title>Home / The Shelf · Reyhan Septri Asta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 */
+    :root { --background:#151715; --panel:#202420; --paper:#F1EFE8; --body:#D1D1C9; --muted:#B9BDB6; --rule:#424A42; --outline:#687168; --accent:#C8F55A; --font-display:'Poppins',sans-serif; --font-body:'Poppins',sans-serif; --font-mono:'Poppins',sans-serif; }
+    *,*::before,*::after { box-sizing:border-box; }
+    html,body { margin:0; overflow-x:clip; }
+    body { background:var(--background); color:var(--paper); font-family:var(--font-body); }
+    a,button { -webkit-tap-highlight-color:transparent; }
+    a:focus-visible,button:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+    .page { padding:72px 9vw 92px; display:flex; flex-direction:column; gap:72px; }
+    .header { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px 56px; }
+    .header-copy { max-width:760px; flex:1 1 540px; min-width:0; }
+    .eyebrow,.project-kind { margin:0; color:var(--accent); font:400 13px/1.5 var(--font-mono); letter-spacing:.14em; }
+    h1 { margin:24px 0 0; font:700 clamp(43px,4.5vw,64px)/1.08 var(--font-display); letter-spacing:-.045em; overflow-wrap:anywhere; }
+    h1 em { color:var(--accent); font-style:normal; font-weight:700; }
+    .projects { display:flex; flex-direction:column; gap:72px; }
+    .project { display:flex; align-items:center; gap:32px 72px; }
+    .project:nth-child(even) { flex-direction:row-reverse; }
+    .visual { flex:1 1 460px; min-width:0; max-width:580px; border:1px solid var(--rule); border-radius:20px; background:var(--panel); overflow:hidden; }
+    .visual svg { width:100%; height:auto; display:block; }
+    .copy { flex:1 1 340px; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:16px; }
+    h2 { margin:0; font:700 52px/1.08 var(--font-display); letter-spacing:-.02em; overflow-wrap:anywhere; }
+    .description { margin:0; max-width:460px; color:var(--body); font:400 16px/1.6 var(--font-body); }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+    .tag { padding:6px 12px; border:1px solid var(--outline); border-radius:999px; color:var(--paper); font:400 12px/1.4 var(--font-mono); white-space:nowrap; }
+    .story { display:inline-flex; align-items:center; min-height:44px; padding:12px 0; color:var(--accent); font:500 14px/1.2 var(--font-body); text-decoration:none; }
+    .story:hover { text-decoration:underline; text-underline-offset:4px; }
+    footer { border-top:1px solid var(--rule); padding-top:20px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; color:var(--muted); font:400 12px/1.5 var(--font-mono); }
+    @media (max-width:900px) { .project,.project:nth-child(even) { flex-direction:column; align-items:stretch; } .visual { flex:none; width:100%; max-width:680px; } .copy { flex:none; width:100%; } }
+    @media (max-width:799px) { .page { padding-inline:24px; } }
+    @media (max-width:600px) { .page { gap:64px; padding-top:72px; padding-bottom:48px; } h1 { font-size:43px; } h2 { font-size:36px; } .visual { border-radius:16px; } .project-kind { font-size:11px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header"><div class="header-copy"><p class="eyebrow">03 — THE SHELF</p><h1>Things I built, and what each one <em>taught me.</em></h1></div></header>
+    <main class="projects" id="projects">
+      <article class="project" data-kind="day-job"><div class="visual"><svg viewBox="0 0 580 340" role="img" aria-label="Abstract cargo delivery route for DIDO"><rect width="580" height="340" fill="var(--panel)"/><path d="M78 262H502M118 72V267M282 72V267M445 72V267" stroke="var(--rule)" stroke-width="2"/><path d="M122 232C194 232 169 101 285 111S373 222 447 144" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/><circle cx="122" cy="232" r="12" fill="var(--accent)"/><circle cx="285" cy="111" r="9" fill="var(--paper)"/><circle cx="447" cy="144" r="12" fill="var(--accent)"/><path d="M65 68h180M65 87h114" stroke="var(--paper)" stroke-width="3"/></svg></div><div class="copy"><p class="project-kind">01 — DAY-JOB</p><h2>DIDO</h2><p class="description">Driver and logistics app for cargo delivery at PT CKL Indonesia Raya.</p><div class="tags"><span class="tag">Flutter</span><span class="tag">Android</span><span class="tag">Logistics</span></div><a class="story" href="/project/dido">Read the story →</a></div></article>
+      <article class="project" data-kind="day-job"><div class="visual"><svg viewBox="0 0 580 340" role="img" aria-label="Abstract attendance and operations checklist for CKlink"><rect width="580" height="340" fill="var(--panel)"/><rect x="104" y="58" width="372" height="225" rx="12" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M171 114h240M171 169h240M171 224h240" stroke="var(--rule)" stroke-width="2"/><path d="m133 108 11 10 17-20m-28 65 11 10 17-20m-28 65 11 10 17-20" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M171 129h114m-114 55h177m-177 55h148" stroke="var(--paper)" stroke-width="3"/></svg></div><div class="copy"><p class="project-kind">02 — DAY-JOB</p><h2>CKlink</h2><p class="description">An internal workspace for attendance, employee data, and daily operations.</p><div class="tags"><span class="tag">Flutter</span><span class="tag">Firebase</span><span class="tag">Operations</span></div><a class="story" href="/project/cklink">Read the story →</a></div></article>
+      <article class="project" data-kind="day-job"><div class="visual"><svg viewBox="0 0 580 340" role="img" aria-label="Abstract shared work and approval board for Werkspace"><rect width="580" height="340" fill="var(--panel)"/><rect x="76" y="65" width="428" height="210" rx="12" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M220 65v210M362 65v210M76 128h428" stroke="var(--rule)" stroke-width="2"/><circle cx="147" cy="97" r="12" fill="var(--accent)"/><path d="M110 168h73m-73 25h88m-88 25h58M250 168h73m-73 25h88m-88 25h58M392 168h73m-73 25h88m-88 25h58" stroke="var(--paper)" stroke-width="3"/><path d="m416 94 9 9 19-21" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/></svg></div><div class="copy"><p class="project-kind">03 — DAY-JOB</p><h2>Werkspace</h2><p class="description">A mobile workspace for attendance, employee requests, approvals, and team communication.</p><div class="tags"><span class="tag">Flutter</span><span class="tag">iOS</span><span class="tag">Android</span></div><a class="story" href="/project/werkspace">Read the story →</a></div></article>
+    </main>
+    <a class="story" href="/project">View all projects →</a>
+    <footer><span id="entry-count">3 entries on the shelf</span><span>more in the logbook ↑</span></footer>
+  </div>
+</body>
+</html>

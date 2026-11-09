@@ -11,6 +11,7 @@ import 'package:flutter_portofolio/view/pages/formalities/sections/experience/ex
 import 'package:flutter_portofolio/view/pages/formalities/sections/what_drives_me_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/after_hours/after_hours_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/animation/scroll_reveal.dart';
@@ -148,6 +149,7 @@ class MobilePage extends StatelessWidget {
         ProjectSection(
           onViewAll: () => GoRouter.of(context).go('/project'),
         ),
+        const AfterHoursSection(),
         const ContactSection(editorialStyle: true, homeContact: true),
       ],
     );

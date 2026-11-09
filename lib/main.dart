@@ -36,7 +36,7 @@ final GoRouter _router = GoRouter(
       name: 'phone-preview',
       pageBuilder: (context, state) => CustomTransitionPage<void>(
         key: state.pageKey,
-        child: const PhonePreviewPage(),
+        child: PhonePreviewPage(initiallyUnlocked: state.extra == true),
         transitionDuration: const Duration(milliseconds: 550),
         reverseTransitionDuration: const Duration(milliseconds: 550),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>

@@ -1,7 +1,7 @@
 [build]
   # WASM (WasmGC) renderer: engine native → startup execution lebih cepat dari
   # CanvasKit JS. Download sedikit lebih besar dari HTML renderer, tapi TTI lebih baik.
-  command = "flutter build web --wasm --release --no-source-maps --dart2js-optimization=O4"
+  command = "flutter build web --wasm --release --no-source-maps --dart2js-optimization=O4 --dart-define=CHAT_WS_URL=$CHAT_WS_URL"
   publish = "build/web"
 
 # SPA fallback: semua route (go_router) dilempar ke index.html

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Devfolio chat inbox</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #141413; background: #f1efe8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 22px 28px; background: #141413; color: #f1efe8; }
+    h1 { margin: 0; font-size: 22px; }
+    header p { margin: 5px 0 0; color: #c6c6c0; font-size: 13px; }
+    main { max-width: 1100px; margin: 28px auto; padding: 0 18px; }
+    input, button { font: inherit; }
+    button { cursor: pointer; min-height: 44px; }
+    #login { max-width: 460px; padding: 24px; background: white; border-radius: 18px; }
+    #login label { display: block; margin-bottom: 10px; font-weight: 700; }
+    #login input { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #888; border-radius: 10px; }
+    #login button, #reply button { margin-top: 12px; padding: 10px 18px; border: 0; border-radius: 10px; background: #c8f03c; color: #141413; font-weight: 700; }
+    #app { display: none; min-height: 65vh; border: 1px solid #dddcd4; border-radius: 18px; overflow: hidden; background: #fff; }
+    #sessions { width: 250px; flex: none; border-right: 1px solid #dddcd4; padding: 16px; overflow: auto; }
+    #sessions h2 { margin: 0 0 14px; font-size: 15px; }
+    #session-list { display: grid; gap: 6px; }
+    #session-list button { width: 100%; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 8px 10px; border: 0; border-radius: 9px; background: #f1efe8; }
+    #session-list button.active { background: #c8f03c; }
+    #conversation { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    #thread-title { margin: 0; padding: 18px; border-bottom: 1px solid #dddcd4; font-size: 15px; }
+    #messages { flex: 1; min-height: 300px; max-height: 65vh; overflow: auto; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .message { max-width: 78%; width: fit-content; padding: 9px 12px; border-radius: 13px; background: #f1efe8; overflow-wrap: anywhere; white-space: pre-wrap; }
+    .message.owner { align-self: flex-end; background: #c8f03c; }
+    #reply { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #dddcd4; }
+    #reply input { flex: 1; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid #888; border-radius: 10px; }
+    #reply button { margin: 0; }
+    #status { min-height: 20px; margin: 10px 0; color: #464640; font-size: 13px; }
+    @media (max-width: 650px) { #app { flex-direction: column; } #sessions { width: 100%; border-right: 0; border-bottom: 1px solid #dddcd4; } #session-list { display: flex; overflow-x: auto; } #session-list button { width: 150px; flex: none; } }
+  </style>
+</head>
+<body>
+  <header><h1>Devfolio inbox</h1><p>Reply to visitors while this page is open.</p></header>
+  <main>
+    <form id="login">
+      <label for="token">Owner token</label>
+      <input id="token" type="password" autocomplete="off" required>
+      <button type="submit">Connect to inbox</button>
+    </form>
+    <p id="status" role="status" aria-live="polite"></p>
+    <section id="app" aria-label="Chat inbox">
+      <aside id="sessions"><h2>Conversations</h2><div id="session-list"></div></aside>
+      <div id="conversation">
+        <h2 id="thread-title">Choose a conversation</h2>
+        <div id="messages" role="log" aria-live="polite"></div>
+        <form id="reply">
+          <input id="reply-text" aria-label="Reply" maxlength="1000" placeholder="Write a reply…" required>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="/inbox.js" defer></script>
+</body>
+</html>

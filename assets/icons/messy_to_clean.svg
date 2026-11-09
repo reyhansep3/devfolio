@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 40" width="100%" height="40" role="img" aria-label="A tangled line that straightens out">
+  <path
+    d="M0 20 C20 0,40 40,60 20 S100 0,120 24 S160 38,180 14 S220 6,240 22 S270 20,300 20 L600 20"
+    fill="none"
+    stroke="#141413"
+    stroke-width="3"
+    stroke-linecap="round"
+    pathLength="1"
+    stroke-dasharray="1"
+    stroke-dashoffset="1">
+    <animate attributeName="stroke-dashoffset" from="1" to="0" dur="1.5s" fill="freeze" calcMode="spline" keySplines="0.2 0.6 0.3 1" keyTimes="0;1" />
+  </path>
+</svg>

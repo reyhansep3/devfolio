@@ -9,6 +9,7 @@ import 'package:flutter_portofolio/view/pages/formalities/sections/experience/ex
 import 'package:flutter_portofolio/view/pages/formalities/sections/what_drives_me_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/contact/contact_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/project/project_list.dart';
+import 'package:flutter_portofolio/view/pages/home/sections/after_hours/after_hours_section.dart';
 import 'package:flutter_portofolio/view/pages/home/sections/top/top_section.dart';
 import 'package:flutter_portofolio/view/pages/projects/project_screen.dart';
 import 'package:flutter_portofolio/view/navigation_bar.dart';
@@ -117,6 +118,7 @@ class _TabletPageState extends State<TabletPage> {
               onViewAll: () => GoRouter.of(context).go('/project'),
             ),
           ),
+          const SliverToBoxAdapter(child: AfterHoursSection()),
           SliverToBoxAdapter(
             child: ContactSection(
               onNavigate: _handleNav,
